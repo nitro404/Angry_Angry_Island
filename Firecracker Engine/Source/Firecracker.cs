@@ -19,6 +19,8 @@ namespace Firecracker_Engine {
 		GraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;
 
+		bool fullScreenKeyPressed = false;
+
 		public Firecracker() {
 			settings = new GameSettings();
 			graphics = new GraphicsDeviceManager(this);
@@ -55,10 +57,26 @@ namespace Firecracker_Engine {
 		protected override void Update(GameTime gameTime) {
 			KeyboardState keyboard = Keyboard.GetState();
 			GamePadState gamePad = GamePad.GetState(PlayerIndex.One);
+			bool alternateInput = false;
 
 			if(IsActive) {
 				if(keyboard.IsKeyDown(Keys.Escape) || gamePad.Buttons.Back == ButtonState.Pressed) {
 					Exit();
+				}
+
+				if((keyboard.IsKeyDown(Keys.LeftAlt) || keyboard.IsKeyDown(Keys.RightAlt)) &&
+					keyboard.IsKeyDown(Keys.Enter)) {
+					if(!fullScreenKeyPressed) {
+						graphics.ToggleFullScreen();
+						settings.fullScreen = graphics.IsFullScreen;
+						alternateInput = true;
+						fullScreenKeyPressed = true;
+					}
+				}
+				else { fullScreenKeyPressed = false; }
+
+				if(!alternateInput) {
+
 				}
 			}
 
