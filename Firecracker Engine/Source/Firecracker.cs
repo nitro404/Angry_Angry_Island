@@ -15,16 +15,30 @@ namespace Firecracker_Engine {
 	
 	public class Firecracker : Microsoft.Xna.Framework.Game {
 
+		GameSettings settings;
 		GraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;
 
 		public Firecracker() {
+			settings = new GameSettings();
 			graphics = new GraphicsDeviceManager(this);
 			Content.RootDirectory = "Content";
 		}
 
 		protected override void Initialize() {
-			
+			// load the game settings from file
+			settings.loadFrom(Content.RootDirectory + "/" + GameSettings.defaultFileName);
+
+			// set the screen resolution
+			graphics.PreferredBackBufferWidth = settings.screenWidth;
+			graphics.PreferredBackBufferHeight = settings.screenHeight;
+			graphics.ApplyChanges();
+
+			// set the screen attributes / full screen mode
+			Window.AllowUserResizing = false;
+			if(settings.fullScreen) {
+				graphics.ToggleFullScreen();
+			}
 
 			base.Initialize();
 		}
@@ -42,11 +56,11 @@ namespace Firecracker_Engine {
 			KeyboardState keyboard = Keyboard.GetState();
 			GamePadState gamePad = GamePad.GetState(PlayerIndex.One);
 
-			if(keyboard.IsKeyDown(Keys.Escape) || gamePad.Buttons.Back == ButtonState.Pressed) {
-				Exit();
+			if(IsActive) {
+				if(keyboard.IsKeyDown(Keys.Escape) || gamePad.Buttons.Back == ButtonState.Pressed) {
+					Exit();
+				}
 			}
-
-			
 
 			base.Update(gameTime);
 		}
@@ -57,6 +71,13 @@ namespace Firecracker_Engine {
 			
 
 			base.Draw(gameTime);
+		}
+
+		protected override void OnExiting(object sender, EventArgs args) {
+			// update the game settings file with changes
+			settings.saveTo(Content.RootDirectory + "/" + GameSettings.defaultFileName);
+
+			base.OnExiting(sender, args);
 		}
 
 	}
