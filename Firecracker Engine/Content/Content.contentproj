@@ -57,6 +57,11 @@
       <Name>settings</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Compile Include="Shaders\Blur.fx">
+      <Name>Blur</Name>
+      <Importer>EffectImporter</Importer>
+      <Processor>EffectProcessor</Processor>
+    </Compile>
     <None Include="spritesheets.ini">
       <Name>spritesheets</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
