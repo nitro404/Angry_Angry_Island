@@ -90,6 +90,10 @@
     <Compile Include="Source\Settings File Manager\GameSettings.cs" />
     <Compile Include="Source\Settings File Manager\Variable.cs" />
     <Compile Include="Source\Settings File Manager\VariableSystem.cs" />
+    <Compile Include="Source\Sprite Sheet System\Sprite.cs" />
+    <Compile Include="Source\Sprite Sheet System\SpriteAnimation.cs" />
+    <Compile Include="Source\Sprite Sheet System\SpriteSheet.cs" />
+    <Compile Include="Source\Sprite Sheet System\SpriteSheetCollection.cs" />
     <Compile Include="Source\Utils\InputManager.cs" />
   </ItemGroup>
   <ItemGroup>
