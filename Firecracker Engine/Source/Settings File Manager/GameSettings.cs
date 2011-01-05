@@ -54,6 +54,42 @@ namespace Firecracker_Engine {
 			set { if(value != null) { m_spriteSheetFileName = value; } }
 		}
 
+		public List<Variable> getControls() {
+			return m_variables.getVariablesInCategory("Controls");
+		}
+
+		public void createKeyBind(Key keyString, string cmd) {
+			if(keyString == null || cmd == null || keyString.size() == 0) { return; }
+			Variable keyVariable = null;
+			for(int i=0;i<keyString.size();i++) {
+				if(keyVariable == null) {
+					keyVariable = m_variables.getVariable(keyString.getKeyString(i), "Controls");
+				}
+
+				if(keyVariable != null) {
+					if(keyString.getKeyString(i).Equals(keyVariable.id, StringComparison.OrdinalIgnoreCase)) {
+						keyVariable.value = cmd;
+					}
+					else {
+						m_variables.remove(keyString.getKeyString(i), "Controls");
+					}
+				}
+			}
+			if(keyVariable == null) {
+				m_variables.setValue(keyString.getKeyString(0), cmd, "Controls");
+			}
+		}
+
+		public void removeKeyBind(Key keyString) {
+			for(int i=0;i<keyString.size();i++) {
+				m_variables.remove(keyString.getKeyString(i), "Controls");
+			}
+		}
+
+		public void removeAllKeyBinds() {
+			m_variables.removeCategory("Controls");
+		}
+
 		// load game settings from a specified file name
 		public bool loadFrom(string fileName) {
 			// use a variable system to parse the settings file

@@ -16,22 +16,27 @@ namespace Firecracker_Engine {
 	public class Firecracker : Microsoft.Xna.Framework.Game {
 
 		GameSettings settings;
+		ScreenManager screenManager;
+		CommandInterpreter interpreter;
+		ControlSystem controlSystem;
+		Menu menu;
+		GameConsole console;
 		GraphicsDeviceManager graphics;
 		SpriteBatch spriteBatch;
-        InputManager theInput;  //create new instance of input manager
-
-		bool fullScreenKeyPressed = false;
+		SpriteSheetCollection spriteSheets;
 
 		public Firecracker() {
 			settings = new GameSettings();
+			screenManager = new ScreenManager();
 			graphics = new GraphicsDeviceManager(this);
+			interpreter = new CommandInterpreter();
+			controlSystem = new ControlSystem();
+			menu = new Menu();
+			console = new GameConsole();
 			Content.RootDirectory = "Content";
 		}
 
 		protected override void Initialize() {
-            //Initialize input settings
-            theInput = new InputManager();
-
 			// load the game settings from file
 			settings.loadFrom(Content.RootDirectory + "/" + GameSettings.defaultFileName);
 
@@ -42,14 +47,20 @@ namespace Firecracker_Engine {
 
 			// set the screen attributes / full screen mode
 			Window.AllowUserResizing = false;
-            if (settings.fullScreen)
-            {
-                graphics.ToggleFullScreen();
-            }
-            //Program occasionally threw access violation when starting in full screen mode. Possibly a Dual Monitor Issue.
-            //If you encounter this problem, comment out the previous if statement, and enable the following one.
-            //if (settings.fullScreen)
-            //    settings.fullScreen = false;
+			if(settings.fullScreen) {
+				// NOTE: may cause access violations in dual screen situations
+				graphics.ToggleFullScreen();
+			}
+
+			screenManager.initialize(this, settings, interpreter, controlSystem, menu, console);
+
+			interpreter.initialize(this, screenManager, controlSystem, settings, console);
+
+			controlSystem.initialize(settings, interpreter);
+
+			menu.initialize(settings, interpreter);
+
+			console.initialize(settings, interpreter);
 
 			base.Initialize();
 		}
@@ -57,43 +68,47 @@ namespace Firecracker_Engine {
 		protected override void LoadContent() {
 			spriteBatch = new SpriteBatch(GraphicsDevice);
 
+			// parse and load all sprite sheets
+			spriteSheets = SpriteSheetCollection.parseFrom(Content.RootDirectory + "/" + settings.spriteSheetFileName, Content);
+
+			// load game content
+			menu.loadContent(Content);
+
+			console.loadContent(Content);
 		}
 
-		protected override void UnloadContent() {
-			
+		public void toggleFullScreen() {
+			graphics.ToggleFullScreen();
+			settings.fullScreen = graphics.IsFullScreen;
+		}
+
+		public bool loadLevel(string levelName) {
+			if(levelName == null) { return false; }
+
+			// TODO: implement me!
+
+			return false;
+		}
+
+		public bool levelLoaded() {
+			//return level != null;
+
+			// TODO: implement me!
+
+			return false;
+		}
+
+		public void handleInput(GameTime gameTime) {
+			// handle game-related input, and update the game
+			controlSystem.handleInput(gameTime);
 		}
 
 		protected override void Update(GameTime gameTime) {
-
-            theInput.Update(5);
-			//KeyboardState keyboard = Keyboard.GetState();
-			//GamePadState gamePad = GamePad.GetState(PlayerIndex.One);
-
-			bool alternateInput = false;
-
 			if(IsActive) {
-				//if(keyboard.IsKeyDown(Keys.Escape) || gamePad.Buttons.Back == ButtonState.Pressed) {
-                if(theInput.IsKeyDown(Keys.Escape) || theInput.IsButtonPressed(0, Buttons.Back)){
-					Exit();
-				}
-
-                //if((keyboard.IsKeyDown(Keys.LeftAlt) || keyboard.IsKeyDown(Keys.RightAlt)) &&
-                //    keyboard.IsKeyDown(Keys.Enter)) {
-                if((theInput.IsKeyDown(Keys.LeftAlt) || theInput.IsKeyDown(Keys.RightAlt)) &&
-                    theInput.IsKeyDown(Keys.Enter)){
-					if(!fullScreenKeyPressed) {
-						graphics.ToggleFullScreen();
-						settings.fullScreen = graphics.IsFullScreen;
-						alternateInput = true;
-						fullScreenKeyPressed = true;
-					}
-				}
-				else { fullScreenKeyPressed = false; }
-
-				if(!alternateInput) {
-
-				}
+				screenManager.handleInput(gameTime);
 			}
+
+			screenManager.update(gameTime);
 
 			base.Update(gameTime);
 		}
@@ -101,7 +116,7 @@ namespace Firecracker_Engine {
 		protected override void Draw(GameTime gameTime) {
 			GraphicsDevice.Clear(Color.Black);
 
-			
+			screenManager.draw(spriteBatch, graphics.GraphicsDevice);
 
 			base.Draw(gameTime);
 		}

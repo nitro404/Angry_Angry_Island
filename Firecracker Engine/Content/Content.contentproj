@@ -38,8 +38,27 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Fonts\ConsoleFont.spritefont">
+      <Name>ConsoleFont</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+    </Compile>
+    <Compile Include="Fonts\MenuItemFont.spritefont">
+      <Name>MenuItemFont</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+    </Compile>
+    <Compile Include="Fonts\MenuTitleFont.spritefont">
+      <Name>MenuTitleFont</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+    </Compile>
     <None Include="settings.ini">
       <Name>settings</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="spritesheets.ini">
+      <Name>spritesheets</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
