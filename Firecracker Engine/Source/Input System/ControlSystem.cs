@@ -40,7 +40,6 @@ namespace Firecracker_Engine {
 			m_commands = new string[m_keys.Length];
 		}
 
-
 		// initialize the control system
 		public void initialize(GameSettings settings, CommandInterpreter interpreter) {
 			m_settings = settings;
@@ -58,7 +57,7 @@ namespace Firecracker_Engine {
 			}
 		}
 
-        // bind a key to a command
+		// bind a key to a command
 		public bool createKeyBind(string key, string cmd) {
 			if(key == null || cmd == null) { return false; }
 

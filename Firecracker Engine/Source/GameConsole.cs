@@ -11,10 +11,6 @@ namespace Firecracker_Engine {
 
 	class GameConsole {
 
-        //New instance of TheClipboard class - allows clipboard to be used within GameConsole
-        //Might be more appropriate somewhere eles
-        TheClipboard consoleClipboard = new TheClipboard();
-
 		// special locking booleans
 		private bool m_active = false;
 		private bool m_consoleKeyPressed = false;
@@ -25,8 +21,8 @@ namespace Firecracker_Engine {
 		private bool m_rightKeyPressed = false;
 		private bool m_homeKeyPressed = false;
 		private bool m_endKeyPressed = false;
-        private bool m_escKeyPressed = false;
-        private bool m_pasteKeyPressed = false;
+		private bool m_escKeyPressed = false;
+		private bool m_pasteKeyPressed = false;
 
 		// input and history variables
 		private string m_input;
@@ -34,7 +30,7 @@ namespace Firecracker_Engine {
 		private List<string> m_inputHistory;
 		private int m_maxOutputHistory = 512;
 		private int m_maxInputHistory = 128;
-        
+		
 		// a list of valid input keys for the console, along with their character representations and a locking boolean to prevent key repeating
 		private static Keys[] m_inputKeys = new Keys[] {
 			Keys.Space, Keys.D1, Keys.D2, Keys.D3, Keys.D4, Keys.D5, Keys.D6, Keys.D7, Keys.D8, Keys.D9, Keys.D0,
@@ -232,32 +228,29 @@ namespace Firecracker_Engine {
 				}
 			} else { m_deleteKeyPressed = false; }
 
-            //If ctrl+v are pressed, paste the text from the keyboard
-            //if ((keyboard.IsKeyDown(Keys.LeftControl) || keyboard.IsKeyDown(Keys.RightControl)) && keyboard.IsKeyDown(Keys.V))
-            if(keyboard.IsKeyDown(Keys.Insert))
-            {
-                if (!m_pasteKeyPressed)
-                {
-                    // Append the text to the appropriate place in the string (based on where the cursor is located)
-                    if (m_cursorPos == m_input.Length)
-                    {
-                        m_input += consoleClipboard.getClipboardText();
-                    }
-                    else
-                    {
-                        m_input = m_input.Substring(0, m_cursorPos)
-                                + consoleClipboard.getClipboardText()
+            // if ctrl + v or insert is pressed, paste the text from the keyboard
+			if(keyboard.IsKeyDown(Keys.Insert) ||
+			   ((keyboard.IsKeyDown(Keys.LeftControl) || keyboard.IsKeyDown(Keys.RightControl)) && keyboard.IsKeyDown(Keys.V))) {
+				if(!m_pasteKeyPressed) {
+					// append the text to the appropriate place in the string (based on where the cursor is located)
+					if(m_cursorPos == m_input.Length) {
+						m_input += ClipboardManager.getClipboardText();
+					}
+					else {
+						m_input = m_input.Substring(0, m_cursorPos)
+                                + ClipboardManager.getClipboardText()
                                 + m_input.Substring(m_cursorPos, m_input.Length - m_cursorPos);
-                    }
-                    //Increment cursor position
-                    m_cursorPos += consoleClipboard.getClipboardText().Length;
-                    m_pasteKeyPressed = true;
-                }
-                else
-                {
-                    m_pasteKeyPressed = false;
-                }
-            }
+					}
+					// increment cursor position
+					m_cursorPos += ClipboardManager.getClipboardText().Length;
+					m_pasteKeyPressed = true;
+				}
+			} else { m_pasteKeyPressed = false; }
+
+			// prevent v from being registered
+			if(m_pasteKeyPressed) {
+				return;
+			}
 
 			bool upperCase = keyboard.IsKeyDown(Keys.LeftShift) || keyboard.IsKeyDown(Keys.RightShift);
 
