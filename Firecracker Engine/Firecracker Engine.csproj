@@ -71,6 +71,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml">
       <Private>False</Private>
     </Reference>
@@ -86,6 +87,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Source\Firecracker.cs" />
+    <Compile Include="Source\Input System\TheClipboard.cs" />
     <Compile Include="Source\Input System\CommandInterpreter.cs" />
     <Compile Include="Source\Input System\ControlSystem.cs" />
     <Compile Include="Source\GameConsole.cs" />
