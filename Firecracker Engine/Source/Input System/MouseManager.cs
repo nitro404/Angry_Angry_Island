@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 
 
-namespace Firecracker_Engine.Source.Input_System
+namespace Firecracker_Engine
 {
     public class MouseManager
     {
