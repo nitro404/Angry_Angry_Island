@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Firecracker_Engine {
 
-	class SimpleMenuItem : MenuItem {
+	public class SimpleMenuItem : MenuItem {
 
 		public SimpleMenuItem(string text, float x, float y, SpriteFont font, Color selectedColour, Color unselectedColour, Color arrowColour)
 			: base(text, x, y, font, selectedColour, unselectedColour, arrowColour) { }

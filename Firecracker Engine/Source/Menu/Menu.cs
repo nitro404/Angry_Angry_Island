@@ -9,9 +9,9 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Firecracker_Engine {
 
-	enum MenuType { Main, SinglePlayer }
+	public enum MenuType { Main, SinglePlayer }
 
-	class Menu {
+	public class Menu {
 
 		// local variables
 		private bool m_active = true;
@@ -33,10 +33,6 @@ namespace Firecracker_Engine {
 		private bool m_leftKeyPressed = false;
 		private bool m_rightKeyPressed = false;
 
-		// "global" variables
-		private GameSettings m_settings;
-		private CommandInterpreter m_interpreter;
-
 		public Menu() {
 			m_menu = new List<SubMenu>();
 			m_position = new Vector2(50, 50);
@@ -47,18 +43,10 @@ namespace Firecracker_Engine {
 		}
 
 		// initialize the menu
-		public void initialize(GameSettings settings, CommandInterpreter interpreter) {
-			m_settings = settings;
-			m_interpreter = interpreter;
-
+		public void initialize() {
 			// add all sub-menus to the sub-menu collection
 			m_menu.Add(new MainMenu(this, m_position, m_titleColour, m_selectedItemColour, m_unselectedItemColour, m_arrowColour));
 			m_menu.Add(new GameSinglePlayerMenu(this, m_position, m_titleColour, m_selectedItemColour, m_unselectedItemColour, m_arrowColour));
-
-			// initialize all sub-menus
-			for(int i=0;i<m_menu.Count();i++) {
-				m_menu[i].initialize(m_interpreter);
-			}
 		}
 
 		// load menu content
@@ -198,7 +186,7 @@ namespace Firecracker_Engine {
 		// navigate to the previous sub-menu (or toggle the menu, if appropriate)
 		public void back() {
 			if(m_currentMenu == MenuType.Main) {
-				m_interpreter.execute("menu toggle");
+				Firecracker.interpreter.execute("menu toggle");
 			}
 			else if(m_currentMenu == MenuType.SinglePlayer) {
 				m_menu[(int) m_currentMenu].index = 0;

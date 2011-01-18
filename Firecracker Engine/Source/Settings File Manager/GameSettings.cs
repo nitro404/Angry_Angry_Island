@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 
 namespace Firecracker_Engine {
 
-	class GameSettings {
+	public class GameSettings {
 
 		private static string m_defaultFileName = "settings.ini";
 		private static string m_defaultSpriteSheetFileName = "spritesheets.ini";

@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Content;
 
 namespace Firecracker_Engine {
 
-	class GameConsole {
+	public class GameConsole {
 
 		// special locking booleans
 		private bool m_active = false;
@@ -61,10 +61,6 @@ namespace Firecracker_Engine {
 		private Color m_borderColour = new Color(255, 0, 0);
 		private Color m_backgroundColour = new Color(0, 0, 0, 128);
 
-		// "global" variables
-		private GameSettings m_settings;
-		private CommandInterpreter m_interpreter;
-
 		public GameConsole() {
 			m_input = "";
 			m_outputHistory = new List<string>();
@@ -83,13 +79,11 @@ namespace Firecracker_Engine {
 		public void close() { m_active = false; }
 
 		// initialize the game console
-		public void initialize(GameSettings settings, CommandInterpreter interpreter) {
-			m_settings = settings;
-			m_interpreter = interpreter;
+		public void initialize() {
 			m_dimensions = new Rectangle(m_padding,
 										 m_padding,
-										 settings.screenWidth - (m_padding * 2),
-										 settings.screenHeight - (m_padding * 2));
+										 Firecracker.settings.screenWidth - (m_padding * 2),
+										 Firecracker.settings.screenHeight - (m_padding * 2));
 			m_inputKeyPressed = new bool[m_inputKeys.Length];
 		}
 
@@ -121,7 +115,7 @@ namespace Firecracker_Engine {
 			// allow the console to be toggled with tilde
 			if(keyboard.IsKeyDown(Keys.OemTilde)) {
 				if(!m_consoleKeyPressed) {
-					m_interpreter.execute("console toggle");
+					Firecracker.interpreter.execute("console toggle");
 					m_consoleKeyPressed = true;
 				}
 			} else { m_consoleKeyPressed = false; }
@@ -129,7 +123,7 @@ namespace Firecracker_Engine {
 			// allow the console to be closed with escape
             if(keyboard.IsKeyDown(Keys.Escape)) {
                 if(!m_escKeyPressed){
-                    m_interpreter.execute("console hide");
+					Firecracker.interpreter.execute("console hide");
                     m_escKeyPressed = true;
                 }
             } else { m_escKeyPressed = false; }
@@ -153,7 +147,7 @@ namespace Firecracker_Engine {
 					m_inputHistory.Add(m_input);
 
 					// execute the command
-					m_interpreter.execute(m_input);
+					Firecracker.interpreter.execute(m_input);
 
 					// clear the input and reset animations
 					m_input = "";

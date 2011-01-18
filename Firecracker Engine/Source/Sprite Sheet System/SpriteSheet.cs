@@ -9,11 +9,11 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Firecracker_Engine {
 
-	enum SpriteSheetType { Invalid = -1, ArbitraryOffsets, SingleGrid, MultipleGrids }
+	public enum SpriteSheetType { Invalid = -1, ArbitraryOffsets, SingleGrid, MultipleGrids }
 
-	enum Axis { Vertical, Horizontal }
+	public enum Axis { Vertical, Horizontal }
 
-	class SpriteSheet {
+	public class SpriteSheet {
 
 		private string m_name = null;
 		private Sprite m_spriteSheet = null;

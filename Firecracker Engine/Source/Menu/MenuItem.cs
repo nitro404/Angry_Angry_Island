@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Firecracker_Engine {
 
-	abstract class MenuItem {
+	public abstract class MenuItem {
 
 		protected string m_text;
 		protected SpriteFont m_font;

@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Firecracker_Engine {
 
-	abstract class SubMenu {
+	public abstract class SubMenu {
 
 		// local variables
 		protected List<MenuItem> m_items;
@@ -20,10 +20,7 @@ namespace Firecracker_Engine {
 		protected Color m_selectedItemColour;
 		protected Color m_unselectedItemColour;
 		protected Color m_arrowColour;
-
-		// "global" variables
 		protected Menu m_parentMenu;
-		protected CommandInterpreter m_interpreter;
 
 		public SubMenu(string title, Menu parentMenu, Vector2 position, Color titleColour, Color selectedItemColour, Color unselectedItemColour, Color arrowColour) {
 			m_items = new List<MenuItem>();
@@ -34,11 +31,6 @@ namespace Firecracker_Engine {
 			m_selectedItemColour = selectedItemColour;
 			m_unselectedItemColour = unselectedItemColour;
 			m_arrowColour = arrowColour;
-		}
-
-		// initialize the sub-menu
-		public virtual void initialize(CommandInterpreter interpreter) {
-			m_interpreter = interpreter;
 		}
 
 		// set the sub-menu fonts

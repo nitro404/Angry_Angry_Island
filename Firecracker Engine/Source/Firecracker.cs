@@ -15,17 +15,17 @@ namespace Firecracker_Engine {
 	
 	public class Firecracker : Microsoft.Xna.Framework.Game {
 
-		GameSettings settings;
-		ScreenManager screenManager;
-		CommandInterpreter interpreter;
-		ControlSystem controlSystem;
-		Menu menu;
-		GameConsole console;
-		GraphicsDeviceManager graphics;
-		SpriteBatch spriteBatch;
-		SpriteSheetCollection spriteSheets;
-		RenderTarget2D buffer;
-		Effect blur;
+		public static GameSettings settings;
+		public static ScreenManager screenManager;
+		public static CommandInterpreter interpreter;
+		public static ControlSystem controlSystem;
+		public static Menu menu;
+		public static GameConsole console;
+		protected GraphicsDeviceManager graphics;
+		protected SpriteBatch spriteBatch;
+		public static SpriteSheetCollection spriteSheets;
+		protected RenderTarget2D buffer;
+		protected Effect blur;
 
 		public Firecracker() {
 			settings = new GameSettings();
@@ -57,15 +57,11 @@ namespace Firecracker_Engine {
 			// initialize the draw buffer
 			buffer = new RenderTarget2D(graphics.GraphicsDevice, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height, 1, GraphicsDevice.DisplayMode.Format);
 
-			screenManager.initialize(this, settings, interpreter, controlSystem, menu, console);
-
-			interpreter.initialize(this, screenManager, controlSystem, settings, console);
-
-			controlSystem.initialize(settings, interpreter);
-
-			menu.initialize(settings, interpreter);
-
-			console.initialize(settings, interpreter);
+			screenManager.initialize(this);
+			interpreter.initialize(this);
+			controlSystem.initialize();
+			menu.initialize();
+			console.initialize();
 
 			base.Initialize();
 		}

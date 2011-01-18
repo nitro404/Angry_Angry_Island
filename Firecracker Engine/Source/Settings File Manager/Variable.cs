@@ -6,7 +6,7 @@ using System.IO;
 
 namespace Firecracker_Engine {
 
-	class Variable {
+	public class Variable {
 
 		public const int NO_CATEGORY = -1;
 		private const char SEPARATOR_CHAR = '=';

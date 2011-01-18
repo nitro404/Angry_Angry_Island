@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Firecracker_Engine {
 
-	class GameSinglePlayerMenu : SubMenu {
+	public class GameSinglePlayerMenu : SubMenu {
 
 		public GameSinglePlayerMenu(Menu parentMenu, Vector2 position, Color titleColour, Color selectedItemColour, Color unselectedItemColour, Color arrowColour)
 			: base("Single Player", parentMenu, position, titleColour, selectedItemColour, unselectedItemColour, arrowColour) {
@@ -48,12 +48,12 @@ namespace Firecracker_Engine {
 		// handle input based on the current selected menu item
 		public override void select() {
 			if(m_index == 0) {
-				m_interpreter.execute("menu off");
-				m_interpreter.execute("map map1");
+				Firecracker.interpreter.execute("menu off");
+				Firecracker.interpreter.execute("map map1");
 			}
 			else if(m_index == 1) {
-				m_interpreter.execute("menu off");
-				m_interpreter.execute("map map2");
+				Firecracker.interpreter.execute("menu off");
+				Firecracker.interpreter.execute("map map2");
 			}
 			else if(m_index == 2) {
 				m_parentMenu.back();

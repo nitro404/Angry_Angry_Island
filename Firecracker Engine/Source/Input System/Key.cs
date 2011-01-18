@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Firecracker_Engine {
 
-	class Key {
+	public class Key {
 
 		private List<string> m_keyStrings;
 

@@ -7,9 +7,9 @@ using Microsoft.Xna.Framework.Content;
 
 namespace Firecracker_Engine {
 
-	class SpriteSheetCollection {
+	public class SpriteSheetCollection {
 
-		List<SpriteSheet> m_spriteSheets;
+		private List<SpriteSheet> m_spriteSheets;
 
 		public SpriteSheetCollection() {
 			m_spriteSheets = new List<SpriteSheet>();

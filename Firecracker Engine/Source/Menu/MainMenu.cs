@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Firecracker_Engine {
 
-	class MainMenu : SubMenu {
+	public class MainMenu : SubMenu {
 
 		public MainMenu(Menu parentMenu, Vector2 position, Color titleColour, Color selectedItemColour, Color unselectedItemColour, Color arrowColour)
 			: base("Firecracker Engine", parentMenu, position, titleColour, selectedItemColour, unselectedItemColour, arrowColour) {
@@ -48,7 +48,7 @@ namespace Firecracker_Engine {
 				m_parentMenu.setSubMenu(MenuType.SinglePlayer);
 			}
 			else if(m_index == 1) {
-				m_interpreter.execute("quit");
+				Firecracker.interpreter.execute("quit");
 			}
 		}
 

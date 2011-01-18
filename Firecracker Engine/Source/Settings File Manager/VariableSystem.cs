@@ -6,7 +6,7 @@ using System.IO;
 
 namespace Firecracker_Engine {
 
-	class VariableSystem {
+	public class VariableSystem {
 
 		private List<Variable> m_variables = null;
 		private List<string> m_categories = null;

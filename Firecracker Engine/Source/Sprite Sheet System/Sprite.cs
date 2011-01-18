@@ -8,9 +8,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Firecracker_Engine {
 
-	enum SpriteType { Unknown = -1, Sheet, SpaceShip, Asteroid, Laser, Bomb, Explosion }
+	public enum SpriteType { Unknown=-1, Sheet, SpaceShip, Asteroid, Laser, Bomb, Explosion }
 
-	class Sprite {
+	public class Sprite {
 
 		private Texture2D m_image = null;
 		private Rectangle m_source;

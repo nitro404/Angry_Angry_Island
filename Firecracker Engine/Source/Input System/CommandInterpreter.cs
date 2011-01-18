@@ -5,26 +5,18 @@ using System.Text;
 
 namespace Firecracker_Engine {
 
-	enum BoolChange { None, Toggle, Enable, Disable }
+	public enum BoolChange { None, Toggle, Enable, Disable }
 
-	class CommandInterpreter {
+	public class CommandInterpreter {
 
-		// "global" variables
+		// local variables
 		private Firecracker m_game;
-		private ScreenManager m_screenManager;
-		private ControlSystem m_controlSystem;
-		private GameSettings m_settings;
-		private GameConsole m_console;
 
 		public CommandInterpreter() { }
 
 		// initialize the command interpreter
-		public void initialize(Firecracker game, ScreenManager screenManager, ControlSystem controlSystem, GameSettings settings, GameConsole console) {
+		public void initialize(Firecracker game) {
 			m_game = game;
-			m_screenManager = screenManager;
-			m_controlSystem = controlSystem;
-			m_settings = settings;
-			m_console = console;
 		}
 
 		// execute a command
@@ -32,60 +24,62 @@ namespace Firecracker_Engine {
 			if(command == null) { return; }
 			string cmd = command.Trim();
 
+			if(cmd.Length == 0) { return; }
+
 			// parse the command and execute the corresponding function
 			if(matchCommand(cmd, "quit") || matchCommand(cmd, "exit")) { m_game.Exit(); } // close the game
-			else if(matchCommand(cmd, "clear") || matchCommand(cmd, "cls")) { m_console.clear(); } // clear the console
-			else if(matchCommand(cmd, "echo")) { m_console.writeLine(getStringValue(cmd)); } // write text to the console
-			else if(matchCommand(cmd, "menu")) { m_screenManager.set(ScreenType.Menu, getScreenVisibilityChange(cmd)); } // change the menu's visibility
-			else if(matchCommand(cmd, "console")) { m_screenManager.set(ScreenType.Console, getScreenVisibilityChange(cmd)); } // change the console's visibility
+			else if(matchCommand(cmd, "clear") || matchCommand(cmd, "cls")) { Firecracker.console.clear(); } // clear the console
+			else if(matchCommand(cmd, "echo")) { Firecracker.console.writeLine(getStringValue(cmd)); } // write text to the console
+			else if(matchCommand(cmd, "menu")) { Firecracker.screenManager.set(ScreenType.Menu, getScreenVisibilityChange(cmd)); } // change the menu's visibility
+			else if(matchCommand(cmd, "console")) { Firecracker.screenManager.set(ScreenType.Console, getScreenVisibilityChange(cmd)); } // change the console's visibility
 			else if(matchCommand(cmd, "map") || matchCommand(cmd, "level")) { // load a specified level
 				string levelName = getStringValue(cmd);
 				bool levelLoaded = m_game.loadLevel(levelName);
 				if(!levelLoaded) {
-					m_console.writeLine("Unable to load map: " + levelName);
+					Firecracker.console.writeLine("Unable to load map: " + levelName);
 				}
 			}
 			else if(matchCommand(cmd, "bind")) { // bind a key to a command
 				string bind = getStringValue(cmd);
 				if(bind.Length == 0) {
-					m_console.writeLine("Unable to bind key");
+					Firecracker.console.writeLine("Unable to bind key");
 					return;
 				}
 				int spaceIndex = bind.IndexOf(" ");
 				if(spaceIndex < 0) {
-					m_console.writeLine("Unable to bind key");
+					Firecracker.console.writeLine("Unable to bind key");
 					return;
 				}
 
 				string keyString = bind.Substring(0, spaceIndex);
 				string keyCommand = bind.Substring(spaceIndex + 1, bind.Length - spaceIndex - 1);
 
-				if(m_controlSystem.createKeyBind(keyString, keyCommand)) {
-					m_console.writeLine("Successfully bound key \"" + keyString + "\" to command \"" + keyCommand + "\"");
+				if(Firecracker.controlSystem.createKeyBind(keyString, keyCommand)) {
+					Firecracker.console.writeLine("Successfully bound key \"" + keyString + "\" to command \"" + keyCommand + "\"");
 				}
 				else {
-					m_console.writeLine("Unable to bind key \"" + keyString + "\" to command \"" + keyCommand + "\"");
+					Firecracker.console.writeLine("Unable to bind key \"" + keyString + "\" to command \"" + keyCommand + "\"");
 				}
 			}
 			else if(matchCommand(cmd, "unbind")) { // unbind a command from a key
 				string keyString = getStringValue(cmd);
 				if(keyString.Length == 0) {
-					m_console.writeLine("Unable to unbind key \"" + keyString + "\"");
+					Firecracker.console.writeLine("Unable to unbind key \"" + keyString + "\"");
 					return;
 				}
 
-				if(m_controlSystem.removeKeyBind(keyString)) {
-					m_console.writeLine("Successfully unbound key \"" + keyString + "\"");
+				if(Firecracker.controlSystem.removeKeyBind(keyString)) {
+					Firecracker.console.writeLine("Successfully unbound key \"" + keyString + "\"");
 				}
 				else {
-					m_console.writeLine("Unable to unbind key \"" + keyString + "\"");
+					Firecracker.console.writeLine("Unable to unbind key \"" + keyString + "\"");
 				}
 			}
 			else if(matchCommand(cmd, "unbindall")) { // unbind all commands from all keys
-				m_controlSystem.removeAllKeyBinds();
-				m_console.writeLine("Successfully unbound all keys");
+				Firecracker.controlSystem.removeAllKeyBinds();
+				Firecracker.console.writeLine("Successfully unbound all keys");
 			}
-			else { m_console.writeLine("Unknown command: " + cmd); }
+			else { Firecracker.console.writeLine("Unknown command: " + cmd); }
 		}
 
 		// check to see if some input matches a specified command

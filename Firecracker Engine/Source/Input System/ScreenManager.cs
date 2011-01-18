@@ -9,46 +9,32 @@ using Microsoft.Xna.Framework.Input;
 namespace Firecracker_Engine {
 
 	// all of the screens which are managed by the ScreenManager
-	enum ScreenType { Game, Menu, Console }
+	public enum ScreenType { Game, Menu, Console }
 
 	// the screen visibility change type
-	enum ScreenVisibilityChange { None, Show, Hide, Toggle }
+	public enum ScreenVisibilityChange { None, Show, Hide, Toggle }
 
-	class ScreenManager {
+	public class ScreenManager {
 
 		// local variables
 		private ScreenType m_activeScreen = ScreenType.Menu;
-
 		bool fullScreenKeyPressed = false;
-
-		// "global" variables
 		private Firecracker m_game;
-		private GameSettings m_settings;
-		private CommandInterpreter m_interpreter;
-		private ControlSystem m_controlSystem;
-		private Menu m_menu;
-		private GameConsole m_console;
 
 		public ScreenManager() { }
 
-		public void initialize(Firecracker game, GameSettings settings, CommandInterpreter interpreter, ControlSystem controlSystem, Menu menu, GameConsole console) {
-			// initialize references to "global" variables
+		public void initialize(Firecracker game) {
 			m_game = game;
-			m_settings = settings;
-			m_interpreter = interpreter;
-			m_controlSystem = controlSystem;
-			m_menu = menu;
-			m_console = console;
 		}
 
 		// toggle the specified screen
 		public void toggle(ScreenType screen) {
 			if(screen == ScreenType.Menu) {
-                if(m_game.levelLoaded() || !m_menu.active)
-                    m_menu.toggle();
+				if(m_game.levelLoaded() || !Firecracker.menu.active)
+					Firecracker.menu.toggle();
 			}
 			if(screen == ScreenType.Console) {
-				m_console.toggle();
+				Firecracker.console.toggle();
 			}
 
 			// since screens can be layered, determine which screen now takes priority
@@ -65,14 +51,14 @@ namespace Firecracker_Engine {
 		// force enable a specified screen
 		public void show(ScreenType screen) {
 			if(screen == ScreenType.Game) {
-				m_menu.close();
-				m_console.close();
+				Firecracker.menu.close();
+				Firecracker.console.close();
 			}
 			else if(screen == ScreenType.Menu) {
-				m_menu.open();
+				Firecracker.menu.open();
 			}
 			else if(screen == ScreenType.Console) {
-				m_console.open();
+				Firecracker.console.open();
 			}
 
 			// set the active screen to the specified (and disable any others)
@@ -82,10 +68,10 @@ namespace Firecracker_Engine {
 		// force disable a specified screen
 		public void hide(ScreenType screen) {
 			if(screen == ScreenType.Menu) {
-				m_menu.close();
+				Firecracker.menu.close();
 			}
 			else if(screen == ScreenType.Console) {
-				m_console.close();
+				Firecracker.console.close();
 			}
 
 			updateActiveScreen();
@@ -94,8 +80,8 @@ namespace Firecracker_Engine {
 		// determine which screen now takes priority
 		private void updateActiveScreen() {
 			m_activeScreen = ScreenType.Game;
-			if(m_menu.active) { m_activeScreen = ScreenType.Menu; }
-			if(m_console.active) { m_activeScreen = ScreenType.Console; }
+			if(Firecracker.menu.active) { m_activeScreen = ScreenType.Menu; }
+			if(Firecracker.console.active) { m_activeScreen = ScreenType.Console; }
 		}
 
 		// allow the active screen to receive input from the user
@@ -119,28 +105,28 @@ namespace Firecracker_Engine {
 			if(m_activeScreen == ScreenType.Game) { m_game.handleInput(gameTime); }
 
 			if(m_activeScreen != ScreenType.Console) {
-				m_menu.handleInput(gameTime);
+				Firecracker.menu.handleInput(gameTime);
 			}
 
-			m_console.handleInput(gameTime);
+			Firecracker.console.handleInput(gameTime);
 		}
 
 		// update the active screen
 		public void update(GameTime gameTime) {
-			if(m_menu.active) { m_menu.update(gameTime); }
-			if(m_console.active) { m_console.update(gameTime); }
+			if(Firecracker.menu.active) { Firecracker.menu.update(gameTime); }
+			if(Firecracker.console.active) { Firecracker.console.update(gameTime); }
 		}
 
 		// draw the active screen
 		public void draw(SpriteBatch spriteBatch, GraphicsDevice graphics) {
-			if(m_menu.active || m_console.active) {
+			if(Firecracker.menu.active || Firecracker.console.active) {
 				spriteBatch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.BackToFront, SaveStateMode.SaveState);
 			}
 
-			if(m_menu.active) { m_menu.draw(spriteBatch); }
-			if(m_console.active) { m_console.draw(spriteBatch); }
+			if(Firecracker.menu.active) { Firecracker.menu.draw(spriteBatch); }
+			if(Firecracker.console.active) { Firecracker.console.draw(spriteBatch); }
 
-			if(m_menu.active || m_console.active) {
+			if(Firecracker.menu.active || Firecracker.console.active) {
 				spriteBatch.End();
 			}
 		}

@@ -7,9 +7,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Firecracker_Engine {
 
-	enum SpriteAnimationType { Single, Loop }
+	public enum SpriteAnimationType { Single, Loop }
 
-	class SpriteAnimation {
+	public class SpriteAnimation {
 
 		private List<Sprite> m_sprites;
 		private SpriteAnimationType m_type;

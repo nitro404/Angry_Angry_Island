@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Firecracker_Engine {
 
-	class ControlSystem {
+	public class ControlSystem {
 
 		// list of commands
 		private string[] m_commands;
@@ -32,21 +32,14 @@ namespace Firecracker_Engine {
 			new Key("Enter", "Return"), new Key("Home"), new Key("End"), new Key("PageUp", "PgUp"), new Key("PageDown", "PgDn"), new Key("Delete", "Del"), new Key("Backspace")
 		};
 
-		// "global" variables
-		private GameSettings m_settings;
-		private CommandInterpreter m_interpreter;
-
 		public ControlSystem() {
 			m_commands = new string[m_keys.Length];
 		}
 
 		// initialize the control system
-		public void initialize(GameSettings settings, CommandInterpreter interpreter) {
-			m_settings = settings;
-			m_interpreter = interpreter;
-
+		public void initialize() {
 			// get the list of controls from the settings file manager
-			List<Variable> controlVariables = settings.getControls();
+			List<Variable> controlVariables = Firecracker.settings.getControls();
 
 			// create the key bindings based on these controls
 			for(int i=0;i<controlVariables.Count();i++) {
@@ -67,7 +60,7 @@ namespace Firecracker_Engine {
 			// if the key is valid, store the command
 			if(keyIndex >= 0) {
 				m_commands[keyIndex] = cmd;
-				m_settings.createKeyBind(m_keyStrings[keyIndex], cmd);
+				Firecracker.settings.createKeyBind(m_keyStrings[keyIndex], cmd);
 				return true;
 			}
 
@@ -84,7 +77,7 @@ namespace Firecracker_Engine {
 			// if the key is valid, set the command to null
 			if(keyIndex >= 0) {
 				m_commands[keyIndex] = null;
-				m_settings.removeKeyBind(m_keyStrings[keyIndex]);
+				Firecracker.settings.removeKeyBind(m_keyStrings[keyIndex]);
 				return true;
 			}
 
@@ -97,7 +90,7 @@ namespace Firecracker_Engine {
 				m_commands[i] = null;
 			}
 
-			m_settings.removeAllKeyBinds();
+			Firecracker.settings.removeAllKeyBinds();
 		}
 
 		// get the index of a key based on its alias
@@ -125,7 +118,7 @@ namespace Firecracker_Engine {
 			for(int i=0;i<pressedKeys.Length;i++) {
 				for(int j=0;j<m_keys.Length;j++) {
 					if(pressedKeys[i] == m_keys[j] && m_commands[j] != null) {
-						m_interpreter.execute(m_commands[j]);
+						Firecracker.interpreter.execute(m_commands[j]);
 						break;
 					}
 				}
