@@ -288,7 +288,7 @@ namespace Firecracker_Engine {
 				m_cursorVisible = !m_cursorVisible;
 				m_cursorBlinkTime = 0;
 			}
-		}
+        }
 
 		public void clear() {
 			m_outputHistory.Clear();

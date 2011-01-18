@@ -92,6 +92,7 @@
     <Compile Include="Source\Input System\ControlSystem.cs" />
     <Compile Include="Source\GameConsole.cs" />
     <Compile Include="Source\Input System\Key.cs" />
+    <Compile Include="Source\Input System\MouseManager.cs" />
     <Compile Include="Source\Input System\ScreenManager.cs" />
     <Compile Include="Source\Menu\MainMenu.cs" />
     <Compile Include="Source\Menu\Menu.cs" />
