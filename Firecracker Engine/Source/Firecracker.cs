@@ -27,6 +27,10 @@ namespace Firecracker_Engine {
 		protected RenderTarget2D buffer;
 		protected Effect blur;
 
+        // These are the object lists. Each list contains references to the full list.
+        protected List<CBaseObject> m_lFullObjectList;
+
+
 		public Firecracker() {
 			settings = new GameSettings();
 			screenManager = new ScreenManager();
@@ -90,6 +94,10 @@ namespace Firecracker_Engine {
 			if(levelName == null) { return false; }
 
 			// TODO: implement me!
+            Filesystem.OpenFile(levelName, Filesystem.AccessType.AccessType_ReadOnly);
+
+            //Cyril: The following should be threaded, but we can look into that later
+
 
 			return false;
 		}
@@ -156,6 +164,11 @@ namespace Firecracker_Engine {
 			base.OnExiting(sender, args);
 		}
 
-	}
+	};
+
+    public partial class g_pGameEngine 
+    { 
+        public static Firecracker BaseInstance; 
+    }
 
 }
