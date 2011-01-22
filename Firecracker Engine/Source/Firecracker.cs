@@ -89,11 +89,8 @@ namespace Firecracker_Engine {
 		public bool loadLevel(string levelName) {
 			if(levelName == null) { return false; }
 
-			// TODO: implement me!
+			// TODO: Implement this with threading
             //Filesystem.OpenFile(levelName, Filesystem.AccessType.AccessType_ReadOnly);
-
-            //Cyril: The following should be threaded, but we can look into that later
-
 
 			return false;
 		}
@@ -101,7 +98,7 @@ namespace Firecracker_Engine {
 		public bool levelLoaded() {
 			//return level != null;
 
-			// TODO: implement me!
+			// TODO: Implement this!
 
 			return false;
 		}
