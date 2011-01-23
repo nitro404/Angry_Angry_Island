@@ -13,6 +13,8 @@ using Microsoft.Xna.Framework.Storage;
 using Firecracker_Engine;
 
 namespace Test_Game {
+    public struct GlobalTestGameRef { public static TestGame Instance = null; }
+
 	/// <summary>
 	/// This is the main type for your game
 	/// </summary>
@@ -20,14 +22,7 @@ namespace Test_Game {
 
 		public TestGame()
 			: base() {
-		}
-
-		public static Firecracker baseInstance {
-			get { return (Firecracker) Program.game; }
-		}
-
-		public static TestGame instance {
-			get { return Program.game; }
+                GlobalFirecrackerRef.Instance = this;
 		}
 
 		/// <summary>
@@ -73,7 +68,7 @@ namespace Test_Game {
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Draw(GameTime gameTime) {
 			base.Draw(gameTime);
-
+            
 		}
 	}
 }

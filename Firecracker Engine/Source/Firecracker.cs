@@ -12,7 +12,9 @@ using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
 
 namespace Firecracker_Engine {
-	
+
+    public struct GlobalFirecrackerRef { public static Firecracker Instance = null; }
+
 	public class Firecracker : Microsoft.Xna.Framework.Game {
 
 		public static GameSettings settings;
@@ -28,6 +30,8 @@ namespace Firecracker_Engine {
 		protected Effect blur;
 
 		public Firecracker() {
+            GlobalFirecrackerRef.Instance = this;
+
 			settings = new GameSettings();
 			screenManager = new ScreenManager();
 			graphics = new GraphicsDeviceManager(this);
@@ -36,6 +40,8 @@ namespace Firecracker_Engine {
 			menu = new Menu();
 			console = new GameConsole();
 			Content.RootDirectory = "Content";
+
+
 		}
 
 		protected override void Initialize() {
@@ -90,7 +96,7 @@ namespace Firecracker_Engine {
 			if(levelName == null) { return false; }
 
 			// TODO: Implement this with threading
-            //Filesystem.OpenFile(levelName, Filesystem.AccessType.AccessType_ReadOnly);
+            Filesystem.OpenFile(levelName, Filesystem.AccessType.AccessType_ReadOnly);
 
 			return false;
 		}
@@ -158,10 +164,4 @@ namespace Firecracker_Engine {
 		}
 
 	};
-
-    public partial class g_pGameEngine 
-    { 
-        public static Firecracker BaseInstance; 
-    }
-
 }
