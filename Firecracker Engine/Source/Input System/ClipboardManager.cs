@@ -13,15 +13,24 @@ namespace Firecracker_Engine {
 		/// </summary>
 		/// <returns>Either the data from the clipboard (if some is available) or an empty string.</returns>
 		public static string getClipboardText() {
-			//theData interprets the data imported from the clipboard on the current system
-			IDataObject theData = Clipboard.GetDataObject();
+            try
+            {
+                //theData interprets the data imported from the clipboard on the current system
+                IDataObject theData = Clipboard.GetDataObject();
 
-			//If the data can be interpreted as text, pass the text result into a string.
-			//Otherwise, give us the error message.
-			if(theData.GetDataPresent(DataFormats.Text)) {
-				return (string) theData.GetData(DataFormats.Text);
-			}
-			return "";
+
+                //If the data can be interpreted as text, pass the text result into a string.
+                //Otherwise, give us the error message.
+                if (theData.GetDataPresent(DataFormats.Text))
+                {
+                    return (string)theData.GetData(DataFormats.Text);
+                }
+                return "";
+            }
+            catch (Exception e)//Added Try/Catch to handle exceptions caused by no clipboard data being available
+            {
+                return "";
+            }
 		}
 
 		/// <summary>
