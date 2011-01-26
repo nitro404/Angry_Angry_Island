@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
 
+
 namespace Firecracker_Engine {
 
     public struct GlobalFirecrackerRef { public static Firecracker Instance = null; }
@@ -29,6 +30,12 @@ namespace Firecracker_Engine {
 		protected RenderTarget2D buffer;
 		protected Effect blur;
 
+        List<CBaseObject> m_lObjectList;
+        // Add any lists here that hold references to this one.
+        // Examples of engine level object lists would be
+        // List<CObjectProxy> m_lMoveableList; // The list of all objects with the moveable type.
+        // List<CObjectProxy> m_lPlayerList; // The list of all objects with the Player type
+
 		public Firecracker() {
             GlobalFirecrackerRef.Instance = this;
 
@@ -41,7 +48,7 @@ namespace Firecracker_Engine {
 			console = new GameConsole();
 			Content.RootDirectory = "Content";
 
-
+            m_lObjectList = new List<CBaseObject>();
 		}
 
 		protected override void Initialize() {
@@ -72,6 +79,11 @@ namespace Firecracker_Engine {
 			base.Initialize();
 		}
 
+        public void AddObjectToList(CBaseObject obj)
+        {
+            m_lObjectList.Add(obj);
+        }
+
 		protected override void LoadContent() {
 			// load shaders
 			blur = Content.Load<Effect>("Shaders\\Blur");
@@ -96,7 +108,8 @@ namespace Firecracker_Engine {
 			if(levelName == null) { return false; }
 
 			// TODO: Implement this with threading
-            Filesystem.OpenFile(levelName, Filesystem.AccessType.AccessType_ReadOnly);
+            //Filesystem.OpenFile(levelName, Filesystem.AccessType.AccessType_ReadOnly);
+            LevelLoader.LoadLevel(levelName);
 
 			return false;
 		}
@@ -120,6 +133,11 @@ namespace Firecracker_Engine {
 			}
 
 			screenManager.update(gameTime);
+
+            foreach (CBaseObject objRef in m_lObjectList)
+            {
+                objRef.Tick(((float)gameTime.ElapsedGameTime.Milliseconds)/1000.0f);
+            }
 
 			base.Update(gameTime);
 		}
@@ -146,9 +164,16 @@ namespace Firecracker_Engine {
 				blur.End();
 			}
 			else {
-				spriteBatch.Begin(SpriteBlendMode.None, SpriteSortMode.Immediate, SaveStateMode.SaveState);
+				/*
+                spriteBatch.Begin(SpriteBlendMode.None, SpriteSortMode.Immediate, SaveStateMode.SaveState);
 				spriteBatch.Draw(buffer.GetTexture(), Vector2.Zero, Color.White);
 				spriteBatch.End();
+                */
+
+                foreach (CBaseObject objRef in m_lObjectList)
+                {
+                    objRef.Render();
+                }
 			}
 			
 			screenManager.draw(spriteBatch, graphics.GraphicsDevice);

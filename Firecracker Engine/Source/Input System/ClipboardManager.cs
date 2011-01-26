@@ -27,7 +27,7 @@ namespace Firecracker_Engine {
                 }
                 return "";
             }
-            catch (Exception e)//Added Try/Catch to handle exceptions caused by no clipboard data being available
+            catch (Exception)//Added Try/Catch to handle exceptions caused by no clipboard data being available
             {
                 return "";
             }

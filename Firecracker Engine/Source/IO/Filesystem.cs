@@ -48,14 +48,14 @@ namespace Firecracker_Engine
         {
             if (m_bIsFileOpen)
                 CloseFile();
-
-            if ( !File.Exists(sFilename) )
+            string targetFile = string.Concat(Directory.GetCurrentDirectory(), "\\", sFilename);
+            if (!File.Exists(targetFile))
             {
                 // oops. this file doesn't exist!
                 return false;
             }
 
-            switch (m_eAccessType)
+            switch (eAccessType)
             {
                 case AccessType.AccessType_ReadOnly:
                     {

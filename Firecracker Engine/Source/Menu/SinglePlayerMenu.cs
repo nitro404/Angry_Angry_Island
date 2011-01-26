@@ -23,7 +23,7 @@ namespace Firecracker_Engine {
 		public void createMenu() {
 			float x = m_position.X;
 			float y = m_position.Y + m_titleFont.LineSpacing;
-            addItem(new SimpleMenuItem("Map 1", x, y, m_itemFont, m_selectedItemColour, m_unselectedItemColour, m_arrowColour));
+            addItem(new SimpleMenuItem("Content\\Levels\\TestLevel1\\TestLevel.lvl", x, y, m_itemFont, m_selectedItemColour, m_unselectedItemColour, m_arrowColour));
             y += m_itemFont.LineSpacing;
 			addItem(new SimpleMenuItem("Map 2", x, y, m_itemFont, m_selectedItemColour, m_unselectedItemColour, m_arrowColour));
 			y += m_itemFont.LineSpacing;
@@ -49,7 +49,7 @@ namespace Firecracker_Engine {
 		public override void select() {
 			if(m_index == 0) {
 				Firecracker.interpreter.execute("menu off");
-				Firecracker.interpreter.execute("map map1");
+                Firecracker.interpreter.execute("map Content\\Levels\\TestLevel1\\TestLevel.lvl");
 			}
 			else if(m_index == 1) {
 				Firecracker.interpreter.execute("menu off");

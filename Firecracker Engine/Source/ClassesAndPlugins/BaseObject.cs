@@ -6,6 +6,10 @@ using Microsoft.Xna.Framework;
 
 namespace Firecracker_Engine
 {
+    /// <summary>
+    /// The objectID class is meant to be a handy way to reference objects without the need for a 
+    /// direct reference.
+    /// </summary>
     public class CObjectID
     {
         int m_ID;
@@ -17,7 +21,6 @@ namespace Firecracker_Engine
             set { m_ID = value; }
         }
 
-        
         public CObjectID()
         {
             m_ID = 0;
@@ -64,15 +67,23 @@ namespace Firecracker_Engine
         }
     }
 
-
+    /// <summary>
+    /// This is the base object class that all game objects are built on.
+    /// </summary>
     public class CBaseObject
     {
+        // NOTE:Include this line in every child class. This will generate a 
+        // CS0108 warning so add the #pragma warning disable/restore 108 around it.
+        public const string ClassName = "CBaseObject";
+
         // The properties that every object in the world contains.
-        Vector3 m_vWorldPosition;
-        Vector3 m_vWorldRotation;
-        Vector3 m_vWorldScale;
+        protected Vector3 m_vWorldPosition;
+        protected Vector3 m_vWorldRotation;
+        protected Vector3 m_vWorldScale;
 
         CObjectID m_ID;
+
+        private string m_sObjectType;
 
         public CObjectID ID
         {
@@ -95,6 +106,9 @@ namespace Firecracker_Engine
             m_vWorldPosition = WorldPosition;
             m_vWorldRotation = WorldRotation;
             m_vWorldScale    = WorldScale;
+
+            // Note: Each subclass to this must have it's own m_sObjectType with that class' type.
+            m_sObjectType = "CBaseObject";
         }
 
         /// <summary>
@@ -126,42 +140,108 @@ namespace Firecracker_Engine
 
         }
 
-
-
-
-
-        class CObjectProxy
+        /// <summary>
+        /// Checks to see if this object is of a certain type.
+        /// Note: This should be done with an RTTI Hierarchy but I believe c# doesn't support that
+        /// To overload this properly, call the base IsA then do a check of the local type.
+        /// </summary>
+        /// <param name="ObjectType">The type of the object</param>
+        /// <returns>True if it matches.</returns>
+        public virtual bool IsA(string ObjectType)
         {
-            CObjectID m_ObjectID;
-            CBaseObject m_oBaseObject;
+            if (m_sObjectType.CompareTo(ObjectType) == 0)
+                return true;
 
-            public CObjectProxy()
-            {
-                m_ObjectID = new CObjectID();
-                m_ObjectID.SetNull();
-                m_oBaseObject = null;
-            }
+            return false;
 
-            public bool IsValid()
-            {
-                if ((object)m_oBaseObject == null) return false; // make sure the object still exists.
-                else if (m_oBaseObject.m_ID != m_ObjectID) return false; // make sure the stored ID is still the same.
-                else return true;
-            }
+        }
 
-            public CBaseObject GetObject()
-            {
-                if ((object)m_oBaseObject == null) return null;
-                else return m_oBaseObject;
-            }
+        //Override these.
 
-            public void SetObjectReference(ref CBaseObject BaseObject)
+        /// <summary>
+        /// Called once when the gameplay begins
+        /// </summary>
+        public virtual void OnBeginGameplay() { }
+
+        /// <summary>
+        /// Called once when gameplay ends.
+        /// </summary>
+        public virtual void OnEndGameplay() { }
+
+        /// <summary>
+        /// Called when the game is paused, like when the in game pause menu is displayed.
+        /// </summary>
+        public virtual void OnPauseGameplay() { }
+
+        /// <summary>
+        /// This is called when the object is about to be deleted from the game.
+        /// Use this to clean up any resources this object uses.
+        /// </summary>
+        public virtual void OnToBeDeleted() { }
+
+
+        /// <summary>
+        /// This function takes the ObjectDefinition and pulls out all the known 
+        /// variables and sets them.
+        /// </summary>
+        /// <param name="objDef">The object definition</param>
+        public virtual void LoadPropertiesList(ObjectDefinition objDef) 
+        {
+            foreach (KeyValuePair<string, string> propertyItem in objDef.ClassProperties)
             {
-                if (BaseObject == null)
-                    return;
-                m_oBaseObject = BaseObject;
-                m_ObjectID.ID = BaseObject.ID.ID;
+                if (propertyItem.Key.CompareTo("WorldPosition") == 0)
+                {
+                    m_vWorldPosition = Helpers.ParseVector3(propertyItem.Value);
+                }
+                else if (propertyItem.Key.CompareTo("WorldScale") == 0)
+                {
+                    m_vWorldScale = Helpers.ParseVector3(propertyItem.Value);
+                }
+                else if (propertyItem.Key.CompareTo("WorldRotation") == 0)
+                {
+                    m_vWorldRotation = Helpers.ParseVector3(propertyItem.Value);
+                }
             }
+        }
+
+    }
+    
+    /// <summary>
+    /// Object proxy.
+    /// Holds a reference to a game object so that you don't have to search for it.
+    /// Also keeps track of wether the object has been destroyed.
+    /// </summary>
+    class CObjectProxy
+    {
+        CObjectID m_ObjectID;
+        CBaseObject m_oBaseObject;
+
+        public CObjectProxy()
+        {
+            m_ObjectID = new CObjectID();
+            m_ObjectID.SetNull();
+            m_oBaseObject = null;
+        }
+
+        public bool IsValid()
+        {
+            if ((object)m_oBaseObject == null) return false; // make sure the object still exists.
+            else if (m_oBaseObject.ID != m_ObjectID) return false; // make sure the stored ID is still the same.
+            else return true;
+        }
+
+        public CBaseObject GetObject()
+        {
+            if ((object)m_oBaseObject == null) return null;
+            else return m_oBaseObject;
+        }
+
+        public void SetObjectReference(ref CBaseObject BaseObject)
+        {
+            if (BaseObject == null)
+                return;
+            m_oBaseObject = BaseObject;
+            m_ObjectID.ID = BaseObject.ID.ID;
         }
     }
 }
