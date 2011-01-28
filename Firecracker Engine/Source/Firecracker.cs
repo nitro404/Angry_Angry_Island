@@ -15,6 +15,8 @@ using Microsoft.Xna.Framework.Storage;
 namespace Firecracker_Engine {
 
     public struct GlobalFirecrackerRef { public static Firecracker Instance = null; }
+    public delegate CBaseObject CreateObjectDelegate(ObjectDefinition objDef, ObjectDefinition objOverwriteDefinition);
+
 
 	public class Firecracker : Microsoft.Xna.Framework.Game {
 
@@ -29,6 +31,9 @@ namespace Firecracker_Engine {
 		public static SpriteSheetCollection spriteSheets;
 		protected RenderTarget2D buffer;
 		protected Effect blur;
+
+        public static CreateObjectDelegate CreateObjectDelegate = null;
+        private static CreateObjectDelegate EngineCreateObjectDelegate = new CreateObjectDelegate(CreateObject);
 
         List<CBaseObject> m_lObjectList;
         // Add any lists here that hold references to this one.
@@ -76,8 +81,49 @@ namespace Firecracker_Engine {
 			menu.initialize();
 			console.initialize();
 
+            DefinitionManager.LoadDefinitions("Content\\Objects");
+
 			base.Initialize();
 		}
+
+        public bool CreateObjectByName(string sObjectName)
+        {
+            // TODO: implement this.
+            // similar to CreateObjectByDefinition, except that this
+            // no properties are overloaded.
+            ObjectDefinition objDef = DefinitionManager.QueryDefinitionByName(sObjectName);
+            if (objDef.ObjectName.Length != 0 && objDef.ObjectClassType.Length != 0)
+                return CreateObjectByDefinition(objDef);
+            return false;
+        }
+
+        public bool CreateObjectByDefinition(ObjectDefinition ObjectDefinition)
+        {
+            CBaseObject newObject = null;
+            ObjectDefinition DefaultDef = DefinitionManager.QueryDefinitionByName(ObjectDefinition.ObjectClassType);
+            // Try to load the game object first.
+            if (CreateObjectDelegate != null)
+            {
+                newObject = CreateObjectDelegate(DefaultDef, ObjectDefinition);
+            }
+
+            // if the game object could not be loaded then this is likely a engine defined object.
+            if (newObject == null)
+            {
+                newObject = EngineCreateObjectDelegate(DefaultDef, ObjectDefinition);
+            }
+
+            if (newObject != null)
+            {
+                GlobalFirecrackerRef.Instance.AddObjectToList(CreateObject(DefaultDef, ObjectDefinition));
+            }
+            else
+            {
+                // This is not an object that actually exists.
+                System.Diagnostics.Debug.Assert(false, "Uh oh. The level defined an object that doesn't exist.");
+            }
+            return false;
+        }
 
         public void AddObjectToList(CBaseObject obj)
         {
@@ -187,6 +233,38 @@ namespace Firecracker_Engine {
 
 			base.OnExiting(sender, args);
 		}
+
+
+        public static CBaseObject CreateObject(ObjectDefinition objDef, ObjectDefinition objOverwriteDefinition)
+        {
+            // This is a list of all the object types in the engine. 
+            // To complete this list with the GameDefined types overload
+            // This class and this method in the game.
+            CBaseObject returnObject = null;
+            switch (objDef.ObjectClassType)
+            {
+                case CBaseObject.ClassName:
+                    {
+                        CBaseObject newObject = new CBaseObject();
+                        newObject.LoadPropertiesList(objDef);
+                        newObject.LoadPropertiesList(objOverwriteDefinition);
+                        returnObject = newObject;
+                    }
+                    break;
+                case CMoveableObject.ClassName:
+                    {
+                        CMoveableObject newObject = new CMoveableObject();
+                        newObject.LoadPropertiesList(objDef);
+                        newObject.LoadPropertiesList(objOverwriteDefinition);
+                        returnObject = newObject;
+                    }
+                    break;
+                default:
+                    return null;
+            }
+
+            return returnObject;
+        }
 
 	};
 }

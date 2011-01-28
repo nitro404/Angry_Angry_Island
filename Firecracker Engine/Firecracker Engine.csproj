@@ -86,10 +86,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Source\ClassesAndPlugins\BaseObject.cs" />
-    <Compile Include="Source\ClassesAndPlugins\BasePlugin.cs" />
-    <Compile Include="Source\ClassesAndPlugins\BouncePlugin.cs" />
-    <Compile Include="Source\ClassesAndPlugins\MoveableObject.cs" />
+    <Compile Include="Source\ObjectClasses\BaseObject.cs" />
+    <Compile Include="Source\ObjectClasses\DefinitionLoader.cs" />
+    <Compile Include="Source\ObjectClasses\MoveableObject.cs" />
     <Compile Include="Source\Firecracker.cs" />
     <Compile Include="Source\Helpers.cs" />
     <Compile Include="Source\Input System\ClipboardManager.cs" />

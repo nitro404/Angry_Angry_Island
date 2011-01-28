@@ -18,6 +18,9 @@ namespace Firecracker_Engine
         private static StreamWriter m_FileWriter;
         private static bool m_bIsFileOpen = false;
         private static AccessType m_eAccessType = AccessType.AccessType_None;
+        private static List<string> m_lFilesToOpen = new List<string>();
+        private static bool m_bIsDirectoryOpen = false;
+        private static string m_sCurrentFolder = "";
 
         public static bool IsFileOpen
         {
@@ -62,20 +65,58 @@ namespace Firecracker_Engine
                         m_FileReader = new StreamReader(sFilename);
                         m_bIsFileOpen = true;
                         m_eAccessType = eAccessType;
+                        return true;
                     }
-                    break;
                 case AccessType.AccessType_WriteOnly:
                     {
                         m_FileWriter = new StreamWriter(sFilename);
                         m_bIsFileOpen = true;
                         m_eAccessType = eAccessType;
+                        return true;
                     }
-                    break;
                 default:
                     break;
             }
 
             return false;
+        }
+
+        /// <summary>
+        /// Transparently opens every file in a folder one by one so that you can read from each file.
+        /// When an EOF is encountered the file is closed and the next one is opened.
+        /// </summary>
+        /// <param name="sFolderName">The name of the folder to open</param>
+        /// <param name="sFileTypes">The extention of the files to open. Only files with this extention will be accessed. Use "*.txt" for example</param>
+        /// <returns>True if the operation was successful</returns>
+        public static bool OpenFolder(string sFolderName, string sFileTypes)
+        {
+            m_lFilesToOpen = new List<string>();
+            m_sCurrentFolder = string.Concat(Directory.GetCurrentDirectory(), "\\", sFolderName);
+
+            DirectoryInfo DirInfo = new DirectoryInfo(m_sCurrentFolder);
+            FileInfo[] fInfo = DirInfo.GetFiles(sFileTypes);
+
+            for (int i = 0; i < fInfo.Length; i++ )
+            {
+                m_lFilesToOpen.Add(fInfo[i].Name);
+            }
+
+            if (m_lFilesToOpen.Count != 0)
+            {
+                if (!OpenFile( string.Concat("Content\\Objects\\", m_lFilesToOpen[0]), AccessType.AccessType_ReadOnly))
+                {
+                    CloseFolder();
+                    return false;
+                }
+                m_lFilesToOpen.RemoveAt(0);
+            }
+            else
+            {
+                return false;
+            }
+
+            m_bIsDirectoryOpen = true;
+            return true;
         }
 
         /// <summary>
@@ -99,6 +140,14 @@ namespace Firecracker_Engine
             }
         }
 
+        public static void CloseFolder()
+        {
+            CloseFile();
+            m_bIsDirectoryOpen = false;
+            m_sCurrentFolder = "";
+            m_lFilesToOpen = new List<string>();
+        }
+
         /// <summary>
         /// Attempts to read a line from the file.
         /// If an EOF is encountered then the file is closed.
@@ -115,7 +164,28 @@ namespace Firecracker_Engine
                 if (m_FileReader.EndOfStream)
                 {
                     CloseFile();
-                    return false;
+                    if (m_bIsDirectoryOpen )
+                    {
+                        if (m_lFilesToOpen.Count == 0)
+                        {
+                            CloseFolder();
+                            return false;
+                        }
+                        else
+                        {
+
+                            if (!OpenFile(m_lFilesToOpen[0], AccessType.AccessType_ReadOnly))
+                                return false;
+                            else
+                            {
+                                m_lFilesToOpen.RemoveAt(0);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
                 sLineData = m_FileReader.ReadLine();
             }
@@ -150,5 +220,131 @@ namespace Firecracker_Engine
             return true;
         }
 
+        enum CurrentState
+        {
+            State_ObjectProperties,
+            State_Plugins,
+            State_None
+        }
+
+        public static ObjectDefinition LoadObjectDefinition()
+        {
+            CurrentState eCurrentState = CurrentState.State_ObjectProperties;
+            ObjectDefinition NewObjectDef = new ObjectDefinition(false);
+            PluginDef NewPluginDef = new PluginDef(false);
+            string sCurrentLine = "";
+            char[] trimString = " \t\"\'".ToCharArray();
+
+            while (Filesystem.ReadLine(ref sCurrentLine))
+            {
+                if (sCurrentLine.Trim(" \t\"\'".ToCharArray()).Length == 0)
+                    continue;
+                // Skip any line with a #. It's a comment.
+                if (sCurrentLine.StartsWith("#"))
+                    continue;
+
+                switch (eCurrentState)
+                {
+                    case CurrentState.State_ObjectProperties:
+                        {
+                            if (sCurrentLine.Substring(0, Math.Min(sCurrentLine.Length, 10)).CompareTo("ObjectName") == 0)
+                            {
+                                NewObjectDef.ObjectName = sCurrentLine.Substring(10).Trim(trimString);
+                            }
+                            else if (sCurrentLine.Substring(0, Math.Min(sCurrentLine.Length,11)).CompareTo("ObjectClass") == 0)
+                            {
+                                NewObjectDef.ObjectClassType = sCurrentLine.Substring(11).Trim(trimString);
+                            }
+                            //else if (sCurrentLine.Substring(0, Math.Min(sCurrentLine.Length, 9)).CompareTo("PluginDef") == 0)
+                            //{
+                            //    pluginName = sCurrentLine.Substring(9).Trim(trimString);
+                            //    eCurrentState = CurrentState.State_Plugins;
+                            //}
+                            else if (sCurrentLine.CompareTo("EndObjectDef") == 0)
+                            {
+                                // this is the end of this object definition.
+                                return NewObjectDef;
+                            }
+                            else
+                            {
+                                // If it is none of the above then it is a class property.
+                                NewObjectDef.ClassProperties.Add(
+                                    sCurrentLine.Substring(0, sCurrentLine.IndexOfAny(trimString)),
+                                    sCurrentLine.Substring(sCurrentLine.IndexOfAny(trimString)).Trim(trimString)
+                                    );
+                            }
+                        }
+                        break;
+                    /*case CurrentState.State_Plugins:
+                        {
+                            // Load the plugin information
+                            if (sCurrentLine.CompareTo("EndPluginDef") == 0)
+                            {
+                                NewObjectDef.PluginDefinitionList.Add(pluginName, NewPluginDef);
+                                NewPluginDef = new PluginDef(false);
+                                pluginName = "";
+                                eCurrentState = CurrentState.State_ObjectProperties;
+                            }
+                            else
+                            {
+                                NewPluginDef.PluginParameters.Add(
+                                        sCurrentLine.Substring(0, sCurrentLine.IndexOf(' ')),
+                                        sCurrentLine.Substring(sCurrentLine.IndexOf('{')+1, sCurrentLine.LastIndexOf('}') - (sCurrentLine.IndexOf('{')+1) )
+                                        );
+                            }
+                        }
+                        break;*/
+                }
+            }
+            return NewObjectDef;
+        }
+
+        public static ObjectDefinition LoadObjectDescription()
+        {
+            CurrentState eCurrentState = CurrentState.State_ObjectProperties;
+            ObjectDefinition NewObjectDef = new ObjectDefinition(false);
+            PluginDef NewPluginDef = new PluginDef(false);
+            string sCurrentLine = "";
+            char[] trimString = " \t\"\'".ToCharArray();
+
+            while (Filesystem.ReadLine(ref sCurrentLine))
+            {
+                if (sCurrentLine.Trim(" \t\"\'".ToCharArray()).Length == 0)
+                    continue;
+                // Skip any line with a #. It's a comment.
+                if (sCurrentLine.StartsWith("#"))
+                    continue;
+
+                switch (eCurrentState)
+                {
+                    case CurrentState.State_ObjectProperties:
+                        {
+                            if (sCurrentLine.Substring(0, Math.Min(sCurrentLine.Length, 10)).CompareTo("ObjectName") == 0)
+                            {
+                                NewObjectDef.ObjectName = sCurrentLine.Substring(10).Trim(trimString);
+                            }
+                            else if (sCurrentLine.Substring(0, Math.Min(sCurrentLine.Length, 9)).CompareTo("ObjectDef") == 0)
+                            {
+                                NewObjectDef.ObjectClassType = sCurrentLine.Substring(9).Trim(trimString);
+                            }
+                            else if (sCurrentLine.CompareTo("EndObjectDef") == 0)
+                            {
+                                // this is the end of this object definition.
+                                return NewObjectDef;
+                            }
+                            else
+                            {
+                                // If it is none of the above then it is a class property.
+                                NewObjectDef.ClassProperties.Add(
+                                    sCurrentLine.Substring(0, sCurrentLine.IndexOfAny(trimString)),
+                                    sCurrentLine.Substring(sCurrentLine.IndexOfAny(trimString)).Trim(trimString)
+                                    );
+                            }
+                        }
+                        break;
+                }
+            }
+            return NewObjectDef;
+        }
     }
 }

@@ -33,7 +33,7 @@ namespace Test_Game {
 		/// </summary>
 		protected override void Initialize() {
 			// TODO: Add your initialization logic here
-
+            ObjectDefinitions.Initialize();
 			base.Initialize();
 		}
 

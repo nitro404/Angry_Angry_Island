@@ -1,24 +1,13 @@
 BeginObjectDef
-ObjectName		"ObjectName_1"
-ObjectClass		"MoveableObject"
-Heartbeat		0
-Enabled			1
-Visible			1
-PluginDef BouncePlugin
-Height {10.0f}
-Elasticity {1.0f}
-EndPluginDef
+ObjectName		"SmallRock_1"
+ObjectDef		"SmallRock"
+# You can overload any of the object properties here...
+# for example
+# Heartbeat       1
 EndObjectDef
 
 BeginObjectDef
-ObjectName		"ObjectName_2"
-ObjectClass		"MoveableObject"
-Heartbeat		0
-Enabled			1
-Visible			1
-PluginDef BouncePlugin
-Height {10.0f}
-Elasticity {10.0f}
-EndPluginDef
+ObjectName		"SmallRock_2"
+ObjectDef		"SmallRock"
 EndObjectDef
 
