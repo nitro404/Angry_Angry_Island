@@ -114,6 +114,19 @@
     <Compile Include="Source\Sprite Sheet System\SpriteAnimation.cs" />
     <Compile Include="Source\Sprite Sheet System\SpriteSheet.cs" />
     <Compile Include="Source\Sprite Sheet System\SpriteSheetCollection.cs" />
+    <Compile Include="Source\UI\Button.cs" />
+    <Compile Include="Source\UI\IDRegistrar.cs" />
+    <Compile Include="Source\UI\Label.cs" />
+    <Compile Include="Source\UI\Log.cs" />
+    <Compile Include="Source\UI\OnScreenPrompt.cs" />
+    <Compile Include="Source\UI\PopupNotification.cs" />
+    <Compile Include="Source\UI\Screen.cs" />
+    <Compile Include="Source\UI\Style.cs" />
+    <Compile Include="Source\UI\UIScreenManager.cs" />
+    <Compile Include="Source\UI\Slider.cs" />
+    <Compile Include="Source\UI\Switcher.cs" />
+    <Compile Include="Source\UI\TextureLoader.cs" />
+    <Compile Include="Source\UI\UIObject.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />
