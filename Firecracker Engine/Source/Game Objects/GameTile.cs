@@ -31,7 +31,7 @@ namespace Firecracker_Engine {
 
 			// get the name of the spritesheet in which the sprite is found
 			Variable spriteSheetName = Variable.parseFrom(input.ReadLine());
-			if(spriteSheetName == null || !spriteName.id.Equals("SpriteSheet Name", StringComparison.OrdinalIgnoreCase)) { return null; }
+			if(spriteSheetName == null || !spriteSheetName.id.Equals("SpriteSheet Name", StringComparison.OrdinalIgnoreCase)) { return null; }
 
 			// get the object's sprite
 			SpriteSheet spriteSheet = spriteSheets.getSpriteSheet(spriteSheetName.value);
