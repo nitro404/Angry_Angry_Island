@@ -26,8 +26,12 @@ ObjectName		"The Camera"
 ObjectDef		"Camera"
 EndObjectDef
 
-
 BeginObjectDef
 ObjectName		"Environment_1"
 ObjectDef		"Environment"
+EndObjectDef
+
+BeginObjectDef
+ObjectName      "TheLevel"
+ObjectDef       "Level"
 EndObjectDef

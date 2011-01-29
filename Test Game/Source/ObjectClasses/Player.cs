@@ -33,10 +33,10 @@ namespace Test_Game
             }
         }
 
-        public override void  Tick(float fTime)
+        public override void Tick(GameTime gameTime)
         {
-            m_credits += fTime * CREDIT_TRICKLE_RATE;
- 	        base.Tick(fTime);
+            m_credits += (float)((float)gameTime.ElapsedGameTime.Milliseconds/1000.0f) * CREDIT_TRICKLE_RATE;
+            base.Tick(gameTime);
         }
 
         public float Credits

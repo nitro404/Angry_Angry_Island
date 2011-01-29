@@ -21,9 +21,8 @@ namespace Test_Game
         //remove later
         public Sprite s;
         public Sprite forest;
-        public Sprite sheep,Sshadow;
-        public GamePadState gamePadStatus;
-        public int xPosition,yPosition; 
+        //public Sprite sheep,Sshadow;
+        //public int xPosition,yPosition; 
         //
         protected int m_Sold;
         protected float m_fMaxAge;
@@ -34,13 +33,12 @@ namespace Test_Game
         public CEnvironmentObj()
             : base()
         {
-            
              s = new Sprite("Sprites/first_island_test_rock",TestGame.GameInstance.Content);
              forest = new Sprite("Sprites/first_island_test_trees", TestGame.GameInstance.Content);
-             sheep = new Sprite( new Sprite("Sprites/sheep_sheet01", TestGame.GameInstance.Content),new Rectangle(0,102, 34,34));
-             Sshadow = new Sprite("Sprites/sheep_shadow01", TestGame.GameInstance.Content); 
-             xPosition = 0;
-             yPosition = 0;
+             //sheep = new Sprite( new Sprite("Sprites/sheep_sheet01", TestGame.GameInstance.Content),new Rectangle(0,102, 34,34));
+             //Sshadow = new Sprite("Sprites/sheep_shadow01", TestGame.GameInstance.Content); 
+             //xPosition = 0;
+             //yPosition = 0;
         }
         public override bool IsA(string ObjectType)
         {
@@ -50,33 +48,12 @@ namespace Test_Game
             }
             return base.IsA(ObjectType);
         }
-        public override void Tick(float fTime)
+        public override void Tick(GameTime gameTime)
         {
             //remove later
-            sheepUpdate();
-            base.Tick(fTime);
+            base.Tick(gameTime);
         }
-        public void sheepUpdate()
-        {
-            gamePadStatus = GamePad.GetState(PlayerIndex.One);
-
-            if (gamePadStatus.ThumbSticks.Left.X > 0)
-            {
-                xPosition += 1;
-            }
-            else if (gamePadStatus.ThumbSticks.Left.X < 0)
-            {
-                xPosition -= 1;
-            }
-            else if (gamePadStatus.ThumbSticks.Left.Y > 0)
-            {
-                yPosition -= 1;
-            }
-            else if (gamePadStatus.ThumbSticks.Left.Y < 0)
-            {
-                yPosition += 1;
-            }
-        }
+        
         public override void LoadPropertiesList(ObjectDefinition objDef)
         {
            base.LoadPropertiesList(objDef);
@@ -110,8 +87,8 @@ namespace Test_Game
          TestGame.GameInstance.spriteBatch.Begin();
          s.draw(TestGame.GameInstance.spriteBatch, Vector2.One, 0.0f,new Vector2(s.xOffset,s.yOffset), SpriteEffects.None);
          forest.draw(TestGame.GameInstance.spriteBatch, Vector2.One, 0.0f, new Vector2(s.xOffset, s.yOffset), SpriteEffects.None);
-         Sshadow.draw(TestGame.GameInstance.spriteBatch, new Vector2(1.5f), 0.0f, new Vector2(xPosition + s.xOffset, yPosition + s.yOffset), SpriteEffects.None);
-         sheep.draw(TestGame.GameInstance.spriteBatch, Vector2.One, 0.0f, new Vector2(xPosition + s.xOffset +2,yPosition +s.yOffset +2), SpriteEffects.None);
+         //Sshadow.draw(TestGame.GameInstance.spriteBatch, new Vector2(1.5f), 0.0f, new Vector2(xPosition + s.xOffset, yPosition + s.yOffset), SpriteEffects.None);
+         //sheep.draw(TestGame.GameInstance.spriteBatch, Vector2.One, 0.0f, new Vector2(xPosition + s.xOffset +2,yPosition +s.yOffset +2), SpriteEffects.None);
          //TestGame.GameInstance.spriteBatch.Draw();
          TestGame.GameInstance.spriteBatch.End();
 

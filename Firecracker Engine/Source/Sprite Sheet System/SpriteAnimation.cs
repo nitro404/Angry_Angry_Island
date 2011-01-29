@@ -129,6 +129,11 @@ namespace Firecracker_Engine {
 			return m_type == SpriteAnimationType.Single && m_sequence >= m_end;
 		}
 
+        public void reset()
+        {
+
+        }
+
 	}
 
 }

@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Firecracker_Engine;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Storage;
 
 namespace Test_Game
 {
@@ -27,6 +31,9 @@ namespace Test_Game
         protected float m_fMaxAge;
         protected AIWanderType m_eWanderType;
 
+        public Sprite sheep,Sshadow;
+        public GamePadState gamePadStatus;
+        public int xPosition,yPosition; 
 
         //-------------------
         public AIObject()
@@ -43,10 +50,17 @@ namespace Test_Game
             return base.IsA(ObjectType);
         }
 
-        public override void Tick(float fTime)
+        public override void OnBeginGameplay()
         {
+            base.OnBeginGameplay();
+            xPosition = 300;
+            yPosition = 300;
+        }
 
-            base.Tick(fTime);
+        public override void Tick(GameTime gameTime)
+        {
+            sheepUpdate();
+            base.Tick(gameTime);
         }
         public override void LoadPropertiesList(ObjectDefinition objDef)
         {
@@ -63,9 +77,44 @@ namespace Test_Game
 
         }
 
+        public void sheepUpdate()
+        {
+            gamePadStatus = GamePad.GetState(PlayerIndex.One);
+
+            if (gamePadStatus.ThumbSticks.Left.X > 0)
+            {
+                xPosition += 1;
+            }
+            else if (gamePadStatus.ThumbSticks.Left.X < 0)
+            {
+                xPosition -= 1;
+            }
+            else if (gamePadStatus.ThumbSticks.Left.Y > 0)
+            {
+                yPosition -= 1;
+            }
+            else if (gamePadStatus.ThumbSticks.Left.Y < 0)
+            {
+                yPosition += 1;
+            }
+        }
+
         public override void LoadResources()
         {
+            sheep = new Sprite(new Sprite("Sprites/sheep_sheet01", TestGame.GameInstance.Content), new Rectangle(0, 102, 34, 34));
+            Sshadow = new Sprite("Sprites/sheep_shadow01", TestGame.GameInstance.Content); 
             base.LoadResources();
+        }
+
+        public override void Render()
+        {
+            TestGame.GameInstance.spriteBatch.Begin();
+            Sshadow.draw(TestGame.GameInstance.spriteBatch, new Vector2(1.5f), 0.0f, new Vector2(xPosition, yPosition), SpriteEffects.None);
+            sheep.draw(TestGame.GameInstance.spriteBatch, Vector2.One, 0.0f, new Vector2(xPosition +2,yPosition +2), SpriteEffects.None);
+            //TestGame.GameInstance.spriteBatch.Draw();
+            TestGame.GameInstance.spriteBatch.End();
+
+            base.Render();
         }
     }
 }

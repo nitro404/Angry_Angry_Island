@@ -26,9 +26,9 @@ namespace Firecracker_Engine
             m_vRotationAcceleration = new Vector3();
         }
 
-        public override void Tick(float fTime)
+        public override void Tick(GameTime gameTime)
         {
-            base.Tick(fTime);
+            base.Tick(gameTime);
             // Move the object.
             m_vWorldPosition += m_vVelocity;
 
@@ -74,6 +74,7 @@ namespace Firecracker_Engine
 
         public override void LoadResources()
         {
+
             base.LoadResources();
         }
 

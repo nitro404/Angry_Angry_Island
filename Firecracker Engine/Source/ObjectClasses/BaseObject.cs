@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Content;
 
 namespace Firecracker_Engine
 {
@@ -27,66 +29,6 @@ namespace Firecracker_Engine
      * Should work from there.
      */
 
-    /// <summary>
-    /// The objectID class is meant to be a handy way to reference objects without the need for a 
-    /// direct reference.
-    /// </summary>
-    public class CObjectID
-    {
-        int m_ID;
-        static int m_CurrentMaxID = 0;
-
-        public int ID
-        {
-            get { return m_ID; }
-            set { m_ID = value; }
-        }
-
-        public CObjectID()
-        {
-            m_ID = 0;
-        }
-
-        public void SetNull() { m_ID = 0; }
-
-        public void AssignNewID()
-        {
-            // Only assign a new ID if there is not one already.
-            // We may decide to change that behaviour later.
-            if (m_ID != 0) return;
-
-            m_CurrentMaxID++;
-            m_ID = m_CurrentMaxID;
-        }
-
-        public static bool operator ==(CObjectID val1, CObjectID val2)
-        {
-            // If both are null, or both are same instance, return true.
-            if (System.Object.ReferenceEquals(val1, val2) )
-                return true;
-
-            // If one is null, but not both, return false.
-            if (((object)val1 == null) || ((object)val2 == null))
-            {
-                return false;
-            }
-
-            // Return true if the fields match:
-            return (val1.m_ID == val2.m_ID);
-        }
-        public static bool operator !=(CObjectID val1, CObjectID val2)
-        {
-            return !(val1.m_ID==val2.m_ID);
-        }
-        public override bool Equals(object obj)
-        {
-            return base.Equals(obj);
-        }
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
-        }
-    }
 
     /// <summary>
     /// This is the base object class that all game objects are built on.
@@ -105,19 +47,7 @@ namespace Firecracker_Engine
         protected string m_sObjectName;
         public string ObjectName { get { return m_sObjectName; } }
 
-        CObjectID m_ID;
-
         private string m_sObjectType;
-
-        public CObjectID ID
-        {
-            get { return m_ID; }
-            set 
-            {
-                //TODO: Cyril: only set the ID if it is not already taken.
-                m_ID = value;
-            }
-        }
 
         /// <summary>
         /// Constructor
@@ -154,12 +84,17 @@ namespace Firecracker_Engine
             
         }
 
+        public virtual void Render(SpriteBatch spriteBatch)
+        {
+
+        }
+
         /// <summary>
         /// This is called once on each game tick.
         /// This must be overloaded in order for your game objects to do anything.
         /// </summary>
         /// <param name="fTime"></param>
-        public virtual void Tick(float fTime)
+        public virtual void Tick(GameTime gameTime)
         {
 
         }
@@ -242,42 +177,5 @@ namespace Firecracker_Engine
 
     }
     
-    /// <summary>
-    /// Object proxy.
-    /// Holds a reference to a game object so that you don't have to search for it.
-    /// Also keeps track of wether the object has been destroyed.
-    /// </summary>
-    class CObjectProxy
-    {
-        CObjectID m_ObjectID;
-        CBaseObject m_oBaseObject;
-
-        public CObjectProxy()
-        {
-            m_ObjectID = new CObjectID();
-            m_ObjectID.SetNull();
-            m_oBaseObject = null;
-        }
-
-        public bool IsValid()
-        {
-            if ((object)m_oBaseObject == null) return false; // make sure the object still exists.
-            else if (m_oBaseObject.ID != m_ObjectID) return false; // make sure the stored ID is still the same.
-            else return true;
-        }
-
-        public CBaseObject GetObject()
-        {
-            if ((object)m_oBaseObject == null) return null;
-            else return m_oBaseObject;
-        }
-
-        public void SetObjectReference(ref CBaseObject BaseObject)
-        {
-            if (BaseObject == null)
-                return;
-            m_oBaseObject = BaseObject;
-            m_ObjectID.ID = BaseObject.ID.ID;
-        }
-    }
+    
 }

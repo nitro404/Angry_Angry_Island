@@ -169,6 +169,16 @@ namespace Firecracker_Engine {
             //Filesystem.OpenFile(levelName, Filesystem.AccessType.AccessType_ReadOnly);
             LevelLoader.LoadLevel(levelName);
 
+            foreach (CBaseObject obj in m_lObjectList)
+            {
+                obj.LoadResources();
+            }
+
+            foreach (CBaseObject obj in m_lObjectList)
+            {
+                obj.OnBeginGameplay();
+            }
+
 			return false;
 		}
 
@@ -194,7 +204,7 @@ namespace Firecracker_Engine {
 
             foreach (CBaseObject objRef in m_lObjectList)
             {
-                objRef.Tick(((float)gameTime.ElapsedGameTime.Milliseconds)/1000.0f);
+                objRef.Tick(gameTime);
             }
 
 			base.Update(gameTime);
@@ -223,15 +233,16 @@ namespace Firecracker_Engine {
 			}
 			else {
 				/*
-                spriteBatch.Begin(SpriteBlendMode.None, SpriteSortMode.Immediate, SaveStateMode.SaveState);
+                
 				spriteBatch.Draw(buffer.GetTexture(), Vector2.Zero, Color.White);
-				spriteBatch.End();
+				
                 */
-
+                //spriteBatch.Begin(SpriteBlendMode.None, SpriteSortMode.Immediate, SaveStateMode.SaveState);
                 foreach (CBaseObject objRef in m_lObjectList)
                 {
                     objRef.Render();
                 }
+                //spriteBatch.End();
 			}
 			
 			screenManager.draw(spriteBatch, graphics.GraphicsDevice);
@@ -282,7 +293,14 @@ namespace Firecracker_Engine {
                         returnObject = newObject;
                     }
                     break;
-
+                case Level.ClassName:
+                    {
+                        Level newObject = new Level();
+                        newObject.LoadPropertiesList(objDef);
+                        newObject.LoadPropertiesList(objOverwriteDefinition);
+                        returnObject = newObject;
+                    }
+                    break;
                 default:
                     return null;
             }

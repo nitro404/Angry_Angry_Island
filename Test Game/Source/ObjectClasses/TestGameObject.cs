@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework;
 
 namespace Test_Game
 {
@@ -22,9 +23,9 @@ namespace Test_Game
             return base.IsA(ObjectType);
         }
 
-        public override void Tick(float fTime)
+        public override void Tick(GameTime gameTime)
         {
-            base.Tick(fTime);
+            base.Tick(gameTime);
         }
 
         public override void LoadPropertiesList(Firecracker_Engine.ObjectDefinition objDef)

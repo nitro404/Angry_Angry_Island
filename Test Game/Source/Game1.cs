@@ -20,9 +20,11 @@ namespace Test_Game {
 	/// </summary>
 	public class TestGame : Firecracker {
 
+        public static TestGame GameInstance = null;
 		public TestGame()
 			: base() {
-                GlobalFirecrackerRef.Instance = this;
+                //GlobalFirecrackerRef.Instance = this;
+                GameInstance = this;
 		}
 
 		/// <summary>

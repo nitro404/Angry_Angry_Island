@@ -267,10 +267,25 @@ namespace Firecracker_Engine
                             }
                             else
                             {
-                             //    If it is none of the above then it is a class property.
+                                string param = sCurrentLine.Substring(0, sCurrentLine.IndexOfAny(trimString));
+                                string value = sCurrentLine.Substring(sCurrentLine.IndexOfAny(trimString)).Trim(trimString);
+                                int leftCount = Helpers.CountStringOccurrences(value, "{");
+                                int rightCount = Helpers.CountStringOccurrences(value, "}");
+                                if (leftCount > rightCount)
+                                {
+                                    while (Filesystem.ReadLine(ref sCurrentLine))
+                                    {
+                                        value = string.Concat(value, sCurrentLine.Trim(trimString));
+                                        leftCount = Helpers.CountStringOccurrences(value, "{");
+                                        rightCount = Helpers.CountStringOccurrences(value, "}");
+                                        if (leftCount == rightCount)
+                                            break;
+                                    }
+                                }
+                                // If it is none of the above then it is a class property.
                                 NewObjectDef.ClassProperties.Add(
-                                    sCurrentLine.Substring(0, sCurrentLine.IndexOfAny(trimString)),
-                                    sCurrentLine.Substring(sCurrentLine.IndexOfAny(trimString)).Trim(trimString)
+                                    param,
+                                    value
                                     );
                             }
                         }
@@ -334,11 +349,26 @@ namespace Firecracker_Engine
                             }
                             else
                             {
+                                string param = sCurrentLine.Substring(0, sCurrentLine.IndexOfAny(trimString));
+                                string value = sCurrentLine.Substring(sCurrentLine.IndexOfAny(trimString)).Trim(trimString);
+                                int leftCount = Helpers.CountStringOccurrences(value, "{");
+                                int rightCount = Helpers.CountStringOccurrences(value, "}");
+                                if (leftCount > rightCount)
+                                {
+                                    while (Filesystem.ReadLine(ref sCurrentLine))
+                                    {
+                                        value = string.Concat(value, sCurrentLine);
+                                        leftCount = Helpers.CountStringOccurrences(value, "{");
+                                        rightCount = Helpers.CountStringOccurrences(value, "}");
+                                        if (leftCount == rightCount)
+                                            break;
+                                    }
+                                }
                                 // If it is none of the above then it is a class property.
-                             /*   NewObjectDef.ClassProperties.Add(
-                                    sCurrentLine.Substring(0, sCurrentLine.IndexOfAny(trimString)),
-                                    sCurrentLine.Substring(sCurrentLine.IndexOfAny(trimString)).Trim(trimString)
-                                    );*/
+                                NewObjectDef.ClassProperties.Add(
+                                    param,
+                                    value
+                                    );
                             }
                         }
                         break;

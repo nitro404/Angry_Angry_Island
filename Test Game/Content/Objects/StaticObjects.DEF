@@ -46,3 +46,28 @@ Sold            1
 Danger          0
 Sprite          "Tree.png"
 EndObjectDef
+
+BeginObjectDef
+ObjectName      "Level"
+ObjectClass     "Level"
+Heartbeat       0
+Enabled         1
+Visible         1
+GridLayout      Isometric
+Collision_Edges {{213, 301, 430, 317},
+				{430, 317, 421, 226},
+				{421, 226, 544, 230},
+				{544, 230, 618, 401},
+				{618, 401, 439, 453},
+				{439, 453, 287, 424},
+				{287, 424, 430, 317},
+				{430, 317, 295, 192},
+				{295, 192, 376, 130},
+				{376, 130, 421, 226},
+				{421, 226, 295, 192}}
+Grid_Size       64
+Dimensions      {24, 12}
+Tiles           {{0,1,Dark Wall}
+                 {0,2,Dark Wall}
+                 {0,3,Split Off Hall}}
+EndObjectDef
