@@ -17,7 +17,7 @@ namespace Test_Game
         public static void InitializeUI()
         {
             Style.BaseHeight = 1080;
-            Style.font = GlobalFirecrackerRef.Instance.Content.Load<SpriteFont>(@"UI\font");
+            Style.font = Firecracker.engineInstance.Content.Load<SpriteFont>(@"UI\font");
             Style.fontColor = Color.White;
             Style.LogEntry = "testbutton";
             Style.LogEntrySize = new Vector2(300, 20);

@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Firecracker_Engine {
 
-	public enum SpriteType { Unknown=-1, Sheet, SpaceShip, Asteroid, Laser, Bomb, Explosion }
+	public enum SpriteType { Unknown = -1, SpriteSheet, StaticObject, Tile }
 
 	public class Sprite {
 
@@ -22,11 +22,14 @@ namespace Firecracker_Engine {
 		string m_parentName = null;
 		int m_index = -1;
 
+		public static String[] spriteTypeStrings = { "Unknown", "SpriteSheet", "StaticObject", "Tile" };
+		public static String SPRITE_DIRECTORY = "Sprites";
+
 		// constructor to load a sprite from a specified file
 		public Sprite(string fileName, ContentManager content) {
 			if(fileName != null && content != null) {
 				try {
-					m_image = content.Load<Texture2D>(fileName);
+					m_image = content.Load<Texture2D>(SPRITE_DIRECTORY + "\\" + fileName);
 					m_source = new Rectangle(0, 0, m_image.Width, m_image.Height);
 					m_offset = new Vector2(m_source.Width / 2.0f, m_source.Height / 2.0f);
 					m_destination = new Rectangle(0, 0, m_source.Width, m_source.Height);
@@ -87,29 +90,30 @@ namespace Firecracker_Engine {
 		public static SpriteType parseType(String data) {
 			if(data == null) { return SpriteType.Unknown; }
 			string temp = data.Trim();
-			
-			if(temp.Equals("SpriteSheet", StringComparison.OrdinalIgnoreCase)) {
-				return SpriteType.Sheet;
+
+			for(int i=0;i<spriteTypeStrings.Length;i++) {
+				if(temp.Equals(spriteTypeStrings[i], StringComparison.OrdinalIgnoreCase)) {
+					return (SpriteType) (i - 1);
+				}
 			}
-			else if(temp.Equals("SpaceShip", StringComparison.OrdinalIgnoreCase)) {
-				return SpriteType.SpaceShip;
-			}
-			else if(temp.Equals("Asteroid", StringComparison.OrdinalIgnoreCase)) {
-				return SpriteType.Asteroid;
-			}
-			else if(temp.Equals("Laser", StringComparison.OrdinalIgnoreCase)) {
-				return SpriteType.Laser;
-			}
-			else if(temp.Equals("Bomb", StringComparison.OrdinalIgnoreCase)) {
-				return SpriteType.Bomb;
-			}
-			else if(temp.Equals("Explosion", StringComparison.OrdinalIgnoreCase)) {
-				return SpriteType.Explosion;
-			}
+
 			return SpriteType.Unknown;
 		}
 
 		public void draw(SpriteBatch spriteBatch, Vector2 scale, float rotationDegrees, Vector2 position, SpriteEffects effect) {
+			if(m_image == null || spriteBatch == null) { return; }
+
+			// update the destination rectangle
+			m_destination.X = (int) position.X;
+			m_destination.Y = (int) position.Y;
+			m_destination.Width = (m_source.Width + 1) * (int) scale.X;
+			m_destination.Height = (m_source.Height + 1) * (int) scale.Y;
+
+			// draw the sprite
+			spriteBatch.Draw(m_image, m_destination, m_source, Color.White, MathHelper.ToRadians(rotationDegrees), Vector2.Zero, effect, 0);
+		}
+
+		public void drawCentered(SpriteBatch spriteBatch, Vector2 scale, float rotationDegrees, Vector2 position, SpriteEffects effect) {
 			if(m_image == null || spriteBatch == null) { return; }
 			
 			// update the destination rectangle

@@ -138,18 +138,18 @@ namespace Test_Game
 
         public override void LoadResources()
         {
-            sheep = new Sprite(new Sprite("Sprites/sheep_sheet01", TestGame.GameInstance.Content), new Rectangle(0, 102, 34, 34));
-            Sshadow = new Sprite("Sprites/sheep_shadow01", TestGame.GameInstance.Content); 
+            sheep = new Sprite(new Sprite("Sprites/sheep_sheet01", TestGame.gameInstance.Content), new Rectangle(0, 102, 34, 34));
+            Sshadow = new Sprite("Sprites/sheep_shadow01", TestGame.gameInstance.Content); 
             base.LoadResources();
         }
 
         public override void Render()
         {
-            TestGame.GameInstance.spriteBatch.Begin();
-            Sshadow.draw(TestGame.GameInstance.spriteBatch, new Vector2(1.5f), 0.0f, PositionAbsolute, SpriteEffects.None);
-            sheep.draw(TestGame.GameInstance.spriteBatch, Vector2.One, 0.0f, PositionAbsolute, SpriteEffects.None);
+            TestGame.gameInstance.spriteBatch.Begin();
+            Sshadow.draw(TestGame.gameInstance.spriteBatch, new Vector2(1.5f), 0.0f, PositionAbsolute, SpriteEffects.None);
+            sheep.draw(TestGame.gameInstance.spriteBatch, Vector2.One, 0.0f, PositionAbsolute, SpriteEffects.None);
             //TestGame.GameInstance.spriteBatch.Draw();
-            TestGame.GameInstance.spriteBatch.End();
+            TestGame.gameInstance.spriteBatch.End();
 
             base.Render();
         }

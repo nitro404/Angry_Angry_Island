@@ -38,7 +38,7 @@ namespace Firecracker_Engine
                     ObjectDefinition newObjectDefinition = Filesystem.LoadObjectDescription();
                     if (newObjectDefinition.ObjectClassType.Length != 0)
                     {
-                        GlobalFirecrackerRef.Instance.CreateObjectByDefinition(newObjectDefinition);
+                        Firecracker.engineInstance.CreateObjectByDefinition(newObjectDefinition);
                     }
                 }
                 //else if ( ... Add other loadable types here for example, a cutscene def or a set of physics edges... )

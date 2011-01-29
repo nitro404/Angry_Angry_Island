@@ -1,0 +1,28 @@
+2D Cartesian Level: Version 2.0
+Grid Size: 64
+Dimensions: 24, 12
+Collision Edges: 11
+	213, 301; 430, 317
+	430, 317; 421, 226
+	421, 226; 544, 230
+	544, 230; 618, 401
+	618, 401; 439, 453
+	439, 453; 287, 424
+	287, 424; 430, 317
+	430, 317; 295, 192
+	295, 192; 376, 130
+	376, 130; 421, 226
+	421, 226; 295, 192
+Objects: 3
+	Static Object:
+		Position: 761, 242
+		Sprite Name: Green SpaceShip Center Moving 1
+		SpriteSheet Name: SpaceShip
+	Static Object:
+		Position: 789, 48
+		Sprite Name: Green SpaceShip Center Moving 1
+		SpriteSheet Name: SpaceShip
+	Static Object:
+		Position: 413, 415
+		Sprite Name: Green SpaceShip Center Moving 1
+		SpriteSheet Name: SpaceShip

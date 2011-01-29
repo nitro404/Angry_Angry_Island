@@ -179,7 +179,7 @@ namespace Firecracker_Engine {
 
 							// load the sprite to be parsed by the sprite sheet system
 							spriteSheetImage = new Sprite(spriteSheetFileName, content);
-							spriteSheetImage.type = SpriteType.Sheet;
+							spriteSheetImage.type = SpriteType.SpriteSheet;
 
 							// ===============================================================================
 							// Arbitrary Offset SpriteSheet ==================================================

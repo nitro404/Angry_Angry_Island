@@ -63,8 +63,8 @@ namespace Firecracker_Engine {
 
 			for(int i=0;i<m_spriteSheets.Count();i++) {
 				for(int j=0;j<m_spriteSheets.ElementAt(i).size();j++) {
-					if(m_spriteSheets.ElementAt(i).getSprite(i).name!= null &&
-					   temp.Equals(m_spriteSheets.ElementAt(i).getSprite(j).name)) {
+					if(m_spriteSheets.ElementAt(i).getSprite(i).name != null &&
+					   temp.Equals(m_spriteSheets.ElementAt(i).getSprite(j).name, StringComparison.OrdinalIgnoreCase)) {
 						return m_spriteSheets.ElementAt(i).getSprite(j);
 					}
 				}

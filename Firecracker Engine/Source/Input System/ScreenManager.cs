@@ -19,18 +19,17 @@ namespace Firecracker_Engine {
 		// local variables
 		private ScreenType m_activeScreen = ScreenType.Menu;
 		bool fullScreenKeyPressed = false;
-		private Firecracker m_game;
 
 		public ScreenManager() { }
 
-		public void initialize(Firecracker game) {
-			m_game = game;
+		public ScreenType activeScreen {
+			get { return m_activeScreen; }
 		}
 
 		// toggle the specified screen
 		public void toggle(ScreenType screen) {
 			if(screen == ScreenType.Menu) {
-				if(m_game.levelLoaded() || !Firecracker.menu.active)
+				if(Firecracker.engineInstance.levelLoaded() || !Firecracker.menu.active)
 					Firecracker.menu.toggle();
 			}
 			if(screen == ScreenType.Console) {
@@ -93,7 +92,7 @@ namespace Firecracker_Engine {
 			if((keyboard.IsKeyDown(Keys.LeftAlt) || keyboard.IsKeyDown(Keys.RightAlt)) &&
 				keyboard.IsKeyDown(Keys.Enter)) {
 				if(!fullScreenKeyPressed) {
-					m_game.toggleFullScreen();
+					Firecracker.engineInstance.toggleFullScreen();
 					alternateInput = true;
 					fullScreenKeyPressed = true;
 				}
@@ -102,7 +101,7 @@ namespace Firecracker_Engine {
 
 			if(alternateInput) { return; }
 
-			if(m_activeScreen == ScreenType.Game) { m_game.handleInput(gameTime); }
+			if(m_activeScreen == ScreenType.Game) { Firecracker.engineInstance.handleInput(gameTime); }
 
 			if(m_activeScreen != ScreenType.Console) {
 				Firecracker.menu.handleInput(gameTime);
@@ -115,17 +114,18 @@ namespace Firecracker_Engine {
 		public void update(GameTime gameTime) {
 			if(Firecracker.menu.active) { Firecracker.menu.update(gameTime); }
 			if(Firecracker.console.active) { Firecracker.console.update(gameTime); }
+			if(!Firecracker.menu.active && !Firecracker.console.active) {
+				Firecracker.engineInstance.updateGame(gameTime);
+			}
 
-            if (m_activeScreen == ScreenType.Game)
-            {
-                //mouse showing code is temporary.. should just draw a sprite in UIScreenManager.Draw or Screen.Draw
-                GlobalFirecrackerRef.Instance.IsMouseVisible = true;
-                UIScreenManager.Instance.Update((float)gameTime.ElapsedGameTime.TotalSeconds);
-            }
-            else
-            {
-                GlobalFirecrackerRef.Instance.IsMouseVisible = false;
-            }
+			else if(m_activeScreen == ScreenType.Game) {
+				//mouse showing code is temporary.. should just draw a sprite in UIScreenManager.Draw or Screen.Draw
+				Firecracker.engineInstance.IsMouseVisible = true;
+				UIScreenManager.Instance.Update((float) gameTime.ElapsedGameTime.TotalSeconds);
+			}
+			else {
+				Firecracker.engineInstance.IsMouseVisible = false;
+			}
 		}
 
 		// draw the active screen
@@ -136,14 +136,6 @@ namespace Firecracker_Engine {
 
 			if(Firecracker.menu.active) { Firecracker.menu.draw(spriteBatch); }
 			if(Firecracker.console.active) { Firecracker.console.draw(spriteBatch); }
-
-            if (m_activeScreen == ScreenType.Game)
-            {
-                if (UIScreenManager.Instance.currentScreen != null)
-                {
-                    UIScreenManager.Instance.Draw(GlobalFirecrackerRef.Instance.GraphicsDevice, spriteBatch);
-                }
-            }
 
 			if(Firecracker.menu.active || Firecracker.console.active) {
 				spriteBatch.End();

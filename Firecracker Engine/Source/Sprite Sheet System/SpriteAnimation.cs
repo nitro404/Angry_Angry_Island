@@ -116,6 +116,11 @@ namespace Firecracker_Engine {
 				}
 			}
 		}
+		
+		// restart the animation
+		public void reset() {
+			m_sequence = 0;
+		}
 
 		// draw the currently active animation frame sprite
 		public void draw(SpriteBatch spriteBatch, Vector2 scale, float rotation, Vector2 position, SpriteEffects effect) {
@@ -128,11 +133,6 @@ namespace Firecracker_Engine {
 		public bool finished() {
 			return m_type == SpriteAnimationType.Single && m_sequence >= m_end;
 		}
-
-        public void reset()
-        {
-
-        }
 
 	}
 

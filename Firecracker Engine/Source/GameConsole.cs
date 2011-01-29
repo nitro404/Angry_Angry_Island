@@ -23,6 +23,7 @@ namespace Firecracker_Engine {
 		private bool m_endKeyPressed = false;
 		private bool m_escKeyPressed = false;
 		private bool m_pasteKeyPressed = false;
+		private bool m_copyKeyPressed = false;
 
 		// input and history variables
 		private string m_input;
@@ -243,6 +244,20 @@ namespace Firecracker_Engine {
 
 			// prevent v from being registered
 			if(m_pasteKeyPressed) {
+				return;
+			}
+
+			// if ctrl + c is pressed, copy the text to the clipboard
+			if((keyboard.IsKeyDown(Keys.LeftControl) || keyboard.IsKeyDown(Keys.RightControl)) && keyboard.IsKeyDown(Keys.C)) {
+				if(!m_copyKeyPressed) {
+					// copy the text to the clipboard
+					ClipboardManager.setClipboardText(m_input);
+					m_copyKeyPressed = true;
+				}
+			} else { m_copyKeyPressed = false; }
+
+			// prevent c from being registered
+			if (m_copyKeyPressed) {
 				return;
 			}
 

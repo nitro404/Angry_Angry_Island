@@ -9,11 +9,11 @@ namespace Firecracker_Engine {
 	public class Variable {
 
 		public const int NO_CATEGORY = -1;
-		private const char SEPARATOR_CHAR = '=';
+		private const char SEPARATOR_CHAR = ':';
 
 		private int m_category = NO_CATEGORY; // refers to the index in the list of string categories in its parent variable system
-		private string m_id = null;
-		private string m_value = null;
+		private string m_id = "";
+		private string m_value = "";
 
 		// default constructor
 		public Variable() : this("", "", NO_CATEGORY) { }
@@ -24,8 +24,8 @@ namespace Firecracker_Engine {
 		// create a variable with a specific category
 		public Variable(string id, string value, int category) {
 			m_category = (category < -1) ? NO_CATEGORY : category;
-			m_id = (id == null) ? "" : id;
-			m_value = (value == null) ? "" : value;
+			this.id = id;
+			this.value = value;
 		}
 
 		public int category {
@@ -35,12 +35,12 @@ namespace Firecracker_Engine {
 
 		public string id {
 			get { return m_id; }
-			set { m_id = (value == null) ? "" : value; }
+			set { m_id = (value == null) ? "" : value.Trim(); }
 		}
 
 		public string value {
 			get { return m_value; }
-			set { m_value = (value == null) ? "" : value; }
+			set { m_value = (value == null) ? "" : value.Trim(); }
 		}
 
 		public void removeCategory() {

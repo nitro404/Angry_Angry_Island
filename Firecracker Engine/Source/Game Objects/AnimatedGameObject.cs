@@ -27,15 +27,14 @@ namespace Firecracker_Engine {
 			return true;
 		}
 
-        public override void Tick(GameTime gameTime)
-        {
-            base.Tick(gameTime);
-            m_animations[m_currentAnimation].update(gameTime);
+		public override void update(GameTime gameTime) {
+			base.update(gameTime);
+			m_animations[m_currentAnimation].update(gameTime);
 		}
 
-		public override void Render(SpriteBatch spriteBatch) {
+		public override void draw(SpriteBatch spriteBatch) {
 			if (m_currentAnimation < 0) {
-				base.Render(spriteBatch);
+				base.draw(spriteBatch);
 			}
 			else {
 				m_animations[m_currentAnimation].draw(spriteBatch, m_scale, m_rotation, m_position, SpriteEffects.None);

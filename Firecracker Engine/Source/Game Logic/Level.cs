@@ -4,22 +4,19 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Firecracker_Engine {
 
 	public enum LevelType { Cartesian, Isometric }
 
-	public class Level : CBaseObject {
-
-#pragma warning disable 108
-        public const string ClassName = "Level";
-#pragma warning restore 108
+	public class Level {
 
 		private LevelType m_type;
 		private int m_gridSize;
 		private Point m_dimensions;
-		//private Graph m_collisionData;
-        List<int[]> m_lCollisionData;
+		private List<GameObject> m_objects;
+		private Graph m_collisionData;
 
 		public static float LEVEL_VERSION = 2.0f;
 		public static LevelType DEFAULT_LEVEL_TYPE = LevelType.Cartesian;
@@ -35,8 +32,8 @@ namespace Firecracker_Engine {
 			m_dimensions = dimensions;
 			if(dimensions.X < 0) { dimensions.X = 0; }
 			if(dimensions.Y < 0) { dimensions.Y = 0; }
-			//m_collisionData = new Graph();
-            m_lCollisionData = new List<int[]>();
+			m_objects = new List<GameObject>();
+			m_collisionData = new Graph();
 		}
 
 		public LevelType type {
@@ -54,18 +51,55 @@ namespace Firecracker_Engine {
 			set { if(value.X >= 0 && value.Y >= 0) { m_dimensions = value; } }
 		}
 
-		/*public Graph collisionData {
+		public Graph collisionData {
 			get { return m_collisionData; }
 			set { if(value != null) { m_collisionData = value; } }
-		}*/
+		}
+
+		public int numberOfObjects() {
+			return m_objects.Count();
+		}
+
+		public bool addObject(GameObject o) {
+			if(o == null || containsObject(o)) { return false; }
+			m_objects.Add(o);
+			return true;
+		}
+
+		public GameObject objectAt(int index) {
+			if(index < 0 || index >= m_objects.Count()) { return null; }
+			return m_objects[index];
+		}
+
+		public bool containsObject(GameObject o) {
+			if(o == null) { return false; }
+
+			for(int i=0;i<m_objects.Count();i++) {
+				if(m_objects[i].Equals(o)) {
+					return true;
+				}
+			}
+			return false;
+		}
+
+		public int indexOfObject(GameObject o) {
+			if(o == null) { return -1; }
+
+			for(int i=0;i<m_objects.Count();i++) {
+				if(m_objects[i].Equals(o)) {
+					return i;
+				}
+			}
+			return -1;
+		}
 
 		public Vector2 getScreenPosition(Vector2 gamePosition) {
 			return getScreenPosition(gamePosition, m_type, m_gridSize);
 		}
 
-		//public Vector2 getScreenPosition(Vertex gamePosition) {
-		//	return getScreenPosition(gamePosition.toVector(), m_type, m_gridSize);
-		//}
+		public Vector2 getScreenPosition(Vertex gamePosition) {
+			return getScreenPosition(gamePosition.toVector(), m_type, m_gridSize);
+		}
 
 		public static Vector2 getScreenPosition(Vector2 gamePosition, LevelType type, int gridSize) {
 			if (type == LevelType.Cartesian) {
@@ -91,9 +125,9 @@ namespace Firecracker_Engine {
 			return getGamePosition(screenPosition, m_type, gridSize);
 		}
 
-		//public Vector2 getGamePosition(Vertex screenPosition) {
-		//	return getGamePosition(screenPosition.toVector(), m_type, gridSize);
-		//}
+		public Vector2 getGamePosition(Vertex screenPosition) {
+			return getGamePosition(screenPosition.toVector(), m_type, gridSize);
+		}
 
 		public static Vector2 getGamePosition(Vector2 screenPosition, LevelType type, int gridSize) {
 			if (type == LevelType.Cartesian) {
@@ -115,33 +149,6 @@ namespace Firecracker_Engine {
 			return Vector2.Zero;
 		}
 
-        public override void LoadPropertiesList(ObjectDefinition objDef)
-        {
-            base.LoadPropertiesList(objDef);
-
-            // Load all the info here
-            if (objDef.ClassProperties.ContainsKey("Collision_Edges"))
-            {
-                m_lCollisionData = Helpers.ParseIntX4Array(objDef.ClassProperties["Collision_Edges"]);
-            }
-            if (objDef.ClassProperties.ContainsKey("Grid_Size"))
-            {
-                m_gridSize = int.Parse(objDef.ClassProperties["Grid_Size"]);
-            }
-            if (objDef.ClassProperties.ContainsKey("Dimensions"))
-            {
-                dimensions = Helpers.ParsePoint(objDef.ClassProperties["Dimensions"]);
-            }
-            if (objDef.ClassProperties.ContainsKey("Tiles"))
-            {
-                
-            }
-            if (objDef.ClassProperties.ContainsKey("GridLayout"))
-            {
-                m_type = (LevelType)Helpers.StringToEnum<LevelType>(objDef.ClassProperties["GridLayout"]);
-            }
-        }
-
 		public static Level readFrom(String fileName) {
 			if(fileName == null || fileName.Length == 0) { return null; }
 
@@ -150,6 +157,7 @@ namespace Firecracker_Engine {
 			int gridSize = DEFAULT_GRID_SIZE;
 			Point dimensions = Point.Zero;
 			int numberOfCollisionEdges = 0;
+			int numberOfObjects = 0;
 
 			StreamReader input = null;
 			try {
@@ -169,7 +177,7 @@ namespace Firecracker_Engine {
 				// read and verify level type
 				String[] versionHeader = data.Split(':');
 				if(versionHeader.Length != 2) { return null; }
-
+				
 				String typeString = versionHeader[0] = versionHeader[0].Trim();
 				if(typeString.Equals(CARTESIAN_TYPE, StringComparison.OrdinalIgnoreCase)) {
 					type = LevelType.Cartesian;
@@ -180,7 +188,7 @@ namespace Firecracker_Engine {
 				else {
 					return null;
 				}
-
+				
 				// read and verify level version
 				String versionString = versionHeader[1].Trim();
 				String[] versionData = versionString.Split(' ');
@@ -195,7 +203,7 @@ namespace Firecracker_Engine {
 
 				break;
 			}
-
+			
 			// read grid size
 			while((data = input.ReadLine()) != null) {
 				data = data.Trim();
@@ -252,13 +260,79 @@ namespace Firecracker_Engine {
 
 			level = new Level(type, gridSize, dimensions);
 
-			//level.collisionData = Graph.parseFrom(input, numberOfCollisionEdges);
+			level.collisionData = Graph.parseFrom(input, numberOfCollisionEdges);
 
-			// TODO: Read objects
+			// read objects header and number of objects
+			while((data = input.ReadLine()) != null) {
+				String objectsHeader = data.Trim();
+				if(objectsHeader.Length == 0) { continue; }
+
+				// separate header data
+				String[] headerData = objectsHeader.Split(':');
+				if(headerData.Length != 2) {
+					return null;
+				}
+
+				// verify the objects header
+				if(!headerData[0].Trim().Equals("Objects", StringComparison.OrdinalIgnoreCase)) { return null; }
+
+				// parse the number of objects
+				try {
+					numberOfObjects = Int32.Parse(headerData[1].Trim());
+				}
+				catch(Exception) { return null; }
+
+				break;
+			}
+
+			// load the objects
+			int currentObject = 0;
+			while(currentObject < numberOfObjects) {
+				data = input.ReadLine();
+				String objectHeader = data.Trim();
+				if(objectHeader.Length == 0) { continue; }
+
+				// parse object type
+				String objectType;
+				if(objectHeader[objectHeader.Length - 1] == ':') {
+					objectType = objectHeader.Substring(0, objectHeader.Length - 1);
+				}
+				else { return null; }
+
+				// parse the object based on its type
+				GameObject newObject = null;
+				if(objectType.Equals("Static Object", StringComparison.OrdinalIgnoreCase)) {
+					newObject = StaticObject.parseFrom(input, Firecracker.spriteSheets);
+				}
+				else if(objectType.Equals("Game Tile", StringComparison.OrdinalIgnoreCase)) {
+					newObject = GameTile.parseFrom(input, Firecracker.spriteSheets);
+				}
+
+				// verify that the object was successfully parsed
+				if(newObject != null) {
+					currentObject++;
+					level.addObject(newObject);
+				}
+				else {
+					return null;
+				}
+			}
 
 			input.Close();
 
 			return level;
+		}
+
+		public void update(GameTime gameTime) {
+			for(int i=0;i<m_objects.Count();i++) {
+				m_objects[i].update(gameTime);
+			}
+		}
+
+		public void draw(SpriteBatch spriteBatch) {
+			for(int i=0;i<m_objects.Count();i++) {
+				m_objects[i].draw(spriteBatch);
+			}
 		}
 
 	}

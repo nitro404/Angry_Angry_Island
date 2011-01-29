@@ -9,15 +9,7 @@ namespace Firecracker_Engine {
 
 	public class CommandInterpreter {
 
-		// local variables
-		private Firecracker m_game;
-
 		public CommandInterpreter() { }
-
-		// initialize the command interpreter
-		public void initialize(Firecracker game) {
-			m_game = game;
-		}
 
 		// execute a command
 		public void execute(string command) {
@@ -27,15 +19,18 @@ namespace Firecracker_Engine {
 			if(cmd.Length == 0) { return; }
 
 			// parse the command and execute the corresponding function
-			if(matchCommand(cmd, "quit") || matchCommand(cmd, "exit")) { m_game.Exit(); } // close the game
+			if(matchCommand(cmd, "quit") || matchCommand(cmd, "exit")) { Firecracker.engineInstance.Exit(); } // close the game
 			else if(matchCommand(cmd, "clear") || matchCommand(cmd, "cls")) { Firecracker.console.clear(); } // clear the console
 			else if(matchCommand(cmd, "echo")) { Firecracker.console.writeLine(getStringValue(cmd)); } // write text to the console
 			else if(matchCommand(cmd, "menu")) { Firecracker.screenManager.set(ScreenType.Menu, getScreenVisibilityChange(cmd)); } // change the menu's visibility
 			else if(matchCommand(cmd, "console")) { Firecracker.screenManager.set(ScreenType.Console, getScreenVisibilityChange(cmd)); } // change the console's visibility
 			else if(matchCommand(cmd, "map") || matchCommand(cmd, "level")) { // load a specified level
 				string levelName = getStringValue(cmd);
-				bool levelLoaded = m_game.loadLevel(levelName);
-				if(!levelLoaded) {
+				bool levelLoaded = Firecracker.engineInstance.loadLevel(levelName);
+				if(levelLoaded) {
+					Firecracker.console.writeLine("Loaded map: " + levelName);
+				}
+				else {
 					Firecracker.console.writeLine("Unable to load map: " + levelName);
 				}
 			}

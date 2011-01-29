@@ -14,12 +14,11 @@ using Microsoft.Xna.Framework.Storage;
 
 namespace Firecracker_Engine {
 
-    public struct GlobalFirecrackerRef { public static Firecracker Instance = null; }
     public delegate CBaseObject CreateObjectDelegate(ObjectDefinition objDef, ObjectDefinition objOverwriteDefinition);
-
 
 	public class Firecracker : Microsoft.Xna.Framework.Game {
 
+		public static Firecracker engineInstance;
 		public static GameSettings settings;
 		public static ScreenManager screenManager;
 		public static CommandInterpreter interpreter;
@@ -29,21 +28,19 @@ namespace Firecracker_Engine {
 		public GraphicsDeviceManager graphics;
 		public SpriteBatch spriteBatch;
 		public static SpriteSheetCollection spriteSheets;
-		protected RenderTarget2D buffer;
-		protected Effect blur;
-        static public Random theRandom = new Random();
+		public static Level level;
 
         public static CreateObjectDelegate CreateObjectDelegate = null;
         private static CreateObjectDelegate EngineCreateObjectDelegate = new CreateObjectDelegate(CreateObject);
 
-        List<CBaseObject> m_lObjectList;
+        public List<CBaseObject> m_lObjectList;
         // Add any lists here that hold references to this one.
         // Examples of engine level object lists would be
         // List<CObjectProxy> m_lMoveableList; // The list of all objects with the moveable type.
         // List<CObjectProxy> m_lPlayerList; // The list of all objects with the Player type
 
 		public Firecracker() {
-            GlobalFirecrackerRef.Instance = this;
+			engineInstance = this;
 
 			settings = new GameSettings();
 			screenManager = new ScreenManager();
@@ -73,11 +70,6 @@ namespace Firecracker_Engine {
 				graphics.ToggleFullScreen();
 			}
 
-			// initialize the draw buffer
-			buffer = new RenderTarget2D(graphics.GraphicsDevice, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height, 1, GraphicsDevice.DisplayMode.Format);
-
-			screenManager.initialize(this);
-			interpreter.initialize(this);
 			controlSystem.initialize();
 			menu.initialize();
 			console.initialize();
@@ -117,7 +109,7 @@ namespace Firecracker_Engine {
 
             if (newObject != null)
             {
-                GlobalFirecrackerRef.Instance.AddObjectToList(newObject);
+                Firecracker.engineInstance.AddObjectToList(newObject);
             }
             else
             {
@@ -144,9 +136,6 @@ namespace Firecracker_Engine {
         }
 
 		protected override void LoadContent() {
-			// load shaders
-			blur = Content.Load<Effect>("Shaders\\Blur");
-
 			spriteBatch = new SpriteBatch(GraphicsDevice);
 
 			// parse and load all sprite sheets
@@ -163,11 +152,9 @@ namespace Firecracker_Engine {
 			settings.fullScreen = graphics.IsFullScreen;
 		}
 
-		public bool loadLevel(string levelName) {
+		/*public bool loadLevel(string levelName) {
 			if(levelName == null) { return false; }
 
-			// TODO: Implement this with threading
-            //Filesystem.OpenFile(levelName, Filesystem.AccessType.AccessType_ReadOnly);
             LevelLoader.LoadLevel(levelName);
 
             foreach (CBaseObject obj in m_lObjectList)
@@ -184,70 +171,46 @@ namespace Firecracker_Engine {
 		}
 
 		public bool levelLoaded() {
-			//return level != null;
+			return false;
+		}
+		*/
 
-			// TODO: Implement this!
+		public bool loadLevel(string levelName) {
+			if(levelName == null) { return false; }
 
+			Level newLevel = Level.readFrom(Content.RootDirectory + "\\Levels\\" + levelName + ".2d");
+
+			if(newLevel != null) {
+				level = newLevel;
+				return true;
+			}
 			return false;
 		}
 
-		public void handleInput(GameTime gameTime) {
+		public bool levelLoaded() {
+			return level != null;
+		}
+
+		public virtual void handleInput(GameTime gameTime) {
 			// handle game-related input, and update the game
 			controlSystem.handleInput(gameTime);
 		}
 
-		protected override void Update(GameTime gameTime) {
-			if(IsActive) {
-				screenManager.handleInput(gameTime);
+		public virtual void updateGame(GameTime gameTime) {
+			if(levelLoaded()) {
+				level.update(gameTime);
 			}
 
-			screenManager.update(gameTime);
+			foreach(CBaseObject objRef in m_lObjectList) {
+				objRef.Tick(gameTime);
+			}
+		}
 
-            foreach (CBaseObject objRef in m_lObjectList)
-            {
-                objRef.Tick(gameTime);
-            }
-
+		protected override void Update(GameTime gameTime) {
 			base.Update(gameTime);
 		}
 
 		protected override void Draw(GameTime gameTime) {
-			graphics.GraphicsDevice.SetRenderTarget(0, buffer);
-			GraphicsDevice.Clear(Color.Black);
-
-			// disable the render target for post processing
-			graphics.GraphicsDevice.SetRenderTarget(0, null);
-			
-			// blur game screen if menu is open
-			if(menu.active) {
-				blur.Begin();
-				spriteBatch.Begin(SpriteBlendMode.None, SpriteSortMode.Immediate, SaveStateMode.SaveState);
-				foreach(EffectTechnique t in blur.Techniques) {
-					foreach(EffectPass p in t.Passes) {
-						p.Begin();
-						spriteBatch.Draw(buffer.GetTexture(), Vector2.Zero, Color.White);
-						p.End();
-					}
-				}
-				spriteBatch.End();
-				blur.End();
-			}
-			else {
-				/*
-                
-				spriteBatch.Draw(buffer.GetTexture(), Vector2.Zero, Color.White);
-				
-                */
-                //spriteBatch.Begin(SpriteBlendMode.None, SpriteSortMode.Immediate, SaveStateMode.SaveState);
-                foreach (CBaseObject objRef in m_lObjectList)
-                {
-                    objRef.Render();
-                }
-                //spriteBatch.End();
-			}
-			
-			screenManager.draw(spriteBatch, graphics.GraphicsDevice);
-
 			base.Draw(gameTime);
 		}
 
@@ -294,6 +257,7 @@ namespace Firecracker_Engine {
                         returnObject = newObject;
                     }
                     break;
+					/*
                 case Level.ClassName:
                     {
                         Level newObject = new Level();
@@ -302,6 +266,7 @@ namespace Firecracker_Engine {
                         returnObject = newObject;
                     }
                     break;
+					 * */
                 default:
                     return null;
             }
