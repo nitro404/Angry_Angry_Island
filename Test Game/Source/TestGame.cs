@@ -76,8 +76,12 @@ namespace Test_Game {
 			base.Update(gameTime);
 
 			if(IsActive) {
-                HandleScrolling();
 				screenManager.handleInput(gameTime);
+
+                if (screenManager.activeScreen == ScreenType.Game)
+                {
+                    HandleInput((float)gameTime.ElapsedGameTime.TotalSeconds);
+                }
 			}
 
 			screenManager.update(gameTime);
@@ -136,20 +140,40 @@ namespace Test_Game {
 			screenManager.draw(spriteBatch, graphics.GraphicsDevice);
 		}
 
-        public void HandleScrolling()
+        public void HandleInput(float fTime)
         {
+            //mouse scrolling
             const int SCROLL_BOUNDARY = 20;
-            const float SCROLL_SPEED = 100; //in pixels
-            Vector2 mousePos = mouseManager.GetMousePos();
+            const float SCROLL_SPEED = 200; //in pixels
+            Vector2 mousePos = m_MouseManager.GetMousePos();
             Vector2 screenSize = new Vector2(settings.screenWidth, settings.screenHeight);
             if (mousePos.X < SCROLL_BOUNDARY ||
                 mousePos.X >= screenSize.X - SCROLL_BOUNDARY ||
                 mousePos.Y < SCROLL_BOUNDARY ||
                 mousePos.Y >= screenSize.Y - SCROLL_BOUNDARY)
             {
-                Vector2 scrollDir = mousePos - screenSize / 2.0f;
-                scrollDir.Normalize();
-                //theCamera.SetCameraPos(theCamera.GetCameraPos() + scrollDir * SCROLL_SPEED);
+                Vector2 scrollAmount = mousePos - screenSize / 2.0f;
+                scrollAmount.Normalize();
+                scrollAmount *= SCROLL_SPEED * fTime;
+                theCamera.SetCameraPos(theCamera.GetCameraPos().X + scrollAmount.X, theCamera.GetCameraPos().Y + scrollAmount.Y);
+            }
+
+            //keyboard scrolling
+            if (Keyboard.GetState().IsKeyDown(Keys.Left)) //thekeyboard.IsKeyDown(Keys.Left))
+            {
+                theCamera.MoveCameraLeft();
+            }
+            else if (Keyboard.GetState().IsKeyDown(Keys.Right)) //(thekeyboard.IsKeyDown(Keys.Right))
+            {
+                theCamera.MoveCameraRight();
+            }
+            else if (Keyboard.GetState().IsKeyDown(Keys.Up)) //(thekeyboard.IsKeyDown(Keys.Up))
+            {
+                theCamera.MoveCameraUp();
+            }
+            else if (Keyboard.GetState().IsKeyDown(Keys.Down)) //(thekeyboard.IsKeyDown(Keys.Down))
+            {
+                theCamera.MoveCameraDown();
             }
         }
 	}

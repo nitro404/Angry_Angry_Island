@@ -21,7 +21,6 @@ namespace Firecracker_Engine {
 		public static Firecracker engineInstance;
 		public static GameSettings settings;
 		public static ScreenManager screenManager;
-        public static MouseManager mouseManager;
 		public static CommandInterpreter interpreter;
 		public static ControlSystem controlSystem;
 		public static Menu menu;
@@ -56,7 +55,6 @@ namespace Firecracker_Engine {
 
 			settings = new GameSettings();
 			screenManager = new ScreenManager();
-            mouseManager = new MouseManager();
 			graphics = new GraphicsDeviceManager(this);
 			interpreter = new CommandInterpreter();
 			controlSystem = new ControlSystem();
@@ -91,10 +89,8 @@ namespace Firecracker_Engine {
 			controlSystem.initialize();
 			menu.initialize();
 			console.initialize();
-            mouseManager.Initialize();
-            UIScreenManager.CreateInstance();
-
             m_MouseManager.Initialize();
+            UIScreenManager.CreateInstance();
 
             DefinitionManager.LoadDefinitions("Content\\Objects");
 
@@ -227,25 +223,7 @@ namespace Firecracker_Engine {
 
 		public virtual void handleInput(GameTime gameTime) {
 
-            // handle game-related input, and update the 
-            if (Keyboard.GetState().IsKeyDown(Keys.Left)) //thekeyboard.IsKeyDown(Keys.Left))
-            {
-                theCamera.MoveCameraLeft();
-            }
-            else if (Keyboard.GetState().IsKeyDown(Keys.Right)) //(thekeyboard.IsKeyDown(Keys.Right))
-            {
-                theCamera.MoveCameraRight();
-            }
-            else if (Keyboard.GetState().IsKeyDown(Keys.Up)) //(thekeyboard.IsKeyDown(Keys.Up))
-            {
-                theCamera.MoveCameraUp();
-            }
-            else if (Keyboard.GetState().IsKeyDown(Keys.Down)) //(thekeyboard.IsKeyDown(Keys.Down))
-            {
-                theCamera.MoveCameraDown();
-            }
-			else
-                controlSystem.handleInput(gameTime);
+            controlSystem.handleInput(gameTime);
             m_MouseManager.UpdateMouse();
 		}
 

@@ -122,10 +122,10 @@ namespace Firecracker_Engine
         /// <param name="yPos">Sets the y position of the camera</param>
         public void SetCameraPos(float xPos, float yPos)
         {
-            if(xPos < m_cameraLimitLeft && xPos > m_cameraLimitRight)
+            if(xPos > m_cameraLimitLeft && xPos < m_cameraLimitRight)
                 m_cameraPos.X = xPos;
 
-            if (yPos < m_cameraLimitUp && yPos > m_cameraLimitDown)
+            if (yPos > m_cameraLimitUp && yPos < m_cameraLimitDown)
                 m_cameraPos.Y = yPos;
         }
 

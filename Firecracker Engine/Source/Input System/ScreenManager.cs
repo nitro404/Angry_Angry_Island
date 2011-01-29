@@ -115,7 +115,6 @@ namespace Firecracker_Engine {
 			if(Firecracker.menu.active) { Firecracker.menu.update(gameTime); }
 			if(Firecracker.console.active) { Firecracker.console.update(gameTime); }
 			if(!Firecracker.menu.active && !Firecracker.console.active) {
-                Firecracker.engineInstance.m_MouseManager.UpdateMouse();
 				Firecracker.engineInstance.updateGame(gameTime);
 
 				//mouse showing code is temporary.. should just draw a sprite in UIScreenManager.Draw or Screen.Draw
