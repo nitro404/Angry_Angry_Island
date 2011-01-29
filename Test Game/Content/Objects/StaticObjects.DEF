@@ -9,32 +9,6 @@ Elasticity {1.0}
 EndObjectDef
 
 BeginObjectDef
-ObjectName		"Tree"
-ObjectClass		"Environment"
-Heartbeat		0
-Enabled			1
-Visible			1
-MaxAge          100.0
-Sold            1
-Danger          0
-Height {10.0f}
-Elasticity {1.0f}
-EndObjectDef
-
-BeginObjectDef
-ObjectName		"Rock"
-ObjectClass		"Environment"
-Heartbeat		0
-Enabled			1
-Visible			1
-MaxAge          100.0
-Sold            1
-Danger          0
-Height {10.0f}
-Elasticity {1.0f}
-EndObjectDef
-
-BeginObjectDef
 ObjectName		"BasicAI"
 ObjectClass		"AIObject"
 Heartbeat		0
@@ -50,4 +24,13 @@ ObjectClass		"Player"
 Heartbeat		1
 Enabled			1
 Visible			0
+EndObjectDef
+
+BeginObjectDef
+ObjectName		"Camera"
+ObjectClass		"CameraBase"
+LeftLimit        -100.0
+RightLimit       100.0
+UpLimit          -100.0
+DownLimit        100.0
 EndObjectDef

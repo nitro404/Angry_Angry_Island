@@ -8,6 +8,11 @@ namespace Firecracker_Engine
 {
     public static class Helpers
     {
+        public static float ParseFloat(string inString)
+        {
+            return float.Parse(inString);
+        }
+
         public static Vector2 ParseVector2(string inString)
         {
             Vector2 returnVec = new Vector2();

@@ -12,11 +12,6 @@ ObjectDef		"SmallRock"
 EndObjectDef
 
 BeginObjectDef
-ObjectName		"Tree"
-ObjectDef		"SmallRock"
-EndObjectDef
-
-BeginObjectDef
 ObjectName		"BasicAI_1"
 ObjectDef		"BasicAI"
 EndObjectDef
@@ -24,4 +19,9 @@ EndObjectDef
 BeginObjectDef
 ObjectName		"Player_1"
 ObjectDef		"Player"
+EndObjectDef
+
+BeginObjectDef
+ObjectName		"The Camera"
+ObjectDef		"Camera"
 EndObjectDef

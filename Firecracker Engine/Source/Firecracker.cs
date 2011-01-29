@@ -271,6 +271,14 @@ namespace Firecracker_Engine {
                         returnObject = newObject;
                     }
                     break;
+                case CameraBase.ClassName:
+                    {
+                        CameraBase newObject = new CameraBase();
+                        newObject.LoadPropertiesList(objDef);
+                        newObject.LoadPropertiesList(objOverwriteDefinition);
+                        returnObject = newObject;
+                    }
+                    break;
                 default:
                     return null;
             }
