@@ -42,6 +42,14 @@ namespace Test_Game
                         returnObject = newObject;
                     }
                     break;
+                case Player.ClassName:
+                    {
+                        Player newObject = new Player();
+                        newObject.LoadPropertiesList(objDef);
+                        newObject.LoadPropertiesList(objOverwriteDefinition);
+                        returnObject = newObject;
+                    }
+                    break;
             }
             return returnObject;
         }
