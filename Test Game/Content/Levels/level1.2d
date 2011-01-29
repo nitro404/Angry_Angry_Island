@@ -13,30 +13,37 @@ Collision Edges: 11
 	295, 192; 376, 130
 	376, 130; 421, 226
 	421, 226; 295, 192
-Objects: 5
+Objects: 6
 	NPCObject:
 		Position: 100, 100
-		Sprite Name: Sheep_1
+		LayerDepth: 0.5
+		Sprite Name: Sheep 1
 		SpriteSheet Name: NPCObject
 		IsKillable: false
 	NPCObject:
 		Position: 200, 200
-		Sprite Name: Sheep_1
+		LayerDepth: 0.5
+		Sprite Name: Sheep 1
 		SpriteSheet Name: NPCObject
 		IsKillable: false
 	NPCObject:
 		Position: 300, 300
-		Sprite Name: Sheep_1
+		LayerDepth: 0.5
+		Sprite Name: Sheep 1
 		SpriteSheet Name: NPCObject
 		IsKillable: false
 	NPCObject:
 		Position: 400, 400
-		Sprite Name: Sheep_1
+		LayerDepth: 0.5
+		Sprite Name: Sheep 1
 		SpriteSheet Name: NPCObject
 		IsKillable: false
 	NPCObject:
 		Position: 450, 450
+		LayerDepth: 0.5
 		Sprite Name: Person_1
 		SpriteSheet Name: NPCPeasentObject
 		IsKillable: true
+	Player:
+		
 		

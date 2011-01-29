@@ -7,21 +7,21 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Firecracker_Engine
 {
-    public class Explosion : GameObject
+    public class HumanZap : GameObject
     {
         SpriteAnimation m_Anim;
 
-        public Explosion()
+        public HumanZap()
             : base()
         {
-            m_Anim = new SpriteAnimation("Explosion", 0.128f, SpriteAnimationType.Single);
+            m_Anim = new SpriteAnimation("HumanZap", 0.128f, SpriteAnimationType.Single);
             position = new Vector2();
         }
 
-        public Explosion(Vector2 vPosition)
+        public HumanZap(Vector2 vPosition)
             : base()
         {
-            m_Anim = new SpriteAnimation("Explosion", 0.128f, SpriteAnimationType.Single);
+            m_Anim = new SpriteAnimation("HumanZap", 0.128f, SpriteAnimationType.Single);
             position = vPosition;
         }
 

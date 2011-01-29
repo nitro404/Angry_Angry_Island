@@ -16,6 +16,7 @@ namespace Firecracker_Engine {
 		private Rectangle m_source;
 		private Vector2 m_offset;
 		private Rectangle m_destination;
+        public float m_SpriteDepth;
 
 		string m_name = null;
 		private SpriteType m_type;
@@ -36,6 +37,7 @@ namespace Firecracker_Engine {
 				}
 				catch(Exception) { }
 			}
+            m_SpriteDepth = 0.0f;
 		}
 
 		// constructor to create a sprite from a specified region of an already existing sprite
@@ -48,6 +50,7 @@ namespace Firecracker_Engine {
 				m_offset = new Vector2(m_source.Width / 2.0f, m_source.Height / 2.0f);
 				m_destination = new Rectangle(0, 0, m_source.Width + 1, m_source.Height + 1);
 			}
+            m_SpriteDepth = 0.0f;
 		}
 
 		public Texture2D image { get { return m_image; } }
@@ -110,7 +113,7 @@ namespace Firecracker_Engine {
 			m_destination.Height = (m_source.Height + 1) * (int) scale.Y;
 
 			// draw the sprite
-			spriteBatch.Draw(m_image, m_destination, m_source, Color.White, MathHelper.ToRadians(rotationDegrees), Vector2.Zero, effect, 0);
+			spriteBatch.Draw(m_image, m_destination, m_source, Color.White, MathHelper.ToRadians(rotationDegrees), Vector2.Zero, effect, m_SpriteDepth);
 		}
 
 		public void drawCentered(SpriteBatch spriteBatch, Vector2 scale, float rotationDegrees, Vector2 position, SpriteEffects effect) {
@@ -123,7 +126,7 @@ namespace Firecracker_Engine {
 			m_destination.Height = (m_source.Height + 1) * (int) scale.Y;
 
 			// draw the sprite
-			spriteBatch.Draw(m_image, m_destination, m_source, Color.White, MathHelper.ToRadians(rotationDegrees), m_offset, effect, 0);
+			spriteBatch.Draw(m_image, m_destination, m_source, Color.White, MathHelper.ToRadians(rotationDegrees), m_offset, effect, m_SpriteDepth);
 		}
 
 	}

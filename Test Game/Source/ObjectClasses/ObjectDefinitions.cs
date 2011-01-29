@@ -42,22 +42,6 @@ namespace Test_Game
                         returnObject = newObject;
                     }
                     break;
-                case Player.ClassName:
-                    {
-                        Player newObject = new Player();
-                        newObject.LoadPropertiesList(objDef);
-                        newObject.LoadPropertiesList(objOverwriteDefinition);
-                        returnObject = newObject;
-                    }
-                    break;
-                /*case AIObject.ClassName:
-                    {
-                        AIObject newObject = new AIObject();
-                        newObject.LoadPropertiesList(objDef);
-                        newObject.LoadPropertiesList(objOverwriteDefinition);
-                        returnObject = newObject;
-                    }
-                    break;*/
                 case CEnvironmentObj.ClassName:
                     {
                         CEnvironmentObj newObject = new CEnvironmentObj();

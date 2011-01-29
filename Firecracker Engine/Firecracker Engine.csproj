@@ -98,6 +98,8 @@
     <Compile Include="Source\ObjectClasses\DefinitionLoader.cs" />
     <Compile Include="Source\ObjectClasses\Explosion.cs" />
     <Compile Include="Source\ObjectClasses\HumanDeath.cs" />
+    <Compile Include="Source\ObjectClasses\HumanZap.cs" />
+    <Compile Include="Source\ObjectClasses\Lightning.cs" />
     <Compile Include="Source\ObjectClasses\MoveableObject.cs" />
     <Compile Include="Source\Firecracker.cs" />
     <Compile Include="Source\Helpers.cs" />
@@ -121,6 +123,7 @@
     <Compile Include="Source\Game Objects\GameTile.cs" />
     <Compile Include="Source\Game Objects\StaticObject.cs" />
     <Compile Include="Source\ObjectClasses\NPCObject.cs" />
+    <Compile Include="Source\ObjectClasses\Player.cs" />
     <Compile Include="Source\Settings File Manager\GameSettings.cs" />
     <Compile Include="Source\Settings File Manager\Variable.cs" />
     <Compile Include="Source\Settings File Manager\VariableSystem.cs" />

@@ -16,35 +16,42 @@ Collision Edges: 11
 Objects: 7
 	NPCObject:
 		Position: 100, 100
-		Sprite Name: Sheep_1
+		LayerDepth: 0.5
+		Sprite Name: Sheep 1
 		SpriteSheet Name: NPCObject
 		IsKillable: false
 	NPCObject:
 		Position: 200, 200
-		Sprite Name: Sheep_1
+		LayerDepth: 0.5
+		Sprite Name: Sheep 1
 		SpriteSheet Name: NPCObject
 		IsKillable: false
 	NPCObject:
 		Position: 300, 300
-		Sprite Name: Sheep_1
+		LayerDepth: 0.5
+		Sprite Name: Sheep 1
 		SpriteSheet Name: NPCObject
 		IsKillable: false
 	NPCObject:
 		Position: 400, 400
-		Sprite Name: Sheep_1
+		LayerDepth: 0.5
+		Sprite Name: Sheep 1
 		SpriteSheet Name: NPCObject
 		IsKillable: false
 	NPCObject:
 		Position: 450, 450
+		LayerDepth: 0.5
 		Sprite Name: Person_1
 		SpriteSheet Name: NPCPeasentObject
 		IsKillable: true
 	Game Tile:
 		Position: 0, 0
+		LayerDepth: 0.52
 		Sprite Name: Island Rocks
 		SpriteSheet Name: Island Rocks
 	Game Tile:
 		Position: 0, 0
+		LayerDepth: 0.51
 		Sprite Name: Island Trees
 		SpriteSheet Name: Island Trees
 		

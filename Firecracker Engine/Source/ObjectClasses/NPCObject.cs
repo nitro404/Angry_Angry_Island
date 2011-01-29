@@ -62,6 +62,10 @@ namespace Firecracker_Engine
 			Variable position = Variable.parseFrom(input.ReadLine());
 			if(position == null || !position.id.Equals("Position", StringComparison.OrdinalIgnoreCase)) { return null; }
 
+            // Get the layer depth of this sprite
+            Variable layerDepth = Variable.parseFrom(input.ReadLine());
+            if (layerDepth == null || !layerDepth.id.Equals("LayerDepth", StringComparison.OrdinalIgnoreCase)) { return null; }
+
 			// get the sprite's name
 			Variable spriteName = Variable.parseFrom(input.ReadLine());
 			if(spriteName == null || !spriteName.id.Equals("Sprite Name", StringComparison.OrdinalIgnoreCase)) { return null; }
@@ -93,6 +97,7 @@ namespace Firecracker_Engine
 			// create the object
             NPCObject newObject = new NPCObject(newPosition, sprite);
             newObject.m_bKillable = bool.Parse(isKillable.value);
+            newObject.sprite.m_SpriteDepth = float.Parse(layerDepth.value);
 			newObject.updateInitialValues();
 
 			return newObject;

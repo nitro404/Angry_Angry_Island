@@ -24,6 +24,10 @@ namespace Firecracker_Engine {
 			// get the object's position
 			Variable position = Variable.parseFrom(input.ReadLine());
 			if(position == null || !position.id.Equals("Position", StringComparison.OrdinalIgnoreCase)) { return null; }
+            
+            // Get the layer depth of this sprite
+            Variable layerDepth = Variable.parseFrom(input.ReadLine());
+            if (layerDepth == null || !layerDepth.id.Equals("LayerDepth", StringComparison.OrdinalIgnoreCase)) { return null; }
 
 			// get the sprite's name
 			Variable spriteName = Variable.parseFrom(input.ReadLine());
@@ -52,6 +56,7 @@ namespace Firecracker_Engine {
 
 			// create the object
 			GameTile newObject = new GameTile(newPosition, sprite);
+            newObject.sprite.m_SpriteDepth = float.Parse(layerDepth.value);
 			newObject.updateInitialValues();
 
 			return newObject;
@@ -59,7 +64,6 @@ namespace Firecracker_Engine {
 
 		public override void draw(SpriteBatch spriteBatch) {
 			if (m_sprite == null) { return; }
-
 			m_sprite.draw(spriteBatch, m_scale, m_rotation, Firecracker.level.getGamePosition(m_position), SpriteEffects.None);
 		}
 

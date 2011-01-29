@@ -14,22 +14,14 @@ namespace Firecracker_Engine
         public HumanDeath()
             : base()
         {
-            m_Anim = new SpriteAnimation(null, 64, SpriteAnimationType.Single);
+            m_Anim = new SpriteAnimation("HumanDeath", 0.128f, SpriteAnimationType.Single);
+            position = new Vector2();
         }
 
         public HumanDeath(Vector2 vPosition)
             : base()
         {
-            m_Anim = new SpriteAnimation(null, 0.128f, SpriteAnimationType.Single);
-            SpriteSheet spriteSheet = Firecracker.spriteSheets.getSpriteSheet("HumanDeath");
-            if (spriteSheet != null)
-            {
-                for (int i = 1; i < 18; i++)
-                {
-                    Sprite aSprite = spriteSheet.getSprite(string.Concat("HumanDeath_", i.ToString()));
-                    m_Anim.addSprite(aSprite);
-                }
-            }
+            m_Anim = new SpriteAnimation("HumanDeath", 0.128f, SpriteAnimationType.Single);
             position = vPosition;
         }
 

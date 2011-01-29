@@ -38,10 +38,10 @@ namespace Test_Game
 
         public override void Update(float deltaT)
         {
-            if (Player.Instance != null)
+            /*if (Player.Instance != null)
             {
                 creditLabel.SetText("Credits: " + (int)Player.Instance.Credits);
-            }
+            }*/
             base.Update(deltaT);
         }
     }
