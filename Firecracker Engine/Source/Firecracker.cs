@@ -29,6 +29,7 @@ namespace Firecracker_Engine {
 		public SpriteBatch spriteBatch;
 		public static SpriteSheetCollection spriteSheets;
 		public static Level level;
+		public static Random random;
 
         public static CreateObjectDelegate CreateObjectDelegate = null;
         private static CreateObjectDelegate EngineCreateObjectDelegate = new CreateObjectDelegate(CreateObject);
@@ -49,6 +50,7 @@ namespace Firecracker_Engine {
 			controlSystem = new ControlSystem();
 			menu = new Menu();
 			console = new GameConsole();
+			random = new Random();
 			Content.RootDirectory = "Content";
 
             m_lObjectList = new List<CBaseObject>();

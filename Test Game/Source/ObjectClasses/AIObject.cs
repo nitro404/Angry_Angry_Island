@@ -95,8 +95,8 @@ namespace Test_Game
                 {
                     m_fIdleTime = 0.0f;
                     m_bIsMoving = true;
-                    m_vTargetLocation.X = PositionAbsolute.X + Firecracker.theRandom.Next(-30, 30);
-                    m_vTargetLocation.Y = PositionAbsolute.Y + Firecracker.theRandom.Next(-30, 30);
+                    m_vTargetLocation.X = PositionAbsolute.X + Firecracker.random.Next(-30, 30);
+                    m_vTargetLocation.Y = PositionAbsolute.Y + Firecracker.random.Next(-30, 30);
                 }
             }
             else
