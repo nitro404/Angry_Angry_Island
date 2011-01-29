@@ -122,12 +122,15 @@ namespace Firecracker_Engine
 
                 NPCObject newObject = new NPCObject(position + new Vector2(16.0f, 16.0f), sprite);
                 Firecracker.level.addObject(newObject);
+                Firecracker.engineInstance.numPeoples++;
                 newObject = new NPCObject(position - new Vector2(16.0f, 16.0f), sprite);
                 Firecracker.level.addObject(newObject);
+                Firecracker.engineInstance.numPeoples++;
 
                 HumanDeath newDeath = new HumanDeath(position);
                 Firecracker.level.addObject(newDeath);
 
+                Firecracker.engineInstance.numPeoples--;
 
                 toBeDeleted = true;
             }

@@ -37,6 +37,9 @@ namespace Firecracker_Engine {
         public int baseticks = 0;
         public int maxticks = 100;
 
+        public int numPeoples = 1;
+        public int ageEvolve = 0;
+
         public static Random theRandom = new Random();
 
         public MouseManager m_MouseManager;
@@ -239,7 +242,7 @@ namespace Firecracker_Engine {
 
 		protected override void Update(GameTime gameTime) {
 
-            //panchange
+            
             
 
             if (baseticks < maxticks)

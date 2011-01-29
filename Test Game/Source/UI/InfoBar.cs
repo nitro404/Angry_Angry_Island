@@ -22,12 +22,14 @@ namespace Test_Game
             : base(Vector2.Zero, new Vector2(BAR_WIDTH, BAR_HEIGHT), HAlign.Left, VAlign.Top, false, ContentType.Image, "testbutton")
         {
             InnerElements = new List<UIObject>();
-            infoLabel = new Label(new Vector2(BAR_PADDING, 0), HAlign.Left, VAlign.Center, "Age: Dark Age       Llamas Licked: OVER 9000"); //+ Firecracker.engineInstance.theCamera.GetCameraPos());
+            infoLabel = new Label(new Vector2(BAR_PADDING, 0), HAlign.Left, VAlign.Center, "Age: Dark Age       Llamas Licked: " + Firecracker.engineInstance.numPeoples.ToString()); //+ Firecracker.engineInstance.theCamera.GetCameraPos());
             InnerElements.Add(infoLabel);
         }
 
         public override void Update(float deltaT)
         {
+            infoLabel.SetText("Seconds: " + Firecracker.engineInstance.ageEvolve.ToString() + " Llamas Licked: " + Firecracker.engineInstance.numPeoples.ToString());
+            
             base.Update(deltaT);
         }
     }

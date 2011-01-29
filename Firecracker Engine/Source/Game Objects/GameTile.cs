@@ -64,7 +64,9 @@ namespace Firecracker_Engine {
 
 		public override void draw(SpriteBatch spriteBatch) {
 			if (m_sprite == null) { return; }
-			m_sprite.draw(spriteBatch, m_scale, m_rotation, Firecracker.level.getGamePosition(m_position), SpriteEffects.None);
+			m_sprite.draw(spriteBatch, m_scale, m_rotation, Firecracker.level.getGamePosition(m_position) 
+                //- Firecracker.engineInstance.theCamera.GetCameraPos()
+                , SpriteEffects.None);
 		}
 
 	}

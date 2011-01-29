@@ -84,6 +84,8 @@ namespace Test_Game {
                 }
 			}
 
+            Firecracker.engineInstance.ageEvolve = gameTime.TotalGameTime.Seconds;
+
 			screenManager.update(gameTime);
 		}
 

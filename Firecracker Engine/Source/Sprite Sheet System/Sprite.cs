@@ -106,6 +106,8 @@ namespace Firecracker_Engine {
 		public void draw(SpriteBatch spriteBatch, Vector2 scale, float rotationDegrees, Vector2 position, SpriteEffects effect) {
 			if(m_image == null || spriteBatch == null) { return; }
 
+            position -= Firecracker.engineInstance.theCamera.GetCameraPos();
+
 			// update the destination rectangle
 			m_destination.X = (int) position.X;
 			m_destination.Y = (int) position.Y;
@@ -118,6 +120,8 @@ namespace Firecracker_Engine {
 
 		public void drawCentered(SpriteBatch spriteBatch, Vector2 scale, float rotationDegrees, Vector2 position, SpriteEffects effect) {
 			if(m_image == null || spriteBatch == null) { return; }
+
+            position -= Firecracker.engineInstance.theCamera.GetCameraPos();
 			
 			// update the destination rectangle
 			m_destination.X = (int) position.X;

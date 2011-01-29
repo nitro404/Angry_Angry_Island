@@ -161,7 +161,9 @@ namespace Firecracker_Engine {
 			if(m_sprites.Count() == 0) { return; }
 
 			if(!finished()) {
-				sprite.draw(spriteBatch, scale, rotation, position - Firecracker.engineInstance.theCamera.GetCameraPos(), effect);
+				sprite.draw(spriteBatch, scale, rotation, position 
+                    //- Firecracker.engineInstance.theCamera.GetCameraPos()
+                    , effect);
 			}
 		}
 
@@ -170,7 +172,9 @@ namespace Firecracker_Engine {
 			if(m_sprites.Count() == 0) { return; }
 
 			if(!finished()) {
-				sprite.drawCentered(spriteBatch, scale, rotation, position - Firecracker.engineInstance.theCamera.GetCameraPos(), effect);
+				sprite.drawCentered(spriteBatch, scale, rotation, position 
+                    //- Firecracker.engineInstance.theCamera.GetCameraPos()
+                    , effect);
 			}
 		}
 
