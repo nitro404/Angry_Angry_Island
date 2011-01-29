@@ -45,7 +45,4 @@ Objects: 6
 		SpriteSheet Name: NPCPeasentObject
 		IsKillable: true
 	Player:
-		LayerDepth: 0.0
-		Sprite Name: GodHand
-		SpriteSheet Name: GodHand
 		

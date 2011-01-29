@@ -22,6 +22,8 @@ namespace Test_Game {
         public static TestGame gameInstance;
 		protected RenderTarget2D buffer;
 		protected Effect blur;
+        Texture2D cursorTex;
+
 
 		public TestGame() : base() {
 			gameInstance = this;
@@ -50,7 +52,7 @@ namespace Test_Game {
 			base.LoadContent();
 
             UIInitializer.InitializeUI();
-
+            cursorTex = Content.Load<Texture2D>(@"Sprites\god_hand");
 			// load shaders
 			blur = Content.Load<Effect>("Shaders\\Blur");
 		}
@@ -101,15 +103,20 @@ namespace Test_Game {
 
 			if(levelLoaded()) {
 				spriteBatch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.BackToFront, SaveStateMode.SaveState);
-				if(levelLoaded()) {
-					level.draw(spriteBatch);
-				}
-				spriteBatch.End();
+                if (levelLoaded())
+                {
+                    level.draw(spriteBatch);
+                }
+                spriteBatch.End();
 
 				if(UIScreenManager.Instance.currentScreen != null) {
 					UIScreenManager.Instance.Draw(GraphicsDevice, spriteBatch);
 				}
-			}
+                //draw cursor
+                spriteBatch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.BackToFront, SaveStateMode.SaveState);
+                spriteBatch.Draw(cursorTex, m_MouseManager.GetMousePos() - new Vector2(5, 2), Color.White);
+                spriteBatch.End();
+            }
 
 			// render all game objects
 			foreach(CBaseObject objRef in m_lObjectList) {

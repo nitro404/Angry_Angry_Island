@@ -32,5 +32,11 @@ namespace Test_Game
             
             base.Update(deltaT);
         }
+
+        public override void Init()
+        {
+
+            base.Init();
+        }
     }
 }

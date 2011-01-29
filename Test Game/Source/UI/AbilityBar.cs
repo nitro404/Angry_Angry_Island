@@ -13,12 +13,14 @@ namespace Test_Game
 {
     public class AbilityBar : UIObject
     {
-        const int ICON_HEIGHT = 64;
-        const int ICON_WIDTH = 64;
+        public const int ICON_HEIGHT = 64;
+        public const int ICON_WIDTH = 64;
         const int BUTTON_PADDING = 5;
         const int BAR_PADDING = 10;
         const int CREDITS_HEIGHT = 40;
         const int CREDITS_WIDTH = 150;
+        static AbilityBar Instance;
+        bool initializedYet = false;
 
         private Label creditLabel;
 
@@ -29,20 +31,30 @@ namespace Test_Game
             creditLabel = new Label(new Vector2(BAR_PADDING, 0), HAlign.Left, VAlign.Center, "Credits:");
             InnerElements.Add(new UIObject(new Vector2(0, -CREDITS_HEIGHT), new Vector2(CREDITS_WIDTH, CREDITS_HEIGHT), HAlign.Left, VAlign.Top, false, ContentType.Image, "testbutton",
                 new List<UIObject>{creditLabel}));
-            for (int i = 0; i < 5; i++)
-            {
-                InnerElements.Add(new Button(new Vector2(BAR_PADDING + (ICON_WIDTH + BUTTON_PADDING * 2) * i,0), new Vector2(ICON_WIDTH + BUTTON_PADDING * 2, ICON_HEIGHT + BUTTON_PADDING * 2), HAlign.Left, VAlign.Center, "", "testbutton", "testbuttonhover", "testbuttonclicked",
-                    new List<UIObject>{new UIObject(Vector2.Zero, new Vector2(ICON_WIDTH, ICON_HEIGHT), HAlign.Center, VAlign.Center, false, ContentType.Image, "testicon")}));
-            }
+            Instance = this;
         }
 
         public override void Update(float deltaT)
         {
-            /*if (Player.Instance != null)
+            if (Player.Instance != null)
             {
+                if (!initializedYet)
+                {
+                    Init();
+                    initializedYet = true;
+                }
                 creditLabel.SetText("Credits: " + (int)Player.Instance.Credits);
-            }*/
+            }
             base.Update(deltaT);
+        }
+
+        public override void Init()
+        {
+            for (int i = 0; i < Player.Instance.Abilities.Count; i++)
+            {
+                InnerElements.Add(new AbilityButton(new Vector2(BAR_PADDING + (ICON_WIDTH + BUTTON_PADDING * 2) * i, 0), new Vector2(ICON_WIDTH + BUTTON_PADDING * 2, ICON_HEIGHT + BUTTON_PADDING * 2), HAlign.Left, VAlign.Center, Player.Instance.Abilities[i].type));
+            }
+            base.Init();
         }
     }
 }

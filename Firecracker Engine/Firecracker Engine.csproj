@@ -93,6 +93,7 @@
     <Compile Include="Source\Graph\Edge.cs" />
     <Compile Include="Source\Graph\Graph.cs" />
     <Compile Include="Source\Graph\Vertex.cs" />
+    <Compile Include="Source\ObjectClasses\Ability.cs" />
     <Compile Include="Source\ObjectClasses\CameraBase.cs" />
     <Compile Include="Source\ObjectClasses\BaseObject.cs" />
     <Compile Include="Source\ObjectClasses\DefinitionLoader.cs" />
@@ -123,7 +124,9 @@
     <Compile Include="Source\Game Objects\GameTile.cs" />
     <Compile Include="Source\Game Objects\StaticObject.cs" />
     <Compile Include="Source\ObjectClasses\NPCObject.cs" />
-    <Compile Include="Source\ObjectClasses\Player.cs" />
+    <Compile Include="Source\ObjectClasses\Player.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Source\Settings File Manager\GameSettings.cs" />
     <Compile Include="Source\Settings File Manager\Variable.cs" />
     <Compile Include="Source\Settings File Manager\VariableSystem.cs" />

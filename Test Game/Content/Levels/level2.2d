@@ -55,7 +55,3 @@ Objects: 8
 		Sprite Name: Island Trees
 		SpriteSheet Name: Island Trees
 	Player:
-		LayerDepth: 0.0
-		Sprite Name: GodHand
-		SpriteSheet Name: GodHand
-		
