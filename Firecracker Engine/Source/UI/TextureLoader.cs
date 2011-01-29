@@ -29,7 +29,7 @@ namespace Firecracker_Engine
             }
             else
             {
-                textures[imageID] = GlobalFirecrackerRef.Instance.Content.Load<Texture2D>(@"Content\UI\" + imageID);
+                textures[imageID] = GlobalFirecrackerRef.Instance.Content.Load<Texture2D>(@"UI\" + imageID);
                 return textures[imageID];
             }
         }

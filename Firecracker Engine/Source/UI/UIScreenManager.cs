@@ -38,10 +38,23 @@ namespace Firecracker_Engine
 
         #endregion
 
+        MouseState m_MouseState;
+        MouseState m_OldMouseState;
+
         //this should be called each frame during update
         public void Update(float deltaT)
         {
-            currentScreen.Update(deltaT);
+            if (currentScreen != null)
+            {
+                currentScreen.Update(deltaT);
+            }
+            m_OldMouseState = m_MouseState;
+            m_MouseState = Mouse.GetState();
+            if (currentScreen != null)
+            {
+                currentScreen.TestMouse(m_MouseState, m_OldMouseState);
+            }
+
         }
 
         //this should be called each frame during update, assuming the current UI needs mouse interaction
@@ -53,7 +66,10 @@ namespace Firecracker_Engine
         //this should be called each frame during draw
         public void Draw(GraphicsDevice g, SpriteBatch sb)
         {
-            currentScreen.Draw(g, sb);
+            if (currentScreen != null)
+            {
+                currentScreen.Draw(g, sb);
+            }
         }
 
         //this can be called to change the current screen.

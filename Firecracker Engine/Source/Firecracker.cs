@@ -80,6 +80,7 @@ namespace Firecracker_Engine {
 			controlSystem.initialize();
 			menu.initialize();
 			console.initialize();
+            UIScreenManager.CreateInstance();
 
             DefinitionManager.LoadDefinitions("Content\\Objects");
 

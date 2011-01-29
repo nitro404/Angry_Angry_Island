@@ -43,6 +43,7 @@ namespace Test_Game {
 		/// </summary>
 		protected override void LoadContent() {
 			base.LoadContent();
+            UIInitializer.InitializeUI();
 		}
 
 		/// <summary>

@@ -93,6 +93,8 @@
     <Compile Include="Source\ObjectClasses\Player.cs" />
     <Compile Include="Source\Program.cs" />
     <Compile Include="Source\Game1.cs" />
+    <Compile Include="Source\UI\AbilityBar.cs" />
+    <Compile Include="Source\UI\UIInitializer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

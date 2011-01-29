@@ -12,7 +12,7 @@ namespace Firecracker_Engine
 {
     public static class Style
     {
-        //THESE SHOULD BE SET TO THEIR DESIRED VALUES BEFORE INITIALIZING UISCREENMANAGER
+        //THESE SHOULD BE SET TO THEIR DESIRED VALUES BEFORE CREATING ANY UI OBJECTS
         public static int BaseHeight;
         public static SpriteFont font;
         public static Color fontColor;
