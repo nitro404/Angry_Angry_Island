@@ -15,3 +15,8 @@ BeginObjectDef
 ObjectName		"BasicAI_1"
 ObjectDef		"BasicAI"
 EndObjectDef
+
+BeginObjectDef
+ObjectName		"Player_1"
+ObjectDef		"Player"
+EndObjectDef

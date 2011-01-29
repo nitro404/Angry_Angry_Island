@@ -17,3 +17,11 @@ Visible			1
 MaxAge          100.0
 AI_Type         "AI_Random"
 EndObjectDef
+
+BeginObjectDef
+ObjectName		"Player"
+ObjectClass		"Player"
+Heartbeat		1
+Enabled			1
+Visible			0
+EndObjectDef

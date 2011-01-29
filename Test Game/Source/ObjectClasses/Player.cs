@@ -9,6 +9,10 @@ namespace Test_Game
 {
     class Player : CBaseObject
     {
+#pragma warning disable 108
+        public const string ClassName = "Player";
+#pragma warning restore 108
+
         private const float CREDIT_TRICKLE_RATE = 0.25f;
         private float m_credits;
         private Ability m_selectedAbility;
@@ -16,7 +20,6 @@ namespace Test_Game
 
         public Player()
         {
-            m_sObjectName = "Player";
         }
 
         public void DoSelectedAbility(Vector2 position) //use an ability where the user clicked
