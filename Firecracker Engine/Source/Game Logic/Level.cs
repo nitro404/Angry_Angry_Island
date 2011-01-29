@@ -326,7 +326,7 @@ namespace Firecracker_Engine {
                 }
                 else if (objectType.Equals("Player", StringComparison.OrdinalIgnoreCase))
                 {
-                    newObject = new Player();
+                    newObject = Player.parseFrom(input, Firecracker.spriteSheets);
                 }
 
 				// verify that the object was successfully parsed

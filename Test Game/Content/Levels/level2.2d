@@ -13,7 +13,7 @@ Collision Edges: 11
 	295, 192; 376, 130
 	376, 130; 421, 226
 	421, 226; 295, 192
-Objects: 7
+Objects: 8
 	NPCObject:
 		Position: 100, 100
 		LayerDepth: 0.5
@@ -54,4 +54,8 @@ Objects: 7
 		LayerDepth: 0.51
 		Sprite Name: Island Trees
 		SpriteSheet Name: Island Trees
+	Player:
+		LayerDepth: 0.0
+		Sprite Name: GodHand
+		SpriteSheet Name: GodHand
 		
