@@ -251,7 +251,10 @@ namespace Firecracker_Engine
         //or inner elements can be done here.
         public virtual void Update(float deltaT)
         {
-
+            foreach (UIObject element in InnerElements)
+            {
+                element.Update(deltaT);
+            }
         }
 
         //this should run every frame, if this object triggers mouse events.
