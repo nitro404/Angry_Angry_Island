@@ -14,14 +14,14 @@ namespace Firecracker_Engine
         public Explosion()
             : base()
         {
-            m_Anim = new SpriteAnimation("Explosion", 0.128f, SpriteAnimationType.Single);
-            position = new Vector2();
+			m_Anim = Firecracker.animations.getAnimation("Explosion");
+            position = Vector2.Zero;
         }
 
         public Explosion(Vector2 vPosition)
             : base()
         {
-            m_Anim = new SpriteAnimation("Explosion", 0.128f, SpriteAnimationType.Single);
+			m_Anim = Firecracker.animations.getAnimation("Explosion");
             position = vPosition;
         }
 

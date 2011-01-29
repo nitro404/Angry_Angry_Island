@@ -28,6 +28,7 @@ namespace Firecracker_Engine {
 		public GraphicsDeviceManager graphics;
 		public SpriteBatch spriteBatch;
 		public static SpriteSheetCollection spriteSheets;
+		public static SpriteAnimationCollection animations;
 		public static Level level;
 		public static Random random;
         public CameraBase theCamera;
@@ -103,76 +104,14 @@ namespace Firecracker_Engine {
 			base.Initialize();
 		}
 
-        public bool CreateObjectByName(string sObjectName)
-        {
-            // TODO: implement this.
-            // similar to CreateObjectByDefinition, except that this
-            // no properties are overloaded.
-            ObjectDefinition objDef = DefinitionManager.QueryDefinitionByName(sObjectName);
-            if (objDef.ObjectName.Length != 0 && objDef.ObjectClassType.Length != 0)
-                return CreateObjectByDefinition(objDef);
-            return false;
-        }
-
-        public bool CreateObjectByDefinition(ObjectDefinition ObjectDefinition)
-        {
-            CBaseObject newObject = null;
-            ObjectDefinition DefaultDef = DefinitionManager.QueryDefinitionByName(ObjectDefinition.ObjectClassType);
-            // Try to load the game object first.
-            if (CreateObjectDelegate != null)
-            {
-                newObject = CreateObjectDelegate(DefaultDef, ObjectDefinition);
-            }
-
-            // if the game object could not be loaded then this is likely a engine defined object.
-            if (newObject == null)
-            {
-                newObject = EngineCreateObjectDelegate(DefaultDef, ObjectDefinition);
-            }
-
-            if (newObject != null)
-            {
-                Firecracker.engineInstance.AddObjectToList(newObject);
-            }
-            else
-            {
-                // This is not an object that actually exists.
-                System.Diagnostics.Debug.Assert(false, "Uh oh. The level defined an object that doesn't exist.");
-                return false;
-            }
-            return true;
-        }
-
-        public CBaseObject FindObjectByName(string sObjectName)
-        {
-            foreach (CBaseObject obj in m_lObjectList)
-            {
-                if (obj.ObjectName.Equals(sObjectName))
-                    return obj;
-            }
-            return null;
-        }
-        public List<CBaseObject> FindObjectsByType(string sType)
-        {
-            List<CBaseObject> returnList = new List<CBaseObject>();
-            foreach (CBaseObject obj in m_lObjectList)
-            {
-                if (obj.ObjectType.Equals(sType))
-                    returnList.Add(obj);
-            }
-            return returnList;
-        }
-
-        public void AddObjectToList(CBaseObject obj)
-        {
-            m_lObjectList.Add(obj);
-        }
-
 		protected override void LoadContent() {
 			spriteBatch = new SpriteBatch(GraphicsDevice);
 
 			// parse and load all sprite sheets
 			spriteSheets = SpriteSheetCollection.parseFrom(Content.RootDirectory + "/" + settings.spriteSheetFileName, Content);
+
+			// parse and load all sprite animations
+			animations = SpriteAnimationCollection.readFrom(Content.RootDirectory + "/" + settings.animationsFileName, spriteSheets);
 
 			// load game content
 			menu.loadContent(Content);
@@ -184,29 +123,6 @@ namespace Firecracker_Engine {
 			graphics.ToggleFullScreen();
 			settings.fullScreen = graphics.IsFullScreen;
 		}
-
-		/*public bool loadLevel(string levelName) {
-			if(levelName == null) { return false; }
-
-            LevelLoader.LoadLevel(levelName);
-
-            foreach (CBaseObject obj in m_lObjectList)
-            {
-                obj.LoadResources();
-            }
-
-            foreach (CBaseObject obj in m_lObjectList)
-            {
-                obj.OnBeginGameplay();
-            }
-
-			return false;
-		}
-
-		public bool levelLoaded() {
-			return false;
-		}
-		*/
 
 		public bool loadLevel(string levelName) {
 			if(levelName == null) { return false; }
@@ -264,6 +180,82 @@ namespace Firecracker_Engine {
 			base.OnExiting(sender, args);
 		}
 
+		public bool CreateObjectByName(string sObjectName) {
+			// TODO: implement this.
+			// similar to CreateObjectByDefinition, except that this
+			// no properties are overloaded.
+			ObjectDefinition objDef = DefinitionManager.QueryDefinitionByName(sObjectName);
+			if(objDef.ObjectName.Length != 0 && objDef.ObjectClassType.Length != 0)
+				return CreateObjectByDefinition(objDef);
+			return false;
+		}
+
+		public bool CreateObjectByDefinition(ObjectDefinition ObjectDefinition) {
+			CBaseObject newObject = null;
+			ObjectDefinition DefaultDef = DefinitionManager.QueryDefinitionByName(ObjectDefinition.ObjectClassType);
+			// Try to load the game object first.
+			if(CreateObjectDelegate != null) {
+				newObject = CreateObjectDelegate(DefaultDef, ObjectDefinition);
+			}
+
+			// if the game object could not be loaded then this is likely a engine defined object.
+			if(newObject == null) {
+				newObject = EngineCreateObjectDelegate(DefaultDef, ObjectDefinition);
+			}
+
+			if(newObject != null) {
+				Firecracker.engineInstance.AddObjectToList(newObject);
+			}
+			else {
+				// This is not an object that actually exists.
+				System.Diagnostics.Debug.Assert(false, "Uh oh. The level defined an object that doesn't exist.");
+				return false;
+			}
+			return true;
+		}
+
+		public CBaseObject FindObjectByName(string sObjectName) {
+			foreach(CBaseObject obj in m_lObjectList) {
+				if(obj.ObjectName.Equals(sObjectName))
+					return obj;
+			}
+			return null;
+		}
+		public List<CBaseObject> FindObjectsByType(string sType) {
+			List<CBaseObject> returnList = new List<CBaseObject>();
+			foreach(CBaseObject obj in m_lObjectList) {
+				if(obj.ObjectType.Equals(sType))
+					returnList.Add(obj);
+			}
+			return returnList;
+		}
+
+		public void AddObjectToList(CBaseObject obj) {
+			m_lObjectList.Add(obj);
+		}
+
+		/*public bool loadLevel(string levelName) {
+			if(levelName == null) { return false; }
+
+            LevelLoader.LoadLevel(levelName);
+
+            foreach (CBaseObject obj in m_lObjectList)
+            {
+                obj.LoadResources();
+            }
+
+            foreach (CBaseObject obj in m_lObjectList)
+            {
+                obj.OnBeginGameplay();
+            }
+
+			return false;
+		}
+
+		public bool levelLoaded() {
+			return false;
+		}
+		*/
 
         public static CBaseObject CreateObject(ObjectDefinition objDef, ObjectDefinition objOverwriteDefinition)
         {

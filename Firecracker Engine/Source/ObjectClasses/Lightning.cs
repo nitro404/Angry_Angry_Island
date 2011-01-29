@@ -14,14 +14,14 @@ namespace Firecracker_Engine
         public Lightning()
             : base()
         {
-            m_Anim = new SpriteAnimation("Lightning", 0.128f, SpriteAnimationType.Single);
-            position = new Vector2();
+			m_Anim = Firecracker.animations.getAnimation("Lightning");
+            position = Vector2.Zero;
         }
 
         public Lightning(Vector2 vPosition)
             : base()
         {
-            m_Anim = new SpriteAnimation("Lightning", 0.128f, SpriteAnimationType.Single);
+			m_Anim = Firecracker.animations.getAnimation("Lightning");
             position = vPosition;
         }
 

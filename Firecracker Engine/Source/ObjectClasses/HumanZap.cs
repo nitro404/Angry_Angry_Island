@@ -14,14 +14,14 @@ namespace Firecracker_Engine
         public HumanZap()
             : base()
         {
-            m_Anim = new SpriteAnimation("HumanZap", 0.128f, SpriteAnimationType.Single);
-            position = new Vector2();
+			m_Anim = Firecracker.animations.getAnimation("HumanZap");
+            position = Vector2.Zero;
         }
 
         public HumanZap(Vector2 vPosition)
             : base()
         {
-            m_Anim = new SpriteAnimation("HumanZap", 0.128f, SpriteAnimationType.Single);
+			m_Anim = Firecracker.animations.getAnimation("HumanZap");
             position = vPosition;
         }
 

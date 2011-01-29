@@ -14,14 +14,14 @@ namespace Firecracker_Engine
         public HumanDeath()
             : base()
         {
-            m_Anim = new SpriteAnimation("HumanDeath", 0.128f, SpriteAnimationType.Single);
-            position = new Vector2();
+			m_Anim = Firecracker.animations.getAnimation("HumanDeath");
+            position = Vector2.Zero;
         }
 
         public HumanDeath(Vector2 vPosition)
             : base()
         {
-            m_Anim = new SpriteAnimation("HumanDeath", 0.128f, SpriteAnimationType.Single);
+			m_Anim = Firecracker.animations.getAnimation("HumanDeath");
             position = vPosition;
         }
 
