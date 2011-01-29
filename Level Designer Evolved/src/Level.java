@@ -28,7 +28,7 @@ public class Level {
 	private Vector<Entity> tiles;
 	
 	/** A String representing the type of Level that the Level Designer currently supports. */
-	final public static String LEVEL_TYPE = "2D Level";
+	final public static String LEVEL_TYPE = "2D Cartesian Level";
 	/** The version of the Level that the Level Designer currently supports. */
 	final public static double LEVEL_VERSION = 2.0;
 	/** The size of the Grid the Level Designer supports by default. */
@@ -531,8 +531,8 @@ public class Level {
 		gridSize.writeTo(out);
 		out.println();
 		
-		// write the edges
-		out.println("Edges: " + this.collisionData.size());
+		// write the collision edges
+		out.println("Collision Edges: " + this.collisionData.size());
 		this.collisionData.writeTo(out);
 		
 		// write the entities
