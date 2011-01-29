@@ -78,6 +78,10 @@ namespace Firecracker_Engine
                 ((Button)InnerElements[1]).disabled = false;
             }
 
+            UICallBackInfo info = new UICallBackInfo();
+            info.ID = ID;
+            info.eventType = UIEventType.SwitcherInit;
+            IDRegistrar.ExecuteCallBack(info);
             base.Init();
         }
 
@@ -85,6 +89,11 @@ namespace Firecracker_Engine
         {
             //actions are hard-coded. again, if the switchers could
             //be bound to a game setting this wouldn't be needed.
+            UICallBackInfo info = new UICallBackInfo();
+            info.ID = ID;
+            info.eventType = UIEventType.SwitcherChangeValue;
+            info.switcherIndex = selectedIndex;
+            IDRegistrar.ExecuteCallBack(info);
         }
     }
 }

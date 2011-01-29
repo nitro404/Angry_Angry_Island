@@ -71,13 +71,22 @@ namespace Firecracker_Engine
             //put the handle in the right spot based on the value found.
             InnerElements[1].pos.X = (value - 0.5f) * InnerElements[0].size.X;
             base.Init();
+
+            UICallBackInfo info = new UICallBackInfo();
+            info.ID = ID;
+            info.eventType = UIEventType.SliderInit;
+            IDRegistrar.ExecuteCallBack(info);
         }
 
         public void DoAction()
         {
             //actions are hard-coded for now.
             //it would be better if sliders could simply be bound to a game setting with max/min values.
-            
+            UICallBackInfo info = new UICallBackInfo();
+            info.ID = ID;
+            info.eventType = UIEventType.SliderChangeValue;
+            info.sliderValue = value;
+            IDRegistrar.ExecuteCallBack(info);
         }
     }
 }

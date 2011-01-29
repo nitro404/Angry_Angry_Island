@@ -5,7 +5,24 @@ using System.Text;
 
 namespace Firecracker_Engine
 {
-    public delegate void UICallBack (string ID);
+    public delegate void UICallBack (UICallBackInfo callbackInfo);
+
+    public struct UICallBackInfo
+    {
+        public string ID;
+        public UIEventType eventType;
+        public int switcherIndex;
+        public float sliderValue;
+    }
+
+    public enum UIEventType
+    {
+        ButtonAction,
+        SwitcherInit,
+        SwitcherChangeValue,
+        SliderInit,
+        SliderChangeValue
+    }
 
     public static class IDRegistrar
     {
@@ -16,11 +33,11 @@ namespace Firecracker_Engine
             m_registeredIDs.Add(ID, callBack);
         }
 
-        public static void ExecuteActionCallBack(string ID)
+        public static void ExecuteCallBack(UICallBackInfo info)
         {
-            if (m_registeredIDs.ContainsKey(ID))
+            if (m_registeredIDs.ContainsKey(info.ID))
             {
-                m_registeredIDs[ID](ID);
+                m_registeredIDs[info.ID](info);
             }
         }
 

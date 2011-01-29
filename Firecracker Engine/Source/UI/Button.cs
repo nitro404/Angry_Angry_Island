@@ -105,7 +105,10 @@ namespace Firecracker_Engine
             }
             else
             {
-                IDRegistrar.ExecuteActionCallBack(ID);
+                UICallBackInfo info = new UICallBackInfo();
+                info.eventType = UIEventType.ButtonAction;
+                info.ID = ID;
+                IDRegistrar.ExecuteCallBack(info);
             }
         }
 
