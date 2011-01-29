@@ -22,17 +22,22 @@ namespace Firecracker_Engine
         private float m_colour;
 
         protected float m_fAge;
+        protected float m_fDeathAt;
         protected bool m_bIsMoving;
         protected Vector2 m_vTargetLocation;
         protected float m_fSpeed;
         protected float m_fWaitTime;
         protected float m_fIdleTime;
+        protected bool m_bKillable;
 
         protected float m_fMaxAge;
         protected AIWanderType m_eWanderType;
 
         public Sprite sheep,Sshadow;
         public GamePadState gamePadStatus;
+
+        // TEMP
+        bool m_bIsAlive;
 
         public NPCObject(Vertex position, Sprite sprite) : this(position.toVector(), sprite) { }
 
@@ -47,6 +52,10 @@ namespace Firecracker_Engine
             m_fSpeed = 50.0f;
             m_fWaitTime = 1.0f;
             m_fIdleTime = 0.0f;
+
+            m_fDeathAt = Firecracker.random.Next(5, 7);
+            m_bIsAlive = true;
+            m_bKillable = true;
 		}
 
         public static NPCObject parseFrom(StreamReader input, SpriteSheetCollection spriteSheets)
@@ -64,6 +73,9 @@ namespace Firecracker_Engine
 			// get the name of the spritesheet in which the sprite is found
 			Variable spriteSheetName = Variable.parseFrom(input.ReadLine());
 			if(spriteSheetName == null || !spriteSheetName.id.Equals("SpriteSheet Name", StringComparison.OrdinalIgnoreCase)) { return null; }
+
+            Variable isKillable = Variable.parseFrom(input.ReadLine());
+            if (isKillable == null || !isKillable.id.Equals("IsKillable", StringComparison.OrdinalIgnoreCase)) { return null; }
 
 			// get the object's sprite
 			SpriteSheet spriteSheet = spriteSheets.getSpriteSheet(spriteSheetName.value);
@@ -84,6 +96,7 @@ namespace Firecracker_Engine
 
 			// create the object
             NPCObject newObject = new NPCObject(newPosition, sprite);
+            newObject.m_bKillable = bool.Parse(isKillable.value);
 			newObject.updateInitialValues();
 
 			return newObject;
@@ -94,8 +107,20 @@ namespace Firecracker_Engine
 		}
 
 		public override void update(GameTime gameTime) {
+            if (!m_bIsAlive) return;
 
             sheepUpdate(gameTime);
+            if (m_bKillable)
+                m_fAge += (float)gameTime.ElapsedGameTime.Milliseconds / 1000.0f;
+
+            if (m_fAge >= m_fDeathAt)
+            {
+                NPCObject newObject = new NPCObject(position + new Vector2(16.0f, 16.0f), sprite);
+                Firecracker.level.addObject(newObject);
+                newObject = new NPCObject(position - new Vector2(16.0f, 16.0f), sprite);
+                Firecracker.level.addObject(newObject);
+                m_bIsAlive = false;
+            }
 
             if (Keyboard.GetState().IsKeyDown(Keys.Left))
             {
@@ -161,7 +186,7 @@ namespace Firecracker_Engine
         }
 
 		public override void draw(SpriteBatch spriteBatch) {
-
+            if (!m_bIsAlive) return;
 
 			base.draw(spriteBatch);
 		}

@@ -18,20 +18,25 @@ Objects: 5
 		Position: 100, 100
 		Sprite Name: Sheep_1
 		SpriteSheet Name: NPCObject
+		IsKillable: false
 	NPCObject:
 		Position: 200, 200
 		Sprite Name: Sheep_1
 		SpriteSheet Name: NPCObject
+		IsKillable: false
 	NPCObject:
 		Position: 300, 300
 		Sprite Name: Sheep_1
 		SpriteSheet Name: NPCObject
+		IsKillable: false
 	NPCObject:
 		Position: 400, 400
 		Sprite Name: Sheep_1
 		SpriteSheet Name: NPCObject
+		IsKillable: false
 	NPCObject:
 		Position: 450, 450
 		Sprite Name: Person_1
 		SpriteSheet Name: NPCPeasentObject
+		IsKillable: true
 		
