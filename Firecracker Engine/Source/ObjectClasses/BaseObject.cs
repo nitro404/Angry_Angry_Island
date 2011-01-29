@@ -40,9 +40,17 @@ namespace Firecracker_Engine
         public const string ClassName = "CBaseObject";
 
         // The properties that every object in the world contains.
-        protected Vector3 m_vWorldPosition;
-        protected Vector3 m_vWorldRotation;
-        protected Vector3 m_vWorldScale;
+        protected Vector2 m_Position;
+        public Point PositionPoint 
+        {
+            get { return new Point((int)m_Position.X, (int)m_Position.Y); }
+            set { m_Position.X = value.X; m_Position.Y = value.Y; }
+        }
+        public Vector2 PositionAbsolute 
+        { 
+            get { return m_Position; }
+            set { m_Position = value; }
+        }
 
         protected string m_sObjectName;
         public string ObjectName { get { return m_sObjectName; } }
@@ -57,10 +65,8 @@ namespace Firecracker_Engine
         /// <param name="WorldScale">The objects scale in each axis</param>
         public CBaseObject(Vector3 WorldPosition, Vector3 WorldRotation, Vector3 WorldScale)
         {
-            m_vWorldPosition = WorldPosition;
-            m_vWorldRotation = WorldRotation;
-            m_vWorldScale    = WorldScale;
-
+            m_Position = new Vector2(0.0f, 0.0f);
+            
             // Note: Each subclass to this must have it's own m_sObjectType with that class' type.
             m_sObjectType = "CBaseObject";
         }
@@ -152,18 +158,7 @@ namespace Firecracker_Engine
 
             foreach (KeyValuePair<string, string> propertyItem in objDef.ClassProperties)
             {
-                if (propertyItem.Key.CompareTo("WorldPosition") == 0)
-                {
-                    m_vWorldPosition = Helpers.ParseVector3(propertyItem.Value);
-                }
-                if (propertyItem.Key.CompareTo("WorldScale") == 0)
-                {
-                    m_vWorldScale = Helpers.ParseVector3(propertyItem.Value);
-                }
-                if (propertyItem.Key.CompareTo("WorldRotation") == 0)
-                {
-                    m_vWorldRotation = Helpers.ParseVector3(propertyItem.Value);
-                }
+
             }
         }
 

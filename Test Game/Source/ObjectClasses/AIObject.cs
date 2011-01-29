@@ -33,7 +33,7 @@ namespace Test_Game
 
         public Sprite sheep,Sshadow;
         public GamePadState gamePadStatus;
-        public int xPosition,yPosition; 
+        
 
         //-------------------
         public AIObject()
@@ -53,13 +53,12 @@ namespace Test_Game
         public override void OnBeginGameplay()
         {
             base.OnBeginGameplay();
-            xPosition = 300;
-            yPosition = 300;
+            PositionPoint = new Point(200, 200);
         }
 
         public override void Tick(GameTime gameTime)
         {
-            sheepUpdate();
+            sheepUpdate(gameTime);
             base.Tick(gameTime);
         }
         public override void LoadPropertiesList(ObjectDefinition objDef)
@@ -77,25 +76,25 @@ namespace Test_Game
 
         }
 
-        public void sheepUpdate()
+        public void sheepUpdate(GameTime gameTime)
         {
             gamePadStatus = GamePad.GetState(PlayerIndex.One);
 
             if (gamePadStatus.ThumbSticks.Left.X > 0)
             {
-                xPosition += 1;
+                m_Position.X += 10*(float)gameTime.ElapsedRealTime.Milliseconds/1000.0f;
             }
             else if (gamePadStatus.ThumbSticks.Left.X < 0)
             {
-                xPosition -= 1;
+                m_Position.X -= 10 * (float)gameTime.ElapsedRealTime.Milliseconds / 1000.0f;
             }
             else if (gamePadStatus.ThumbSticks.Left.Y > 0)
             {
-                yPosition -= 1;
+                m_Position.Y -= 10 * (float)gameTime.ElapsedRealTime.Milliseconds / 1000.0f;
             }
             else if (gamePadStatus.ThumbSticks.Left.Y < 0)
             {
-                yPosition += 1;
+                m_Position.Y += 10 * (float)gameTime.ElapsedRealTime.Milliseconds / 1000.0f;
             }
         }
 
@@ -109,8 +108,8 @@ namespace Test_Game
         public override void Render()
         {
             TestGame.GameInstance.spriteBatch.Begin();
-            Sshadow.draw(TestGame.GameInstance.spriteBatch, new Vector2(1.5f), 0.0f, new Vector2(xPosition, yPosition), SpriteEffects.None);
-            sheep.draw(TestGame.GameInstance.spriteBatch, Vector2.One, 0.0f, new Vector2(xPosition +2,yPosition +2), SpriteEffects.None);
+            Sshadow.draw(TestGame.GameInstance.spriteBatch, new Vector2(1.5f), 0.0f, PositionAbsolute, SpriteEffects.None);
+            sheep.draw(TestGame.GameInstance.spriteBatch, Vector2.One, 0.0f, PositionAbsolute, SpriteEffects.None);
             //TestGame.GameInstance.spriteBatch.Draw();
             TestGame.GameInstance.spriteBatch.End();
 

@@ -12,31 +12,31 @@ namespace Firecracker_Engine
         public const string ClassName = "MoveableObject";
 #pragma warning restore 108
 
-        Vector3 m_vVelocity;
-        Vector3 m_vAcceleration;
-        Vector3 m_vRotationalVelocity;
-        Vector3 m_vRotationAcceleration;
+        Vector2 m_vVelocity;
+        Vector2 m_vAcceleration;
+        Vector2 m_vRotationalVelocity;
+        Vector2 m_vRotationAcceleration;
 
         public CMoveableObject()
             : base()
         {
-            m_vVelocity = new Vector3();
-            m_vAcceleration = new Vector3();
-            m_vRotationalVelocity = new Vector3();
-            m_vRotationAcceleration = new Vector3();
+            m_vVelocity = new Vector2();
+            m_vAcceleration = new Vector2();
+            m_vRotationalVelocity = new Vector2();
+            m_vRotationAcceleration = new Vector2();
         }
 
         public override void Tick(GameTime gameTime)
         {
             base.Tick(gameTime);
             // Move the object.
-            m_vWorldPosition += m_vVelocity;
+            PositionAbsolute += m_vVelocity;
 
             // Update the velocity.
             m_vVelocity += m_vAcceleration;
 
             // Rotate the object
-            m_vWorldRotation = m_vRotationalVelocity;
+            //m_vWorldRotation = m_vRotationalVelocity;
 
             // Update the roational velocity.
             m_vRotationalVelocity += m_vRotationAcceleration;
@@ -53,7 +53,7 @@ namespace Firecracker_Engine
             base.LoadPropertiesList(objDef);
 
             // TODO: Load this class' values here.
-            if (objDef.ClassProperties.ContainsKey("Velocity"))
+            /*if (objDef.ClassProperties.ContainsKey("Velocity"))
             {
                 m_vVelocity = Helpers.ParseVector3( objDef.ClassProperties["Velocity"] );
             }
@@ -68,7 +68,7 @@ namespace Firecracker_Engine
             else if (objDef.ClassProperties.ContainsKey("RotationAccel"))
             {
                 m_vAcceleration = Helpers.ParseVector3(objDef.ClassProperties["RotationAccel"]);
-            }
+            }*/
 
         }
 
