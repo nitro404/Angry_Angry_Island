@@ -81,6 +81,9 @@ namespace Firecracker_Engine
         protected Vector3 m_vWorldRotation;
         protected Vector3 m_vWorldScale;
 
+        protected string m_sObjectName;
+        public string ObjectName { get { return m_sObjectName; } }
+
         CObjectID m_ID;
 
         private string m_sObjectType;
