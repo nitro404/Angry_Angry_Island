@@ -13,16 +13,21 @@ Collision Edges: 11
 	295, 192; 376, 130
 	376, 130; 421, 226
 	421, 226; 295, 192
-Objects: 3
-	Static Object:
-		Position: 761, 242
-		Sprite Name: Green SpaceShip Center Moving 1
-		SpriteSheet Name: SpaceShip
-	Static Object:
-		Position: 789, 48
-		Sprite Name: Green SpaceShip Center Moving 1
-		SpriteSheet Name: SpaceShip
-	Static Object:
-		Position: 413, 415
-		Sprite Name: Green SpaceShip Center Moving 1
-		SpriteSheet Name: SpaceShip
+Objects: 4
+	NPCObject:
+		Position: 100, 100
+		Sprite Name: Sheep_1
+		SpriteSheet Name: NPCObject
+	NPCObject:
+		Position: 200, 200
+		Sprite Name: Sheep_1
+		SpriteSheet Name: NPCObject
+	NPCObject:
+		Position: 300, 300
+		Sprite Name: Sheep_1
+		SpriteSheet Name: NPCObject
+	NPCObject:
+		Position: 400, 400
+		Sprite Name: Sheep_1
+		SpriteSheet Name: NPCObject
+		

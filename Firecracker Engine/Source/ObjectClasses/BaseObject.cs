@@ -64,6 +64,7 @@ namespace Firecracker_Engine
         public string ObjectName { get { return m_sObjectName; } }
 
         private string m_sObjectType;
+        public string ObjectType { get { return m_sObjectType; } }
 
         protected Rotation m_Rotation;
         public Rotation CurrentRotation { get { return m_Rotation; } }

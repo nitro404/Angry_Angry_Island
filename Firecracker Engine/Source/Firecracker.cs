@@ -31,6 +31,10 @@ namespace Firecracker_Engine {
 		public static Level level;
 		public static Random random;
 
+        public static Random theRandom = new Random();
+
+        public MouseManager m_MouseManager;
+
         public static CreateObjectDelegate CreateObjectDelegate = null;
         private static CreateObjectDelegate EngineCreateObjectDelegate = new CreateObjectDelegate(CreateObject);
 
@@ -54,6 +58,7 @@ namespace Firecracker_Engine {
 			Content.RootDirectory = "Content";
 
             m_lObjectList = new List<CBaseObject>();
+            m_MouseManager = new MouseManager();
 		}
 
 		protected override void Initialize() {
@@ -76,6 +81,8 @@ namespace Firecracker_Engine {
 			menu.initialize();
 			console.initialize();
             UIScreenManager.CreateInstance();
+
+            m_MouseManager.Initialize();
 
             DefinitionManager.LoadDefinitions("Content\\Objects");
 
@@ -130,6 +137,16 @@ namespace Firecracker_Engine {
                     return obj;
             }
             return null;
+        }
+        public List<CBaseObject> FindObjectsByType(string sType)
+        {
+            List<CBaseObject> returnList = new List<CBaseObject>();
+            foreach (CBaseObject obj in m_lObjectList)
+            {
+                if (obj.ObjectType.Equals(sType))
+                    returnList.Add(obj);
+            }
+            return returnList;
         }
 
         public void AddObjectToList(CBaseObject obj)
@@ -196,6 +213,7 @@ namespace Firecracker_Engine {
 		public virtual void handleInput(GameTime gameTime) {
 			// handle game-related input, and update the game
 			controlSystem.handleInput(gameTime);
+            m_MouseManager.UpdateMouse();
 		}
 
 		public virtual void updateGame(GameTime gameTime) {

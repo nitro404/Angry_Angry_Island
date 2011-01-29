@@ -117,6 +117,7 @@
     <Compile Include="Source\Game Objects\GameObject.cs" />
     <Compile Include="Source\Game Objects\GameTile.cs" />
     <Compile Include="Source\Game Objects\StaticObject.cs" />
+    <Compile Include="Source\ObjectClasses\NPCObject.cs" />
     <Compile Include="Source\Settings File Manager\GameSettings.cs" />
     <Compile Include="Source\Settings File Manager\Variable.cs" />
     <Compile Include="Source\Settings File Manager\VariableSystem.cs" />

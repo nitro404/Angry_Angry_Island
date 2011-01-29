@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace Firecracker_Engine {
 
-	class StaticObject : GameObject {
+	public class StaticObject : GameObject {
 
 		public StaticObject(Vertex position, Sprite sprite) : this(position.toVector(), sprite) { }
 

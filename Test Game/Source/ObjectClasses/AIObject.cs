@@ -10,34 +10,13 @@ using Microsoft.Xna.Framework.Storage;
 
 namespace Test_Game
 {
-    public enum AIWanderType
-    {
-        AI_Random,
-        AI_RandomTowardsNearest,
-        AI_Path,
-        AI_None,
-    }
-
+    
+#if false
     public class AIObject : CBaseObject
     {
 #pragma warning disable 108
         public const string ClassName = "AIObject";
 #pragma warning restore 108
-
-        // Note Loaded
-        protected float m_fAge;
-        protected bool m_bIsMoving;
-        protected Vector2 m_vTargetLocation;
-        protected float m_fSpeed;
-        protected float m_fWaitTime;
-        protected float m_fIdleTime;
-
-        // Loaded.
-        protected float m_fMaxAge;
-        protected AIWanderType m_eWanderType;
-
-        public Sprite sheep,Sshadow;
-        public GamePadState gamePadStatus;
         
 
         //-------------------
@@ -84,6 +63,19 @@ namespace Test_Game
                 m_eWanderType = (AIWanderType)Helpers.StringToEnum<AIWanderType>(objDef.ClassProperties["AI_Type"]);
             }
 
+        }
+
+        public void FleeFromPoint(Vector2 fleePoint)
+        {
+            m_vTargetLocation = fleePoint - PositionAbsolute;
+            if (m_vTargetLocation.Length() <= 50.0f && m_vTargetLocation.Length() >= -50.0f)
+            {
+                m_vTargetLocation.Normalize();
+                m_vTargetLocation *= 100.0f;
+                m_vTargetLocation += PositionAbsolute;
+                m_fIdleTime = 0.0f;
+                m_bIsMoving = true;
+            }
         }
 
         public void sheepUpdate(GameTime gameTime)
@@ -154,4 +146,5 @@ namespace Test_Game
             base.Render();
         }
     }
+#endif
 }

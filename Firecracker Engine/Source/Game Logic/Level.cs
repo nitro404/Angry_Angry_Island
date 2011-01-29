@@ -307,6 +307,10 @@ namespace Firecracker_Engine {
 				else if(objectType.Equals("Game Tile", StringComparison.OrdinalIgnoreCase)) {
 					newObject = GameTile.parseFrom(input, Firecracker.spriteSheets);
 				}
+                else if (objectType.Equals("NPCObject", StringComparison.OrdinalIgnoreCase))
+                {
+                    newObject = NPCObject.parseFrom(input, Firecracker.spriteSheets);
+                }
 
 				// verify that the object was successfully parsed
 				if(newObject != null) {

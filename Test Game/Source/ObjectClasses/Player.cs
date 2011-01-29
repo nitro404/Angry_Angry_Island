@@ -35,6 +35,16 @@ namespace Test_Game
 
         public override void Tick(GameTime gameTime)
         {
+            if (Firecracker.engineInstance.m_MouseManager.IsMouseLeftPressed())
+            {
+                // cause all the sheep objects to gravitate towards this point.
+                List<CBaseObject> sheepList = Firecracker.engineInstance.FindObjectsByType("BasicAI");
+                foreach (CBaseObject obj in sheepList)
+                {
+                    //((AIObject)obj).FleeFromPoint(Firecracker.engineInstance.m_MouseManager.GetMousePos());
+                }
+            }
+
             m_credits += (float)((float)gameTime.ElapsedGameTime.Milliseconds/1000.0f) * CREDIT_TRICKLE_RATE;
             base.Tick(gameTime);
         }
