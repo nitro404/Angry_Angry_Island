@@ -38,6 +38,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Levels\level2.2d">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>level2</Name>
+    </None>
     <None Include="Levels\level1.2d">
       <Name>level1</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
