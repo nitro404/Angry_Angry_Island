@@ -232,6 +232,7 @@ namespace Firecracker_Engine {
 								catch(Exception) { return null; }
 
 								Sprite sprite = new Sprite(spriteSheetFileName, content);
+								sprite.name = spriteNameData;
 								sprite.parentName = spriteSheetName;
 								sprite.index = 0;
 								sprite.type = spriteType;
