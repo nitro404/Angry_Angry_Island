@@ -190,17 +190,21 @@ namespace Firecracker_Engine
         /// <param name="objDef">The object definition</param>
         public virtual void LoadPropertiesList(ObjectDefinition objDef) 
         {
+
+            m_sObjectName = objDef.ObjectName;
+            m_sObjectType = objDef.ObjectClassType;
+
             foreach (KeyValuePair<string, string> propertyItem in objDef.ClassProperties)
             {
                 if (propertyItem.Key.CompareTo("WorldPosition") == 0)
                 {
                     m_vWorldPosition = Helpers.ParseVector3(propertyItem.Value);
                 }
-                else if (propertyItem.Key.CompareTo("WorldScale") == 0)
+                if (propertyItem.Key.CompareTo("WorldScale") == 0)
                 {
                     m_vWorldScale = Helpers.ParseVector3(propertyItem.Value);
                 }
-                else if (propertyItem.Key.CompareTo("WorldRotation") == 0)
+                if (propertyItem.Key.CompareTo("WorldRotation") == 0)
                 {
                     m_vWorldRotation = Helpers.ParseVector3(propertyItem.Value);
                 }

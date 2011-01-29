@@ -11,3 +11,7 @@ ObjectName		"SmallRock_2"
 ObjectDef		"SmallRock"
 EndObjectDef
 
+BeginObjectDef
+ObjectName		"BasicAI_1"
+ObjectDef		"BasicAI"
+EndObjectDef

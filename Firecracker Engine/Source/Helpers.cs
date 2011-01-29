@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 
 namespace Firecracker_Engine
 {
-    static class Helpers
+    public static class Helpers
     {
         public static Vector2 ParseVector2(string inString)
         {
@@ -80,6 +80,11 @@ namespace Firecracker_Engine
             formatList[2] = inVector.Z;
             formatList[3] = inVector.W;
             return string.Format("%f %f %f %f", formatList);
+        }
+
+        public static int StringToEnum<EnumType>(string sEnumVal)
+        {
+            return (int)Enum.Parse(typeof(EnumType), sEnumVal);
         }
     }
 }

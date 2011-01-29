@@ -50,6 +50,14 @@ namespace Test_Game
                         returnObject = newObject;
                     }
                     break;
+                case AIObject.ClassName:
+                    {
+                        AIObject newObject = new AIObject();
+                        newObject.LoadPropertiesList(objDef);
+                        newObject.LoadPropertiesList(objOverwriteDefinition);
+                        returnObject = newObject;
+                    }
+                    break;
             }
             return returnObject;
         }

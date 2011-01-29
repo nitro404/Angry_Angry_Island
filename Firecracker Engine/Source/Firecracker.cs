@@ -115,7 +115,7 @@ namespace Firecracker_Engine {
 
             if (newObject != null)
             {
-                GlobalFirecrackerRef.Instance.AddObjectToList(CreateObject(DefaultDef, ObjectDefinition));
+                GlobalFirecrackerRef.Instance.AddObjectToList(newObject);
             }
             else
             {
