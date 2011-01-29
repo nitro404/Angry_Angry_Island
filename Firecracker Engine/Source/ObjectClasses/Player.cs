@@ -88,5 +88,11 @@ namespace Firecracker_Engine
             get { return m_credits; }
             set { m_credits = value; }
         }
+
+        public override void OnDestroyed()
+        {
+
+            base.OnDestroyed();
+        }
     }
 }

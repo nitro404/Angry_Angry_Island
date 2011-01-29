@@ -247,6 +247,11 @@ namespace Firecracker_Engine {
 		}
 
 		public virtual bool checkCollision(GameObject o) { return false; }
+
+        public virtual void OnDestroyed()
+        {
+
+        }
 	}
 
 }

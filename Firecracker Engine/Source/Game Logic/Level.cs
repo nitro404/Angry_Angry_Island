@@ -347,6 +347,7 @@ namespace Firecracker_Engine {
 		public void update(GameTime gameTime) {
 			for(int i=0;i<m_objects.Count();i++) {
 				if(m_objects[i].toBeDeleted) {
+                    m_objects[i].OnDestroyed();
 					m_objects.RemoveAt(i);
 					i--;
 				}
