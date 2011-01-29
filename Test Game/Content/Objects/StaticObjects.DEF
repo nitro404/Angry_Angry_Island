@@ -34,3 +34,15 @@ RightLimit       100.0
 UpLimit          -100.0
 DownLimit        100.0
 EndObjectDef
+
+BeginObjectDef
+ObjectName		"Environment"
+ObjectClass		"Environment"
+Heartbeat		1
+Enabled			1
+Visible			0
+MaxAge          100.0
+Sold            1
+Danger          0
+Sprite          "Tree.png"
+EndObjectDef
