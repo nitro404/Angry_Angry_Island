@@ -33,7 +33,7 @@ namespace Test_Game
         {
             CBaseObject returnObject = null;
             switch (objDef.ObjectClassType)
-            {
+            {     
                 case TestGameObject.ClassName:
                     {
                         TestGameObject newObject = new TestGameObject();
@@ -58,14 +58,15 @@ namespace Test_Game
                         returnObject = newObject;
                     }
                     break;
-                case CEnviromentObj.ClassName:
+                case CEnvironmentObj.ClassName:
                     {
-                        CEnviromentObj newObject = new CEnviromentObj();
+                        CEnvironmentObj newObject = new CEnvironmentObj();
                         newObject.LoadPropertiesList(objDef);
                         newObject.LoadPropertiesList(objOverwriteDefinition);
                         returnObject = newObject;
                     }
                     break;
+
             }
             return returnObject;
         }

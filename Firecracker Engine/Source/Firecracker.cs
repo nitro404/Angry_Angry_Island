@@ -26,8 +26,8 @@ namespace Firecracker_Engine {
 		public static ControlSystem controlSystem;
 		public static Menu menu;
 		public static GameConsole console;
-		protected GraphicsDeviceManager graphics;
-		protected SpriteBatch spriteBatch;
+		public GraphicsDeviceManager graphics;
+		public SpriteBatch spriteBatch;
 		public static SpriteSheetCollection spriteSheets;
 		protected RenderTarget2D buffer;
 		protected Effect blur;
@@ -271,6 +271,9 @@ namespace Firecracker_Engine {
                         returnObject = newObject;
                     }
                     break;
+
+                
+
                 case CameraBase.ClassName:
                     {
                         CameraBase newObject = new CameraBase();
@@ -279,6 +282,7 @@ namespace Firecracker_Engine {
                         returnObject = newObject;
                     }
                     break;
+
                 default:
                     return null;
             }

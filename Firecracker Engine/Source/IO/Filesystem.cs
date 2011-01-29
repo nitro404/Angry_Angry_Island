@@ -267,7 +267,7 @@ namespace Firecracker_Engine
                             }
                             else
                             {
-                                // If it is none of the above then it is a class property.
+                             //    If it is none of the above then it is a class property.
                                 NewObjectDef.ClassProperties.Add(
                                     sCurrentLine.Substring(0, sCurrentLine.IndexOfAny(trimString)),
                                     sCurrentLine.Substring(sCurrentLine.IndexOfAny(trimString)).Trim(trimString)
@@ -335,10 +335,10 @@ namespace Firecracker_Engine
                             else
                             {
                                 // If it is none of the above then it is a class property.
-                                NewObjectDef.ClassProperties.Add(
+                             /*   NewObjectDef.ClassProperties.Add(
                                     sCurrentLine.Substring(0, sCurrentLine.IndexOfAny(trimString)),
                                     sCurrentLine.Substring(sCurrentLine.IndexOfAny(trimString)).Trim(trimString)
-                                    );
+                                    );*/
                             }
                         }
                         break;

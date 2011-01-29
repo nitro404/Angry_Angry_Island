@@ -31,4 +31,3 @@ BeginObjectDef
 ObjectName		"Environment_1"
 ObjectDef		"Environment"
 EndObjectDef
-EndObjectDef
