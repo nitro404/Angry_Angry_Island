@@ -18,7 +18,7 @@ namespace Firecracker_Engine
             Vector2 returnVec = new Vector2();
             
             string[] stringList;
-            stringList = inString.Split(" ".ToCharArray(), 2);
+            stringList = inString.Trim("{}".ToCharArray()).Split(", ".ToCharArray(), 2, StringSplitOptions.RemoveEmptyEntries);
 
             if (stringList.Length >= 2)
             {
@@ -33,7 +33,7 @@ namespace Firecracker_Engine
             Vector3 returnVec = new Vector3();
 
             string[] stringList;
-            stringList = inString.Split(" ".ToCharArray(), 3);
+            stringList = inString.Trim("{}".ToCharArray()).Split(", ".ToCharArray(), 3, StringSplitOptions.RemoveEmptyEntries);
 
             if (stringList.Length >= 3)
             {
@@ -49,7 +49,7 @@ namespace Firecracker_Engine
             Vector4 returnVec = new Vector4();
 
             string[] stringList;
-            stringList = inString.Split(" ".ToCharArray(), 4);
+            stringList = inString.Trim("{}".ToCharArray()).Split(", ".ToCharArray(), 4, StringSplitOptions.RemoveEmptyEntries);
 
             if (inString.Length >= 4)
             {

@@ -30,6 +30,14 @@ namespace Firecracker_Engine
      */
 
 
+    public enum Rotation
+    {
+        ROT_NE,
+        ROT_SE,
+        ROT_SW,
+        ROT_NW
+    }
+
     /// <summary>
     /// This is the base object class that all game objects are built on.
     /// </summary>
@@ -56,6 +64,10 @@ namespace Firecracker_Engine
         public string ObjectName { get { return m_sObjectName; } }
 
         private string m_sObjectType;
+
+        protected Rotation m_Rotation;
+        public Rotation CurrentRotation { get { return m_Rotation; } }
+
 
         /// <summary>
         /// Constructor
@@ -102,7 +114,7 @@ namespace Firecracker_Engine
         /// <param name="fTime"></param>
         public virtual void Tick(GameTime gameTime)
         {
-
+            
         }
 
         /// <summary>
@@ -156,9 +168,9 @@ namespace Firecracker_Engine
             m_sObjectName = objDef.ObjectName;
             m_sObjectType = objDef.ObjectClassType;
 
-            foreach (KeyValuePair<string, string> propertyItem in objDef.ClassProperties)
+            if (objDef.ClassProperties.ContainsKey("Position"))
             {
-
+                m_Position = Helpers.ParseVector2(objDef.ClassProperties["Position"]);
             }
         }
 

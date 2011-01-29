@@ -31,6 +31,7 @@ namespace Firecracker_Engine {
 		public static SpriteSheetCollection spriteSheets;
 		protected RenderTarget2D buffer;
 		protected Effect blur;
+        static public Random theRandom = new Random();
 
         public static CreateObjectDelegate CreateObjectDelegate = null;
         private static CreateObjectDelegate EngineCreateObjectDelegate = new CreateObjectDelegate(CreateObject);

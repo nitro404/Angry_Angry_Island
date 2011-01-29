@@ -9,16 +9,6 @@ Elasticity {1.0}
 EndObjectDef
 
 BeginObjectDef
-ObjectName		"BasicAI"
-ObjectClass		"AIObject"
-Heartbeat		0
-Enabled			1
-Visible			1
-MaxAge          100.0
-AI_Type         "AI_Random"
-EndObjectDef
-
-BeginObjectDef
 ObjectName		"Player"
 ObjectClass		"Player"
 Heartbeat		1
@@ -70,4 +60,14 @@ Dimensions      {24, 12}
 Tiles           {{0,1,Dark Wall}
                  {0,2,Dark Wall}
                  {0,3,Split Off Hall}}
+EndObjectDef
+
+BeginObjectDef
+ObjectName		"BasicAI"
+ObjectClass		"AIObject"
+Heartbeat		0
+Enabled			1
+Visible			1
+MaxAge          100.0
+AI_Type         "AI_Random"
 EndObjectDef

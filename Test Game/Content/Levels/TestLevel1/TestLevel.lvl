@@ -12,11 +12,6 @@ ObjectDef		"SmallRock"
 EndObjectDef
 
 BeginObjectDef
-ObjectName		"BasicAI_1"
-ObjectDef		"BasicAI"
-EndObjectDef
-
-BeginObjectDef
 ObjectName		"Player_1"
 ObjectDef		"Player"
 EndObjectDef
@@ -34,4 +29,22 @@ EndObjectDef
 BeginObjectDef
 ObjectName      "TheLevel"
 ObjectDef       "Level"
+EndObjectDef
+
+BeginObjectDef
+ObjectName		"BasicAI_1"
+ObjectDef		"BasicAI"
+Position        {100,100}
+EndObjectDef
+
+BeginObjectDef
+ObjectName		"BasicAI_2"
+ObjectDef		"BasicAI"
+Position        {200,200}
+EndObjectDef
+
+BeginObjectDef
+ObjectName		"BasicAI_3"
+ObjectDef		"BasicAI"
+Position        {300,300}
 EndObjectDef
