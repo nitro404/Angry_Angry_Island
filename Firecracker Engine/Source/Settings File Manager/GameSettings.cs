@@ -10,11 +10,13 @@ namespace Firecracker_Engine {
 
 		private static string m_defaultFileName = "settings.ini";
 		private static string m_defaultSpriteSheetFileName = "spritesheets.ini";
+		private static string m_defaultAnimationsFileName = "animations.ini";
 
 		public int m_screenWidth;
 		public int m_screenHeight;
 		public bool m_fullScreen;
 		private string m_spriteSheetFileName;
+		private String m_animationsFileName;
 
 		private VariableSystem m_variables;
 
@@ -24,6 +26,7 @@ namespace Firecracker_Engine {
 			screenHeight = 768;
 			fullScreen = false;
 			m_spriteSheetFileName = m_defaultSpriteSheetFileName;
+			m_animationsFileName = m_defaultAnimationsFileName;
 		}
 
 		public static string defaultFileName {
@@ -32,6 +35,10 @@ namespace Firecracker_Engine {
 
 		public static string defaultSpriteSheetFileName {
 			get { return m_defaultSpriteSheetFileName; }
+		}
+
+		public static string defaultAnimationsFileName {
+			get { return m_defaultAnimationsFileName; }
 		}
 
 		public int screenWidth {
@@ -52,6 +59,11 @@ namespace Firecracker_Engine {
 		public string spriteSheetFileName {
 			get { return m_spriteSheetFileName; }
 			set { if(value != null) { m_spriteSheetFileName = value; } }
+		}
+
+		public string animationsFileName {
+			get { return m_animationsFileName; }
+			set { if(value != null) { m_animationsFileName = value; } }
 		}
 
 		public List<Variable> getControls() {
@@ -103,6 +115,7 @@ namespace Firecracker_Engine {
 			try { screenHeight = int.Parse(m_variables.getValue("Screen Height", "Settings")); } catch(Exception) { }
 			try { fullScreen = bool.Parse(m_variables.getValue("Fullscreen", "Settings")); } catch(Exception) { }
 			spriteSheetFileName = m_variables.getValue("SpriteSheet File", "Paths");
+			animationsFileName = m_variables.getValue("Animations File", "Paths");
 
 			return true;
 		}
@@ -113,6 +126,7 @@ namespace Firecracker_Engine {
 			m_variables.setValue("Screen Height", m_screenHeight.ToString(), "Settings");
 			m_variables.setValue("Fullscreen", m_fullScreen.ToString().ToLower(), "Settings");
 			m_variables.setValue("SpriteSheet File", m_spriteSheetFileName, "Paths");
+			m_variables.setValue("Animations File", m_animationsFileName, "Paths");
 
 			// group the variables by categories
 			m_variables.sort();

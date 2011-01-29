@@ -38,6 +38,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="animations.ini">
+      <Name>animations</Name>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Levels\level2.2d">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Name>level2</Name>

@@ -192,8 +192,6 @@ namespace Firecracker_Engine {
 							// Single Sprite =================================================================
 							// ===============================================================================
 							if(spriteSheetType == SpriteSheetType.Single) {
-								String temp;
-
 								VariableSystem spriteAttributes = new VariableSystem();
 								for(int i=0;i<4;i++) {
 									spriteAttributes.add(Variable.parseFrom(instream.ReadLine()));

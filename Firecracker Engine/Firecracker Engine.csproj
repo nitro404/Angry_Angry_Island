@@ -88,6 +88,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Source\Animations\SpriteAnimationCollection.cs" />
     <Compile Include="Source\Game Logic\Level.cs" />
     <Compile Include="Source\Graph\Edge.cs" />
     <Compile Include="Source\Graph\Graph.cs" />
@@ -124,7 +125,7 @@
     <Compile Include="Source\Settings File Manager\Variable.cs" />
     <Compile Include="Source\Settings File Manager\VariableSystem.cs" />
     <Compile Include="Source\Sprite Sheet System\Sprite.cs" />
-    <Compile Include="Source\Sprite Sheet System\SpriteAnimation.cs" />
+    <Compile Include="Source\Animations\SpriteAnimation.cs" />
     <Compile Include="Source\Sprite Sheet System\SpriteSheet.cs" />
     <Compile Include="Source\Sprite Sheet System\SpriteSheetCollection.cs" />
     <Compile Include="Source\UI\Button.cs" />

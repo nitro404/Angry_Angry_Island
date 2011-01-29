@@ -14,13 +14,13 @@ namespace Firecracker_Engine
         public Explosion()
             : base()
         {
-            m_Anim = new SpriteAnimation(64, SpriteAnimationType.Single);
+            m_Anim = new SpriteAnimation(null, 64, SpriteAnimationType.Single);
         }
 
         public Explosion(Vector2 vPosition)
             : base()
         {
-            m_Anim = new SpriteAnimation(0.128f, SpriteAnimationType.Single);
+            m_Anim = new SpriteAnimation(null, 0.128f, SpriteAnimationType.Single);
             SpriteSheet spriteSheet = Firecracker.spriteSheets.getSpriteSheet("ExplosionObject");
             if (spriteSheet != null)
             {
