@@ -110,12 +110,20 @@ namespace Firecracker_Engine
 
             if (m_fAge >= m_fDeathAt)
             {
+                Explosion exp = new Explosion(position + new Vector2(16.0f, 16.0f));
+                Firecracker.level.addObject(exp);
+                Explosion exp2 = new Explosion(position - new Vector2(16.0f, 16.0f));
+                Firecracker.level.addObject(exp2);
+
                 NPCObject newObject = new NPCObject(position + new Vector2(16.0f, 16.0f), sprite);
                 Firecracker.level.addObject(newObject);
                 newObject = new NPCObject(position - new Vector2(16.0f, 16.0f), sprite);
                 Firecracker.level.addObject(newObject);
-                Explosion exp = new Explosion(position);
-                Firecracker.level.addObject(exp);
+
+                HumanDeath newDeath = new HumanDeath(position);
+                Firecracker.level.addObject(newDeath);
+
+
                 toBeDeleted = true;
             }
 

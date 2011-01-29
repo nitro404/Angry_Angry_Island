@@ -7,26 +7,26 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Firecracker_Engine
 {
-    public class Explosion : GameObject
+    class HumanDeath : GameObject
     {
         SpriteAnimation m_Anim;
 
-        public Explosion()
+        public HumanDeath()
             : base()
         {
             m_Anim = new SpriteAnimation(64, SpriteAnimationType.Single);
         }
 
-        public Explosion(Vector2 vPosition)
+        public HumanDeath(Vector2 vPosition)
             : base()
         {
             m_Anim = new SpriteAnimation(0.128f, SpriteAnimationType.Single);
-            SpriteSheet spriteSheet = Firecracker.spriteSheets.getSpriteSheet("ExplosionObject");
+            SpriteSheet spriteSheet = Firecracker.spriteSheets.getSpriteSheet("HumanDeath");
             if (spriteSheet != null)
             {
                 for (int i = 1; i < 18; i++)
                 {
-                    Sprite aSprite = spriteSheet.getSprite(string.Concat("Explosion_", i.ToString()));
+                    Sprite aSprite = spriteSheet.getSprite(string.Concat("HumanDeath_", i.ToString()));
                     m_Anim.addSprite(aSprite);
                 }
             }
