@@ -23,6 +23,7 @@ namespace Firecracker_Engine
     {
         
         public bool hidden = false;
+        public bool blockMouse = true;
 
         public enum ContentType
         {
@@ -226,17 +227,22 @@ namespace Firecracker_Engine
             if (!hidden)
             {
                 //trigger mouse event if appropriate.
-                if (TriggerMouseEvent)
+                if (mouseState.X >= topLeft.X && mouseState.X <= topLeft.X + scaledSize.X
+                    && mouseState.Y >= topLeft.Y && mouseState.Y <= topLeft.Y + scaledSize.Y)
                 {
-                    if (mouseState.X >= topLeft.X && mouseState.X <= topLeft.X + scaledSize.X
-                        && mouseState.Y >= topLeft.Y && mouseState.Y <= topLeft.Y + scaledSize.Y)
+                    if (blockMouse)
                     {
+                        UIScreenManager.Instance.mouseBlocked = true;
+                    }
+                    if (TriggerMouseEvent)
                         OnMouseOver(mouseState, lastMouseState, true);
-                    }
-                    else
-                    {
+                    
+                }
+                else
+                {
+
+                    if (TriggerMouseEvent)
                         OnMouseOver(mouseState, lastMouseState, false);
-                    }
                 }
 
                 //recurse on children.

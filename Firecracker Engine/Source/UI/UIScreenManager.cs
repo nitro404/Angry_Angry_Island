@@ -41,9 +41,12 @@ namespace Firecracker_Engine
         MouseState m_MouseState;
         MouseState m_OldMouseState;
 
+        public bool mouseBlocked;
+
         //this should be called each frame during update
         public void Update(float deltaT)
         {
+            mouseBlocked = false;
             if (currentScreen != null)
             {
                 currentScreen.Update(deltaT);

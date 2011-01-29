@@ -47,7 +47,7 @@ namespace Firecracker_Engine
 
             position = Firecracker.engineInstance.m_MouseManager.GetMousePos();
 
-            if (Firecracker.engineInstance.m_MouseManager.IsMouseRightPressed())
+            if (Firecracker.engineInstance.m_MouseManager.IsMouseLeftPressed() && !UIScreenManager.Instance.mouseBlocked)
             {
                 DoSelectedAbility(Firecracker.engineInstance.m_MouseManager.GetMousePos()+Firecracker.engineInstance.theCamera.GetCameraPos());
             }
