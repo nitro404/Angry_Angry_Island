@@ -43,6 +43,8 @@ namespace Firecracker_Engine {
 		protected ScaleDirection m_scaleDirection;
 		protected ScaleDirection m_initialScaleDirection;
 
+		protected bool m_toBeDeleted = false;
+
 		public GameObject() {
 			m_sprite = null;
 
@@ -199,6 +201,11 @@ namespace Firecracker_Engine {
 		public ScaleDirection initialScaleDirection {
 			get { return m_initialScaleDirection; }
 			set { m_initialScaleDirection = value; }
+		}
+
+		public bool toBeDeleted {
+			get { return m_toBeDeleted; }
+			set { m_toBeDeleted = value; }
 		}
 
 		// change what the values are restored to on a reset

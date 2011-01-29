@@ -93,6 +93,19 @@ namespace Firecracker_Engine {
 			return -1;
 		}
 
+		public bool removeObject(int index) {
+			if(index < 0 || index >= m_objects.Count()) { return false; }
+
+			m_objects.RemoveAt(index);
+			return true;
+		}
+
+		public bool removeObject(GameObject o) {
+			if(o == null) { return false; }
+
+			return m_objects.Remove(o);
+		}
+
 		public Vector2 getScreenPosition(Vector2 gamePosition) {
 			return getScreenPosition(gamePosition, m_type, m_gridSize);
 		}
