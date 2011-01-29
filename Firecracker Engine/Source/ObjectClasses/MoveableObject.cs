@@ -72,5 +72,10 @@ namespace Firecracker_Engine
 
         }
 
+        public override void LoadResources()
+        {
+            base.LoadResources();
+        }
+
     }
 }

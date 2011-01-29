@@ -121,8 +121,12 @@ namespace Firecracker_Engine {
             {
                 // This is not an object that actually exists.
                 System.Diagnostics.Debug.Assert(false, "Uh oh. The level defined an object that doesn't exist.");
+                return false;
             }
-            return false;
+
+
+
+            return true;
         }
 
         public void AddObjectToList(CBaseObject obj)

@@ -204,6 +204,14 @@ namespace Firecracker_Engine
             }
         }
 
+        /// <summary>
+        /// Loads the game resources associated with this object.
+        /// </summary>
+        public virtual void LoadResources()
+        {
+
+        }
+
     }
     
     /// <summary>
