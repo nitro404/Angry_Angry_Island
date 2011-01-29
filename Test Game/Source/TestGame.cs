@@ -87,6 +87,8 @@ namespace Test_Game {
 		/// </summary>
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Draw(GameTime gameTime) {
+			base.Draw(gameTime);
+
 			graphics.GraphicsDevice.SetRenderTarget(0, buffer);
 			GraphicsDevice.Clear(Color.Black);
 

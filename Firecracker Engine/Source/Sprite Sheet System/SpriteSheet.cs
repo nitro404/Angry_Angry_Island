@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Firecracker_Engine {
 
-	public enum SpriteSheetType { Invalid = -1, ArbitraryOffsets, SingleGrid, MultipleGrids }
+	public enum SpriteSheetType { Invalid = -1, ArbitraryOffsets, SingleGrid, MultipleGrids, Single }
 
 	public enum Axis { Vertical, Horizontal }
 
@@ -119,6 +119,9 @@ namespace Firecracker_Engine {
 			else if(temp.Equals("Multiple Grids", StringComparison.OrdinalIgnoreCase)) {
 				return SpriteSheetType.MultipleGrids;
 			}
+			else if(temp.Equals("Single", StringComparison.OrdinalIgnoreCase)) {
+				return SpriteSheetType.Single;
+			}
 			return SpriteSheetType.Invalid;
 		}
 
@@ -163,7 +166,11 @@ namespace Firecracker_Engine {
 						// if the variable is a specification of the number of sprites or
 						// the number of grids to be parsed, begin doing so
 						if(v != null && (v.id.Equals("Number of Sprites", StringComparison.OrdinalIgnoreCase) ||
-						   v.id.Equals("Number of Grids", StringComparison.OrdinalIgnoreCase))) {
+										 v.id.Equals("Number of Grids", StringComparison.OrdinalIgnoreCase) ||
+										 (properties.contains("SpriteSheet Name") &&
+										  properties.contains("SpriteSheet Type") &&
+										  properties.contains("File Name") &&
+										  properties.getValue("SpriteSheet Type").Equals("Single", StringComparison.OrdinalIgnoreCase)))) {
 
 							// get the sprite sheet name and verify it exists
 							spriteSheetName = properties.getValue("SpriteSheet Name");
@@ -182,9 +189,62 @@ namespace Firecracker_Engine {
 							spriteSheetImage.type = SpriteType.SpriteSheet;
 
 							// ===============================================================================
+							// Single Sprite =================================================================
+							// ===============================================================================
+							if(spriteSheetType == SpriteSheetType.Single) {
+								String temp;
+
+								VariableSystem spriteAttributes = new VariableSystem();
+								for(int i=0;i<4;i++) {
+									spriteAttributes.add(Variable.parseFrom(instream.ReadLine()));
+								}
+
+								// get the sprite name
+								String spriteNameData = spriteAttributes.getValue("Sprite Name");
+								if(spriteNameData == null) { return null; }
+
+								// get the sprite type
+								String spriteTypeData = spriteAttributes.getValue("Sprite Type");
+								if(spriteTypeData == null) { return null; }
+								SpriteType spriteType = Sprite.parseType(spriteTypeData);
+								if(spriteType == SpriteType.Unknown) { return null; }
+
+								// get the offset of the sprite
+								String offsetData = spriteAttributes.getValue("Pixel Offset");
+								if(offsetData == null) { return null; }
+								String[] offsetValues = offsetData.Split(',');
+								if(offsetValues.Length != 2) { return null; }
+
+								// get the size of the sprite
+								String sizeData = spriteAttributes.getValue("Size");
+								if(sizeData == null) { return null; }
+								String[] sizeValues = sizeData.Split(',');
+								if(sizeValues.Length != 2) { return null; }
+
+								// create a rectangle representing the first cell in the current grid
+								Rectangle grid;
+								try {
+									grid = new Rectangle(int.Parse(offsetValues[0]),
+																	int.Parse(offsetValues[1]),
+																	int.Parse(sizeValues[0]),
+																	int.Parse(sizeValues[1]));
+								}
+								catch(Exception) { return null; }
+
+								Sprite sprite = new Sprite(spriteSheetFileName, content);
+								sprite.parentName = spriteSheetName;
+								sprite.index = 0;
+								sprite.type = spriteType;
+
+								spriteSheet = new SpriteSheet();
+								spriteSheet.image = sprite;
+								spriteSheet.name = spriteSheetName;
+								spriteSheet.addSprite(sprite);
+							}
+							// ===============================================================================
 							// Arbitrary Offset SpriteSheet ==================================================
 							// ===============================================================================
-							if(spriteSheetType == SpriteSheetType.ArbitraryOffsets) {
+							else if(spriteSheetType == SpriteSheetType.ArbitraryOffsets) {
 								VariableSystem spriteAttributes = new VariableSystem();
 								int numberOfSprites;
 
@@ -226,7 +286,7 @@ namespace Firecracker_Engine {
 									if(spriteType == null) { return null; }
 									
 									// parse the sprite's offset in its parent sprite sheet
-									string temp = spriteAttributes.getValue("Offset");
+									string temp = spriteAttributes.getValue("Pixel Offset");
 									if(temp == null) { return null; }
 									string[] offsetValues = temp.Split(',');
 									if(offsetValues.Length != 2) { return null; }
@@ -277,7 +337,7 @@ namespace Firecracker_Engine {
 								catch(Exception) { return null; }
 
 								// get the grid offset
-								string temp = properties.getValue("Offset");
+								string temp = properties.getValue("Pixel Offset");
 								if(temp == null) { return null; }
 								string[] offsetValues = temp.Split(',');
 								if(offsetValues.Length != 2) { return null; }
@@ -397,7 +457,7 @@ namespace Firecracker_Engine {
 									catch(Exception) { return null; }
 									
 									// get the offset of the current grid
-									string temp = gridAttributes.getValue("Offset");
+									string temp = gridAttributes.getValue("Pixel Offset");
 									if(temp == null) { return null; }
 									string[] offsetValues = temp.Split(',');
 									if(offsetValues.Length != 2) { return null; }
