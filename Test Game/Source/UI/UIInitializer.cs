@@ -28,7 +28,7 @@ namespace Test_Game
             Style.PopupWindowTitle = "testbutton";
 
             UIScreenManager.Instance.currentScreen = new Screen(
-                new List<UIObject>{new AbilityBar(), new PopupNotification()});
+                new List<UIObject>{new AbilityBar(), new InfoBar(), new PopupNotification()});
 
         }
     }
