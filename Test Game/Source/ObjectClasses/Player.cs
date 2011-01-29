@@ -17,9 +17,11 @@ namespace Test_Game
         private float m_credits;
         private Ability m_selectedAbility;
         private List<Ability> m_abilities;
+        public static Player Instance;
 
         public Player()
         {
+            Instance = this;
         }
 
         public void DoSelectedAbility(Vector2 position) //use an ability where the user clicked
@@ -37,7 +39,7 @@ namespace Test_Game
  	        base.Tick(fTime);
         }
 
-        public float M_Credits
+        public float Credits
         {
             get { return m_credits; }
             set { m_credits = value; }
