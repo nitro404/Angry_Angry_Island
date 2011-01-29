@@ -123,10 +123,17 @@ namespace Firecracker_Engine {
                 System.Diagnostics.Debug.Assert(false, "Uh oh. The level defined an object that doesn't exist.");
                 return false;
             }
-
-
-
             return true;
+        }
+
+        public CBaseObject FindObjectByName(string sObjectName)
+        {
+            foreach (CBaseObject obj in m_lObjectList)
+            {
+                if (obj.ObjectName.Equals(sObjectName))
+                    return obj;
+            }
+            return null;
         }
 
         public void AddObjectToList(CBaseObject obj)
