@@ -14,12 +14,22 @@ namespace Firecracker_Engine
         MouseState m_MouseState;
         MouseState m_OldMouseState;
 
+        //these accessors are necessary for the UI classes.
+        public MouseState MouseState
+        {
+            get { return m_MouseState; }
+        }
+        public MouseState OldMouseState
+        {
+            get { return m_OldMouseState; }
+        }
+
         /// <summary>
         /// Initialization. Polls the mouse state for the first time.
         /// </summary>
         public void Initialize()
         {
-            //m_OldMouseState = new MouseState();
+            m_OldMouseState = new MouseState();
             m_MouseState = Mouse.GetState();
         }
 

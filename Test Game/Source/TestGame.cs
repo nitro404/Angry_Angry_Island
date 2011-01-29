@@ -76,6 +76,7 @@ namespace Test_Game {
 			base.Update(gameTime);
 
 			if(IsActive) {
+                HandleScrolling();
 				screenManager.handleInput(gameTime);
 			}
 
@@ -134,5 +135,22 @@ namespace Test_Game {
 
 			screenManager.draw(spriteBatch, graphics.GraphicsDevice);
 		}
+
+        public void HandleScrolling()
+        {
+            const int SCROLL_BOUNDARY = 20;
+            const float SCROLL_SPEED = 100; //in pixels
+            Vector2 mousePos = mouseManager.GetMousePos();
+            Vector2 screenSize = new Vector2(settings.screenWidth, settings.screenHeight);
+            if (mousePos.X < SCROLL_BOUNDARY ||
+                mousePos.X >= screenSize.X - SCROLL_BOUNDARY ||
+                mousePos.Y < SCROLL_BOUNDARY ||
+                mousePos.Y >= screenSize.Y - SCROLL_BOUNDARY)
+            {
+                Vector2 scrollDir = mousePos - screenSize / 2.0f;
+                scrollDir.Normalize();
+                //theCamera.SetCameraPos(theCamera.GetCameraPos() + scrollDir * SCROLL_SPEED);
+            }
+        }
 	}
 }

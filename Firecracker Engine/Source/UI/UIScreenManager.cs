@@ -47,12 +47,7 @@ namespace Firecracker_Engine
             if (currentScreen != null)
             {
                 currentScreen.Update(deltaT);
-            }
-            m_OldMouseState = m_MouseState;
-            m_MouseState = Mouse.GetState();
-            if (currentScreen != null)
-            {
-                currentScreen.TestMouse(m_MouseState, m_OldMouseState);
+                currentScreen.TestMouse(Firecracker.engineInstance.m_MouseManager.MouseState, Firecracker.engineInstance.m_MouseManager.OldMouseState);
             }
 
         }

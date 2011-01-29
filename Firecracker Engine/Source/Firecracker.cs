@@ -21,6 +21,7 @@ namespace Firecracker_Engine {
 		public static Firecracker engineInstance;
 		public static GameSettings settings;
 		public static ScreenManager screenManager;
+        public static MouseManager mouseManager;
 		public static CommandInterpreter interpreter;
 		public static ControlSystem controlSystem;
 		public static Menu menu;
@@ -55,6 +56,7 @@ namespace Firecracker_Engine {
 
 			settings = new GameSettings();
 			screenManager = new ScreenManager();
+            mouseManager = new MouseManager();
 			graphics = new GraphicsDeviceManager(this);
 			interpreter = new CommandInterpreter();
 			controlSystem = new ControlSystem();
@@ -89,6 +91,7 @@ namespace Firecracker_Engine {
 			controlSystem.initialize();
 			menu.initialize();
 			console.initialize();
+            mouseManager.Initialize();
             UIScreenManager.CreateInstance();
 
             m_MouseManager.Initialize();
