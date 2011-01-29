@@ -146,7 +146,7 @@ namespace Firecracker_Engine {
 			if(m_sprites.Count() == 0) { return; }
 
             if (!finished())
-                m_sprites[m_index].draw(spriteBatch, scale, rotation, position, effect);
+                m_sprites[m_index].draw(spriteBatch, scale, rotation, position -Firecracker.engineInstance.theCamera.GetCameraPos(), effect);
 
 			//sprite.draw(spriteBatch, scale, rotation, position, effect);
 		}

@@ -22,7 +22,7 @@ namespace Test_Game
             : base(Vector2.Zero, new Vector2(BAR_WIDTH, BAR_HEIGHT), HAlign.Left, VAlign.Top, false, ContentType.Image, "testbutton")
         {
             InnerElements = new List<UIObject>();
-            infoLabel = new Label(new Vector2(BAR_PADDING, 0), HAlign.Left, VAlign.Center, "Age: Dark Age       Llamas Licked: 3");
+            infoLabel = new Label(new Vector2(BAR_PADDING, 0), HAlign.Left, VAlign.Center, "Age: Dark Age       Llamas Licked: OVER 9000"); //+ Firecracker.engineInstance.theCamera.GetCameraPos());
             InnerElements.Add(infoLabel);
         }
 

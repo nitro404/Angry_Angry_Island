@@ -30,6 +30,12 @@ namespace Firecracker_Engine {
 		public static SpriteSheetCollection spriteSheets;
 		public static Level level;
 		public static Random random;
+        public CameraBase theCamera;
+
+        //temp values. delete before submission
+        public KeyboardState thekeyboard;
+        public int baseticks = 0;
+        public int maxticks = 100;
 
         public static Random theRandom = new Random();
 
@@ -59,6 +65,9 @@ namespace Firecracker_Engine {
 
             m_lObjectList = new List<CBaseObject>();
             m_MouseManager = new MouseManager();
+
+            //more temp
+            thekeyboard = new KeyboardState();
 		}
 
 		protected override void Initialize() {
@@ -85,6 +94,9 @@ namespace Firecracker_Engine {
             m_MouseManager.Initialize();
 
             DefinitionManager.LoadDefinitions("Content\\Objects");
+
+            theCamera = new CameraBase();
+            theCamera.initialize();
 
 			base.Initialize();
 		}
@@ -211,8 +223,26 @@ namespace Firecracker_Engine {
 		}
 
 		public virtual void handleInput(GameTime gameTime) {
-			// handle game-related input, and update the game
-			controlSystem.handleInput(gameTime);
+
+            // handle game-related input, and update the 
+            if (Keyboard.GetState().IsKeyDown(Keys.Left)) //thekeyboard.IsKeyDown(Keys.Left))
+            {
+                theCamera.MoveCameraLeft();
+            }
+            else if (Keyboard.GetState().IsKeyDown(Keys.Right)) //(thekeyboard.IsKeyDown(Keys.Right))
+            {
+                theCamera.MoveCameraRight();
+            }
+            else if (Keyboard.GetState().IsKeyDown(Keys.Up)) //(thekeyboard.IsKeyDown(Keys.Up))
+            {
+                theCamera.MoveCameraUp();
+            }
+            else if (Keyboard.GetState().IsKeyDown(Keys.Down)) //(thekeyboard.IsKeyDown(Keys.Down))
+            {
+                theCamera.MoveCameraDown();
+            }
+			else
+                controlSystem.handleInput(gameTime);
             m_MouseManager.UpdateMouse();
 		}
 
@@ -227,6 +257,15 @@ namespace Firecracker_Engine {
 		}
 
 		protected override void Update(GameTime gameTime) {
+
+            //panchange
+            
+
+            if (baseticks < maxticks)
+                thekeyboard = new KeyboardState();
+            else
+                baseticks = 0;
+
 			base.Update(gameTime);
 		}
 

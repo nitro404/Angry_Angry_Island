@@ -240,8 +240,10 @@ namespace Firecracker_Engine {
 
 		public virtual void draw(SpriteBatch spriteBatch) {
 			if (m_sprite == null) { return; }
-
-			m_sprite.draw(spriteBatch, m_scale, m_rotation, m_position, SpriteEffects.None);
+            //panchange
+			m_sprite.draw(spriteBatch, m_scale, m_rotation, m_position
+                - Firecracker.engineInstance.theCamera.GetCameraPos()
+                , SpriteEffects.None);
 		}
 
 		public virtual bool checkCollision(GameObject o) { return false; }

@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 
 namespace Firecracker_Engine
 {
-    class CameraBase : CBaseObject
+    public class CameraBase : CBaseObject
     {
 #pragma warning disable 108
         public const string ClassName = "CameraBase";
@@ -72,35 +72,47 @@ namespace Firecracker_Engine
         }
 
         /// <summary>
-        /// Moves the Camera Left on the X axis
+        /// Moves the Camera Left on the X axis. If it's not able to, it sets the x value to the left limit.
         /// </summary>
         public void MoveCameraLeft()
         {
-            m_cameraPos.X -= 1.0f;
+            if (m_cameraPos.X > m_cameraLimitLeft)
+                m_cameraPos.X -= 1.0f;
+            else
+                m_cameraPos.X = m_cameraLimitLeft;
         }
 
         /// <summary>
-        /// Moves the Camera Right on the X axis
+        /// Moves the Camera Right on the X axis. If it's not able to, it sets the x value to the right limit.
         /// </summary>
         public void MoveCameraRight()
         {
-            m_cameraPos.X += 1.0f;
+            if (m_cameraPos.X < m_cameraLimitRight)
+                m_cameraPos.X += 1.0f;
+            else
+                m_cameraPos.X = m_cameraLimitRight;
         }
 
         /// <summary>
-        /// Moves the Camera Up on the Y axis
+        /// Moves the Camera Up on the Y axis. If it's not able to, it sets the y value to the up limit.
         /// </summary>
         public void MoveCameraUp()
         {
-            m_cameraPos.Y -= 1.0f;
+            if (m_cameraPos.Y > m_cameraLimitUp)
+                m_cameraPos.Y -= 1.0f;
+            else
+                m_cameraPos.Y = m_cameraLimitUp;
         }
 
         /// <summary>
-        /// Moves the Camera Down on the Y axis
+        /// Moves the Camera Down on the Y axis. If it's not able to, it sets the y value to the down limit.
         /// </summary>
         public void MoveCameraDown()
         {
-            m_cameraPos.Y += 1.0f;
+            if (m_cameraPos.Y < m_cameraLimitDown)
+                m_cameraPos.Y += 1.0f;
+            else
+                m_cameraPos.Y = m_cameraLimitDown;
         }
 
         /// <summary>
@@ -110,8 +122,11 @@ namespace Firecracker_Engine
         /// <param name="yPos">Sets the y position of the camera</param>
         public void SetCameraPos(float xPos, float yPos)
         {
-            m_cameraPos.X = xPos;
-            m_cameraPos.Y = yPos;
+            if(xPos < m_cameraLimitLeft && xPos > m_cameraLimitRight)
+                m_cameraPos.X = xPos;
+
+            if (yPos < m_cameraLimitUp && yPos > m_cameraLimitDown)
+                m_cameraPos.Y = yPos;
         }
 
         /// <summary>
@@ -123,54 +138,54 @@ namespace Firecracker_Engine
             return m_cameraPos;
         }
 
-        /// <summary>
-        /// Checks whether or not the Camera can move Up
-        /// </summary>
-        /// <returns>False if it's unable to, true if it's able to</returns>
-        public bool CanCameraMoveUp()
-        {
-            if (m_cameraPos.Y <= m_cameraLimitUp)
-            {
-                return false;
-            }
-            return true;
-        }
-        /// <summary>
-        /// Checks whether or not the camera can move down
-        /// </summary>
-        /// <returns>False if it's unable to, true if it's able to </returns>
-        public bool CanCameraMoveDown()
-        {
-            if (m_cameraPos.Y >= m_cameraLimitDown)
-            {
-                return false;
-            }
-            return true;
-        }
-        /// <summary>
-        /// Checks whether or not the camera can move left
-        /// </summary>
-        /// <returns>False if it's unable to, true if it's able to</returns>
-        public bool CanCameraMoveLeft()
-        {
-            if (m_cameraPos.X <= m_cameraLimitLeft)
-            {
-                return false;
-            }
-            return true;
-        }
-        /// <summary>
-        /// Checks whether or not the camera can move right
-        /// </summary>
-        /// <returns>False if it's unable to, true if it's able to</returns>
-        public bool CanCameraMoveRight()
-        {
-            if (m_cameraPos.X >= m_cameraLimitRight)
-            {
-                return false;
-            }
-            return true;
-        }
+        ///// <summary>
+        ///// Checks whether or not the Camera can move Up
+        ///// </summary>
+        ///// <returns>False if it's unable to, true if it's able to</returns>
+        //public bool CanCameraMoveUp()
+        //{
+        //    if (m_cameraPos.Y <= m_cameraLimitUp)
+        //    {
+        //        return false;
+        //    }
+        //    return true;
+        //}
+        ///// <summary>
+        ///// Checks whether or not the camera can move down
+        ///// </summary>
+        ///// <returns>False if it's unable to, true if it's able to </returns>
+        //public bool CanCameraMoveDown()
+        //{
+        //    if (m_cameraPos.Y >= m_cameraLimitDown)
+        //    {
+        //        return false;
+        //    }
+        //    return true;
+        //}
+        ///// <summary>
+        ///// Checks whether or not the camera can move left
+        ///// </summary>
+        ///// <returns>False if it's unable to, true if it's able to</returns>
+        //public bool CanCameraMoveLeft()
+        //{
+        //    if (m_cameraPos.X <= m_cameraLimitLeft)
+        //    {
+        //        return false;
+        //    }
+        //    return true;
+        //}
+        ///// <summary>
+        ///// Checks whether or not the camera can move right
+        ///// </summary>
+        ///// <returns>False if it's unable to, true if it's able to</returns>
+        //public bool CanCameraMoveRight()
+        //{
+        //    if (m_cameraPos.X >= m_cameraLimitRight)
+        //    {
+        //        return false;
+        //    }
+        //    return true;
+        //}
 
         public override void LoadPropertiesList(ObjectDefinition objDef)
         {
