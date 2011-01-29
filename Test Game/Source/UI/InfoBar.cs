@@ -28,7 +28,6 @@ namespace Test_Game
 
         public override void Update(float deltaT)
         {
-            infoLabel.SetText("MOUSE POS: " + TestGame.engineInstance.m_MouseManager.GetMousePos());
             base.Update(deltaT);
         }
     }
