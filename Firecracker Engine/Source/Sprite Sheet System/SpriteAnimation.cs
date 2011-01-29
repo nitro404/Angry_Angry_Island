@@ -12,10 +12,12 @@ namespace Firecracker_Engine {
 	public class SpriteAnimation {
 
 		private List<Sprite> m_sprites;
-		private SpriteAnimationType m_type;
+		protected SpriteAnimationType m_type;
 		private float m_interval;
 		private float m_sequence;
 		private float m_end;
+        private int m_index;
+        private bool m_bFinished;
 
 		public SpriteAnimation(float interval, SpriteAnimationType type) {
 			m_sprites = new List<Sprite>();
@@ -23,6 +25,8 @@ namespace Firecracker_Engine {
 			m_sequence = 0;
 			m_end = 0;
 			m_type = type;
+            m_index = 0;
+            m_bFinished = false;
 		}
 
 		public SpriteAnimation(float interval, SpriteAnimationType type, Sprite[] sprites) {
@@ -31,6 +35,8 @@ namespace Firecracker_Engine {
 			m_sequence = 0;
 			m_end = 0;
 			m_type = type;
+            m_index = 0;
+            m_bFinished = false;
 
 			addSprites(sprites);
 		}
@@ -41,6 +47,8 @@ namespace Firecracker_Engine {
 			m_sequence = 0;
 			m_end = 0;
 			m_type = type;
+            m_index = 0;
+            m_bFinished = false;
 
 			addSprites(sprites);
 		}
@@ -51,6 +59,8 @@ namespace Firecracker_Engine {
 			m_sequence = 0;
 			m_end = 0;
 			m_type = type;
+            m_index = 0;
+            m_bFinished = false;
 
 			addSprites(spriteSheet);
 		}
@@ -101,18 +111,27 @@ namespace Firecracker_Engine {
 		
 		// update (increment) the animation
 		public void update(GameTime gameTime) {
-			if(gameTime == null) { return; }
+			if(gameTime == null || finished()) { return; }
 
 			if(m_type == SpriteAnimationType.Loop) {
 				m_sequence += (float) (gameTime.ElapsedGameTime.TotalSeconds);
-				if(m_sequence >= m_end) {
-					m_sequence = 0;
+				if(m_sequence >= m_interval) {
+                    m_sequence -= m_interval;
+                    m_index++;
+                    if (m_index >= m_sprites.Count)
+                        m_index = 0;
 				}
 			}
 			else if(m_type == SpriteAnimationType.Single) {
 				m_sequence += (float) (gameTime.ElapsedGameTime.TotalSeconds);
-				if(m_sequence > m_end) {
-					m_sequence = m_end;
+				if(m_sequence > m_interval) {
+					m_sequence -= m_interval;
+                    m_index++;
+                    if (m_index >= m_sprites.Count)
+                    {
+                        m_index = 0;
+                        m_bFinished = true;
+                    }
 				}
 			}
 		}
@@ -126,12 +145,15 @@ namespace Firecracker_Engine {
 		public void draw(SpriteBatch spriteBatch, Vector2 scale, float rotation, Vector2 position, SpriteEffects effect) {
 			if(m_sprites.Count() == 0) { return; }
 
-			sprite.draw(spriteBatch, scale, rotation, position, effect);
+            if (!finished())
+                m_sprites[m_index].draw(spriteBatch, scale, rotation, position, effect);
+
+			//sprite.draw(spriteBatch, scale, rotation, position, effect);
 		}
 
 		// if the animation is not set to loop, has it finished animating?
 		public bool finished() {
-			return m_type == SpriteAnimationType.Single && m_sequence >= m_end;
+            return m_bFinished;// m_type == SpriteAnimationType.Single && m_sequence >= m_end;
 		}
 
 	}

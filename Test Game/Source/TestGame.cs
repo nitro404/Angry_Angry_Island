@@ -90,7 +90,7 @@ namespace Test_Game {
 			base.Draw(gameTime);
 
 			graphics.GraphicsDevice.SetRenderTarget(0, buffer);
-			GraphicsDevice.Clear(Color.Black);
+			GraphicsDevice.Clear(Color.CornflowerBlue);
 
 			if(levelLoaded()) {
 				spriteBatch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.BackToFront, SaveStateMode.SaveState);

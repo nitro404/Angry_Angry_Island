@@ -36,9 +36,6 @@ namespace Firecracker_Engine
         public Sprite sheep,Sshadow;
         public GamePadState gamePadStatus;
 
-        // TEMP
-        bool m_bIsAlive;
-
         public NPCObject(Vertex position, Sprite sprite) : this(position.toVector(), sprite) { }
 
         public NPCObject(Vector2 position, Sprite sprite)
@@ -54,7 +51,6 @@ namespace Firecracker_Engine
             m_fIdleTime = 0.0f;
 
             m_fDeathAt = Firecracker.random.Next(5, 7);
-            m_bIsAlive = true;
             m_bKillable = true;
 		}
 
@@ -107,7 +103,6 @@ namespace Firecracker_Engine
 		}
 
 		public override void update(GameTime gameTime) {
-            if (!m_bIsAlive) return;
 
             sheepUpdate(gameTime);
             if (m_bKillable)
@@ -119,32 +114,23 @@ namespace Firecracker_Engine
                 Firecracker.level.addObject(newObject);
                 newObject = new NPCObject(position - new Vector2(16.0f, 16.0f), sprite);
                 Firecracker.level.addObject(newObject);
-                m_bIsAlive = false;
+                Explosion exp = new Explosion(position);
+                Firecracker.level.addObject(exp);
+                toBeDeleted = true;
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Left))
-            {
-                position = new Vector2(position.X - 20.0f*((float)gameTime.ElapsedGameTime.Milliseconds/1000.0f), position.Y);
-            }
-            if (Keyboard.GetState().IsKeyDown(Keys.Right))
-            {
-                position = new Vector2(position.X + 20.0f * ((float)gameTime.ElapsedGameTime.Milliseconds / 1000.0f), position.Y);
-            }
-            if (Keyboard.GetState().IsKeyDown(Keys.Up))
-            {
-                position = new Vector2(position.X , position.Y - 20.0f * ((float)gameTime.ElapsedGameTime.Milliseconds / 1000.0f));
-            }
-            if (Keyboard.GetState().IsKeyDown(Keys.Down))
-            {
-                position = new Vector2(position.X, position.Y + 20.0f * ((float)gameTime.ElapsedGameTime.Milliseconds / 1000.0f));
-            }
+            // until we can see the cursor, don't worry about this.
+            //if (Firecracker.engineInstance.m_MouseManager.IsMouseLeftPressed())
+            //{
+            //    FleeFromPoint(Firecracker.engineInstance.m_MouseManager.GetMousePos());
+            //}
 
 			base.update(gameTime);
 		}
 
         public void FleeFromPoint(Vector2 fleePoint)
         {
-            m_vTargetLocation = fleePoint - position;
+            m_vTargetLocation = Firecracker.level.getGamePosition(fleePoint) - Firecracker.level.getGamePosition(position);
             if (m_vTargetLocation.Length() <= 50.0f && m_vTargetLocation.Length() >= -50.0f)
             {
                 m_vTargetLocation.Normalize();
@@ -180,13 +166,12 @@ namespace Firecracker_Engine
                 {
                     diffVec.Normalize();
                     diffVec *= m_fSpeed;
-                    position = position + (diffVec * ((float)gameTime.ElapsedGameTime.Milliseconds / 1000.0f));
+                    position = position + Firecracker.level.getScreenPosition((diffVec * ((float)gameTime.ElapsedGameTime.Milliseconds / 1000.0f)));
                 }
             }
         }
 
 		public override void draw(SpriteBatch spriteBatch) {
-            if (!m_bIsAlive) return;
 
 			base.draw(spriteBatch);
 		}

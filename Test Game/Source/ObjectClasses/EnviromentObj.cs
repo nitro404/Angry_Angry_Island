@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework;
 
 namespace Firecracker_Engine
 {
     class CEnviromentObj : CBaseObject
     {
 #pragma warning disable 108
-        public const string ClassName = "EnviromnetObj";
+        public const string ClassName = "Environment";
 #pragma warning restore 108
 
         protected int m_Sold;
@@ -27,10 +28,10 @@ namespace Firecracker_Engine
             }
             return base.IsA(ObjectType);
         }
-        public override void Tick(float fTime)
+        public override void Tick(GameTime gameTime)
         {
 
-            base.Tick(fTime);
+            base.Tick(gameTime);
         }
         public override void LoadPropertiesList(ObjectDefinition objDef)
         {
