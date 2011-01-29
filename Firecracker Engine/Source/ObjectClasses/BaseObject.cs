@@ -6,6 +6,27 @@ using Microsoft.Xna.Framework;
 
 namespace Firecracker_Engine
 {
+
+    //MASSIVE COMMENT!
+    /* HOWTO!
+     * Follow this guide to create new objects in the engine.
+     * Overload this object with your own.
+     * i.e. "public class AIObject : CBaseObject { }  
+     * Then you MUST include the following line at the top of your class 
+     * 
+     * #pragma warning disable 108
+     *  public const string ClassName = "MoveableObject";
+     * #pragma warning restore 108
+     * 
+     * Replace the class name with your class name
+     * Feel free to overload any of the base functionality.
+     * If you need to know how it works, reference another object that already exists.
+     * 
+     * Then go into Firecracker.CreateObject and add another definition for your object.
+     * Easy as that...
+     * Should work from there.
+     */
+
     /// <summary>
     /// The objectID class is meant to be a handy way to reference objects without the need for a 
     /// direct reference.
