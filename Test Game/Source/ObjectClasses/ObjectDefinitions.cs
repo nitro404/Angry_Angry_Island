@@ -58,6 +58,14 @@ namespace Test_Game
                         returnObject = newObject;
                     }
                     break;
+                case CEnviromentObj.ClassName:
+                    {
+                        CEnviromentObj newObject = new CEnviromentObj();
+                        newObject.LoadPropertiesList(objDef);
+                        newObject.LoadPropertiesList(objOverwriteDefinition);
+                        returnObject = newObject;
+                    }
+                    break;
             }
             return returnObject;
         }

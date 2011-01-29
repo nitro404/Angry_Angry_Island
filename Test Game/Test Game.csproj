@@ -87,6 +87,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Source\Abilities\Ability.cs" />
     <Compile Include="Source\ObjectClasses\AIObject.cs" />
+    <Compile Include="Source\ObjectClasses\EnviromentObj.cs" />
     <Compile Include="Source\ObjectClasses\ObjectDefinitions.cs" />
     <Compile Include="Source\ObjectClasses\TestGameObject.cs" />
     <Compile Include="Source\ObjectClasses\Player.cs" />
