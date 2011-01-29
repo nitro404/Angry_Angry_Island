@@ -4,7 +4,7 @@
     <ProjectTypeGuids>{6D335F3A-9D43-41b4-9D22-F6F17C4BE596};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Firecracker_Engine</RootNamespace>
     <AssemblyName>Firecracker Engine</AssemblyName>
@@ -29,6 +29,8 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <StartupObject>
+    </StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
@@ -111,7 +113,6 @@
     <Compile Include="Source\Menu\SimpleMenuItem.cs" />
     <Compile Include="Source\Menu\SinglePlayerMenu.cs" />
     <Compile Include="Source\Menu\SubMenu.cs" />
-    <Compile Include="Source\Program.cs" />
     <Compile Include="Source\Settings File Manager\GameSettings.cs" />
     <Compile Include="Source\Settings File Manager\Variable.cs" />
     <Compile Include="Source\Settings File Manager\VariableSystem.cs" />
