@@ -24,13 +24,14 @@ namespace Firecracker_Engine
             m_vTargetPosition = TargetPosition;
             position = m_vTargetPosition + new Vector2(400, -500);
 
-            SpriteSheet spriteSheet = Firecracker.spriteSheets.getSpriteSheet("NPCObject");
+            SpriteSheet spriteSheet = Firecracker.spriteSheets.getSpriteSheet("Hut");
             if (spriteSheet != null)
             {
-                Sprite sprite = spriteSheet.getSprite("Sheep 6");
+                Sprite sprite = spriteSheet.getSprite("Hut");
                 if (sprite != null)
                 {
                     m_sprite = sprite;
+                    m_sprite.m_SpriteDepth = 0.1f;
                 }
             }
 
