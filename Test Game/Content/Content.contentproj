@@ -308,20 +308,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="UI\abilitybar.png">
-      <Name>abilitybar</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="UI\infobar.png">
-      <Name>infobar</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="UI\abilitybutton.png">
       <Name>abilitybutton</Name>
       <Importer>TextureImporter</Importer>
@@ -339,6 +325,13 @@
     </Compile>
     <Compile Include="UI\abilitybuttonselected.png">
       <Name>abilitybuttonselected</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="UI\transparentgrey.png">
+      <Name>transparentgrey</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
