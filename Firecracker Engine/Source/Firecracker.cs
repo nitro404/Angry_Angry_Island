@@ -151,10 +151,9 @@ namespace Firecracker_Engine {
                 elapsedTime = 0;
                 numPeoples = 1;
                 List<GameObject> Sky = new List<GameObject>();
-                for (int i = 0; i < 5; i++)
+                for (int i = 1; i < 4; i++)
                 {
-                    Cloud fluffyAndWhite = new Cloud();
-
+                    Cloud fluffyAndWhite = new Cloud(i);
                     fluffyAndWhite.position = new Vector2(Firecracker.random.Next(0, 1280), Firecracker.random.Next(0, 1240));
                     Sky.Add(fluffyAndWhite);
                 }

@@ -11,9 +11,10 @@ namespace Firecracker_Engine
     {
         public Sprite m_cloud;
         public float m_time;
-        public Cloud() :base()
+       
+        public Cloud(int number) :base()
         {
-            m_cloud = Firecracker.spriteSheets.getSpriteSheet("Cloud").getSprite("Cloud");
+            m_cloud = Firecracker.spriteSheets.getSpriteSheet("Cloud").getSprite("Cloud "+number);
             m_cloud.m_SpriteDepth = 0.39f;
             spawn();
             
@@ -28,7 +29,7 @@ namespace Firecracker_Engine
         public override void update(GameTime gameTime)
         {
             m_time += (float)gameTime.ElapsedGameTime.Milliseconds / 1000.0f;
-            position = new Vector2(position.X +  20.0f * (float)gameTime.ElapsedGameTime.Milliseconds / 1000.0f, position.Y);
+            position = new Vector2(position.X +  16.0f * (float)gameTime.ElapsedGameTime.Milliseconds / 1000.0f, position.Y - 16.0f * (float)gameTime.ElapsedGameTime.Milliseconds / 1000.0f);
 
             if (m_time > 20.0f)
             {

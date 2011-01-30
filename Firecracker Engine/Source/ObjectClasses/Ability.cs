@@ -47,7 +47,7 @@ namespace Firecracker_Engine
                     break;
                 case AbilityType.GodAnimal:
                     m_cost = 40;
-                    m_cooldown = 25;
+                    m_cooldown = 10;
                     m_iconTextureAssetName = "KevinMooseIcon";
                     break;
             }
@@ -69,6 +69,11 @@ namespace Firecracker_Engine
                     Lightning newLightning = new Lightning(position);
                     Firecracker.level.addObject(newLightning);
                     break;
+                case AbilityType.GodAnimal:
+                    KevinMoose newKevinMoose = new KevinMoose(position);
+                    Firecracker.level.addObject(newKevinMoose);
+                    break;
+                
             }
             m_cooldownTimeLeft = m_cooldown;
         }

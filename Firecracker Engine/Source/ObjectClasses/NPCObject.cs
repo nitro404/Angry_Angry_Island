@@ -103,7 +103,9 @@ namespace Firecracker_Engine
 		}
 
 		public override bool checkCollision(GameObject o) {
-			return base.checkCollision(o);
+            float distance = (float)Math.Sqrt(Math.Pow(o.position.X - position.X, 2) + Math.Pow(o.position.Y - position.Y, 2));
+            return distance < (o.offset.X * o.scale.X) + (m_offset.X * m_scale.X);
+
 		}
 
 		public override void update(GameTime gameTime) {

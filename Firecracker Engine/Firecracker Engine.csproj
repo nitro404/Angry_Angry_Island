@@ -104,6 +104,7 @@
     <Compile Include="Source\ObjectClasses\Forest.cs" />
     <Compile Include="Source\ObjectClasses\HumanDeath.cs" />
     <Compile Include="Source\ObjectClasses\HumanZap.cs" />
+    <Compile Include="Source\ObjectClasses\KevinMoose.cs" />
     <Compile Include="Source\ObjectClasses\Lightning.cs" />
     <Compile Include="Source\ObjectClasses\MoveableObject.cs" />
     <Compile Include="Source\Firecracker.cs" />
