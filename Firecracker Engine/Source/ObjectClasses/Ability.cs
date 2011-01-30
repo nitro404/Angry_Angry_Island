@@ -51,6 +51,8 @@ namespace Firecracker_Engine
             switch (type)
             {
                 case AbilityType.Fireball:
+                    Asteroid newAsteroid = new Asteroid(position);
+                    Firecracker.level.addObject(newAsteroid);
                     break;
                 case AbilityType.Earthquake:
                     break;

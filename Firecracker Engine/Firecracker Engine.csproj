@@ -94,6 +94,7 @@
     <Compile Include="Source\Graph\Graph.cs" />
     <Compile Include="Source\Graph\Vertex.cs" />
     <Compile Include="Source\ObjectClasses\Ability.cs" />
+    <Compile Include="Source\ObjectClasses\Asteroid.cs" />
     <Compile Include="Source\ObjectClasses\CameraBase.cs" />
     <Compile Include="Source\ObjectClasses\BaseObject.cs" />
     <Compile Include="Source\ObjectClasses\DefinitionLoader.cs" />
