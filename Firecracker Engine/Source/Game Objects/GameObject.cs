@@ -97,6 +97,7 @@ namespace Firecracker_Engine {
 
 		public Vector2 offset {
 			get { return m_offset; }
+			set { m_offset = value; }
 		}
 
 		public Vector2 velocity {
