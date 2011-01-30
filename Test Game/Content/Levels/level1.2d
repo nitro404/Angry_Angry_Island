@@ -13,7 +13,7 @@ Collision Edges: 11
 	295, 192; 376, 130
 	376, 130; 421, 226
 	421, 226; 295, 192
-Objects: 7
+Objects: 8
 	Game Tile:
 		Position: 0, 0
 		LayerDepth: 0.52
