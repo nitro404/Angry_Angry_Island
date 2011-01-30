@@ -104,6 +104,18 @@ namespace Firecracker_Engine {
 		}
 
 		public void draw(SpriteBatch spriteBatch, Vector2 scale, float rotationDegrees, Vector2 position, SpriteEffects effect) {
+			draw(spriteBatch, scale, rotationDegrees, position, effect, Color.White);
+		}
+		
+		public void drawCentered(SpriteBatch spriteBatch, Vector2 scale, float rotationDegrees, Vector2 position, SpriteEffects effect) {
+			drawCentered(spriteBatch, scale, rotationDegrees, position, effect, Color.White);
+		}
+
+		public void drawWithOffset(SpriteBatch spriteBatch, Vector2 scale, float rotationDegrees, Vector2 position, SpriteEffects effect, Vector2 offset) {
+			drawWithOffset(spriteBatch, scale, rotationDegrees, position, effect, Color.White, offset);
+		}
+
+		public void draw(SpriteBatch spriteBatch, Vector2 scale, float rotationDegrees, Vector2 position, SpriteEffects effect, Color colour) {
 			if(m_image == null || spriteBatch == null) { return; }
 
             position -= Firecracker.engineInstance.theCamera.GetCameraPos();
@@ -117,8 +129,8 @@ namespace Firecracker_Engine {
 			// draw the sprite
 			spriteBatch.Draw(m_image, m_destination, m_source, Color.White, MathHelper.ToRadians(rotationDegrees), Vector2.Zero, effect, m_SpriteDepth);
 		}
-
-		public void drawCentered(SpriteBatch spriteBatch, Vector2 scale, float rotationDegrees, Vector2 position, SpriteEffects effect) {
+		
+		public void drawCentered(SpriteBatch spriteBatch, Vector2 scale, float rotationDegrees, Vector2 position, SpriteEffects effect, Color colour) {
 			if(m_image == null || spriteBatch == null) { return; }
 
             position -= Firecracker.engineInstance.theCamera.GetCameraPos();
@@ -133,7 +145,7 @@ namespace Firecracker_Engine {
 			spriteBatch.Draw(m_image, m_destination, m_source, Color.White, MathHelper.ToRadians(rotationDegrees), m_offset, effect, m_SpriteDepth);
 		}
 
-		public void drawWithOffset(SpriteBatch spriteBatch, Vector2 scale, float rotationDegrees, Vector2 position, SpriteEffects effect, Vector2 offset) {
+		public void drawWithOffset(SpriteBatch spriteBatch, Vector2 scale, float rotationDegrees, Vector2 position, SpriteEffects effect, Color colour, Vector2 offset) {
 			if(m_image == null || spriteBatch == null) { return; }
 
 			position -= Firecracker.engineInstance.theCamera.GetCameraPos();
