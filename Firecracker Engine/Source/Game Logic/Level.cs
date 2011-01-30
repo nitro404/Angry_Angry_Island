@@ -24,6 +24,8 @@ namespace Firecracker_Engine {
 		public static String CARTESIAN_TYPE = "2D Cartesian Level";
 		public static String ISOMETRIC_TYPE = "2D Isometric Level";
 
+        public static bool hasAnyLevelBeenLoaded = false;
+
 		public Level() : this(LevelType.Cartesian, DEFAULT_GRID_SIZE, Point.Zero) { }
 
 		public Level(LevelType type, int gridSize, Point dimensions) {
@@ -238,6 +240,7 @@ namespace Firecracker_Engine {
 
 		public static Level readFrom(String fileName) {
 			if(fileName == null || fileName.Length == 0) { return null; }
+            hasAnyLevelBeenLoaded = true;
 
 			Level level;
 			LevelType type = DEFAULT_LEVEL_TYPE;
@@ -418,6 +421,10 @@ namespace Firecracker_Engine {
 			}
 
 			input.Close();
+
+            PopupNotification.instance.ShowNotification("Objective", "Destroy all of the humans before they multiply and acquire\n"+
+                                                                     "the technology to leave the island. The more you destroy,\n"+
+                                                                     "the more devistating abilities you will be able to use.", false);
 
 			return level;
 		}

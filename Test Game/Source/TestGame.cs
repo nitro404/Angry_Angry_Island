@@ -54,9 +54,12 @@ namespace Test_Game {
 
             UIInitializer.InitializeUI();
             cursorTex = Content.Load<Texture2D>(@"Sprites\god_hand");
+            titleScreenBackground = Content.Load<Texture2D>(@"Sprites\title_menu");
 			// load shaders
 			blur = Content.Load<Effect>("Shaders\\Blur");
 		}
+
+        Texture2D titleScreenBackground;
 
 		/// <summary>
 		/// UnloadContent will be called once per game and is the place to unload
@@ -132,17 +135,29 @@ namespace Test_Game {
 
 			// blur game screen if menu is open
 			if(menu.active) {
-				blur.Begin();
-				spriteBatch.Begin(SpriteBlendMode.None, SpriteSortMode.Immediate, SaveStateMode.SaveState);
-				foreach(EffectTechnique t in blur.Techniques) {
-					foreach(EffectPass p in t.Passes) {
-						p.Begin();
-						spriteBatch.Draw(buffer.GetTexture(), Vector2.Zero, Color.White);
-						p.End();
-					}
-				}
-				spriteBatch.End();
-				blur.End();
+                if (Level.hasAnyLevelBeenLoaded)
+                {
+                    blur.Begin();
+                    spriteBatch.Begin(SpriteBlendMode.None, SpriteSortMode.Immediate, SaveStateMode.SaveState);
+                    foreach (EffectTechnique t in blur.Techniques)
+                    {
+                        foreach (EffectPass p in t.Passes)
+                        {
+                            p.Begin();
+                            spriteBatch.Draw(buffer.GetTexture(), Vector2.Zero, Color.White);
+                            p.End();
+                        }
+                    }
+                    spriteBatch.End();
+                    blur.End();
+                }
+                else
+                {
+                    //draw the title screen image.
+                    spriteBatch.Begin(SpriteBlendMode.None, SpriteSortMode.Immediate, SaveStateMode.SaveState);
+                    spriteBatch.Draw(titleScreenBackground, new Rectangle(0, 0, settings.screenWidth, settings.screenHeight), Color.White);
+                    spriteBatch.End();
+                }
 			}
 			else {
 				spriteBatch.Begin(SpriteBlendMode.None, SpriteSortMode.Immediate, SaveStateMode.SaveState);

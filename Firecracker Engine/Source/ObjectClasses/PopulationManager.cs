@@ -28,7 +28,7 @@ namespace Firecracker_Engine
         float TimeRequiredForDeveloped = 20;
         float TimeRequiredForAdvanced = 20;
         float TimeRequiredToLose = 30;
-        float TimeSpentAboveThreshold = 0;
+        public float TimeSpentAboveThreshold = 0;
 
         public PopulationManager()
         {
@@ -100,7 +100,7 @@ namespace Firecracker_Engine
                     TimeSpentAboveThreshold += deltaT;
                     if (TimeSpentAboveThreshold > TimeRequiredToLose)
                     {
-                        PopupNotification.instance.ShowNotification("You lose."  ,"You get nothing.");
+                        PopupNotification.instance.ShowNotification("You lose."  ,"You get nothing.", true);
                     }
                 }
                 else
@@ -110,7 +110,7 @@ namespace Firecracker_Engine
             }
             if (Firecracker.engineInstance.numPeoples <= 0)
             {
-                PopupNotification.instance.ShowNotification("You win!", "Congrats!");
+                PopupNotification.instance.ShowNotification("You win!", "Congrats!",true);
             }
         }
     }

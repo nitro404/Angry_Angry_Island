@@ -35,10 +35,10 @@ namespace Firecracker_Engine {
 
 		public Menu() {
 			m_menu = new List<SubMenu>();
-			m_position = new Vector2(50, 50);
-			m_titleColour = new Color(0, 128, 192);
-			m_selectedItemColour = new Color(0, 255, 0);
-			m_unselectedItemColour = new Color(0, 160, 0);
+			m_position = new Vector2(50, 400);
+			m_titleColour = new Color(60, 50, 40);
+			m_selectedItemColour = new Color(196, 170, 128);
+			m_unselectedItemColour = new Color(128, 108, 96);
 			m_arrowColour = new Color(255, 255, 255);
 		}
 

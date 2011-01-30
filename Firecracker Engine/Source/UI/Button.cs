@@ -94,6 +94,10 @@ namespace Firecracker_Engine
             else if (ID == "NotificationOkButton")
             {
                 PopupNotification.instance.HideNotification();
+                if (PopupNotification.instance.backToMenu)
+                {
+                    Firecracker.interpreter.execute("menu on");
+                }
             }
             else if (ID == "SwitcherLeft")
             {

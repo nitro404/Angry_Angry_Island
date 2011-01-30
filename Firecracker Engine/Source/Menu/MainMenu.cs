@@ -10,7 +10,7 @@ namespace Firecracker_Engine {
 	public class MainMenu : SubMenu {
 
 		public MainMenu(Menu parentMenu, Vector2 position, Color titleColour, Color selectedItemColour, Color unselectedItemColour, Color arrowColour)
-			: base("Firecracker Engine", parentMenu, position, titleColour, selectedItemColour, unselectedItemColour, arrowColour) {
+			: base("", parentMenu, position, titleColour, selectedItemColour, unselectedItemColour, arrowColour) {
 		}
 
 		public override void setContent(SpriteFont titleFont, SpriteFont itemFont) {

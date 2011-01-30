@@ -29,14 +29,16 @@ namespace Firecracker_Engine
             instance = this;
             hidden = true;
         }
-
-        public void ShowNotification(string notificationTitle, string notification)
+        public bool backToMenu;
+        public void ShowNotification(string notificationTitle, string notification, bool backToMenu)
         {
+            this.backToMenu = backToMenu;
             ((Label)InnerElements[0]).SetText(notification);
             ((Label)(InnerElements[1].InnerElements[0])).SetText(notificationTitle);
             size = InnerElements[0].size + new Vector2(120, 120);
             InnerElements[2].pos.Y = (size.Y / 2) + 65;
             hidden = false;
+            
         }
 
         public void HideNotification()
