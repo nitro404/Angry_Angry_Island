@@ -39,7 +39,7 @@ namespace Firecracker_Engine {
         public int baseticks = 0;
         public int maxticks = 100;
 
-        public int numPeoples = 1;
+        public int numPeoples = 0;
         public int timeInSeconds = 0;
         public int timeInMinutes = 0;
 
@@ -141,15 +141,16 @@ namespace Firecracker_Engine {
 		public bool loadLevel(string levelName) {
 			if(levelName == null) { return false; }
 
-			Level newLevel = Level.readFrom(Content.RootDirectory + "\\Levels\\" + levelName + ".2d");
+            level = null;
+            elapsedTime = 0;
+            numPeoples = 0;
+            Level newLevel = Level.readFrom(Content.RootDirectory + "\\Levels\\" + levelName + ".2d");
 
             PopulationManager tempPopulationManagerRef = new PopulationManager();
 
 			if(newLevel != null) {
                 
                 level = newLevel;
-                elapsedTime = 0;
-                numPeoples = 1;
                 List<GameObject> Sky = new List<GameObject>();
                 for (int i = 1; i < 4; i++)
                 {

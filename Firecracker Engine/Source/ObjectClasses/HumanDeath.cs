@@ -16,6 +16,8 @@ namespace Firecracker_Engine
         {
 			m_Anim = Firecracker.animations.getAnimation("HumanDeath");
             position = Vector2.Zero;
+            //m_Anim.sprite.m_SpriteDepth = 0.522f;
+            m_Anim.SetAnimDepthLayer(0.5f);
         }
 
         public HumanDeath(Vector2 vPosition)
@@ -23,6 +25,8 @@ namespace Firecracker_Engine
         {
 			m_Anim = Firecracker.animations.getAnimation("HumanDeath");
             position = vPosition;
+            //m_Anim.sprite.m_SpriteDepth = 0.522f;
+            m_Anim.SetAnimDepthLayer(0.5f);
         }
 
         public override void update(GameTime gameTime)

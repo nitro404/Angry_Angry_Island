@@ -32,6 +32,11 @@ namespace Firecracker_Engine
 
             
             Moose.sprite.m_SpriteDepth = 0.4f;
+
+            //Moose.SetAnimDepthLayer(0.4f);
+            //MooseWalk.SetAnimDepthLayer(0.4f);
+            //MooseDie.SetAnimDepthLayer(0.4f);
+
             target = false;
             eating = false;
             Die = false;

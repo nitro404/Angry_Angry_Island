@@ -94,6 +94,17 @@ namespace Firecracker_Engine {
 			get { return m_type; }
 		}
 
+        /// <summary>
+        /// Sets the depth layer for every animation.
+        /// </summary>
+        public void SetAnimDepthLayer(float animdepth)
+        {
+            for (int i = 0; i < m_sprites.Count; i++)
+            {
+                m_sprites[i].m_SpriteDepth = animdepth;
+            }
+        }
+
 		// get the number of frames in the animation
 		public int size() {
 			return m_sprites.Count();

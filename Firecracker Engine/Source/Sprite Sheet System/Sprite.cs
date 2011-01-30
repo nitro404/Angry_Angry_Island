@@ -37,7 +37,8 @@ namespace Firecracker_Engine {
 				}
 				catch(Exception) { }
 			}
-            m_SpriteDepth = 0.0f;
+            //m_SpriteDepth = 0.0f;
+            m_SpriteDepth = 0.5f;
 		}
 
 		// constructor to create a sprite from a specified region of an already existing sprite
@@ -50,7 +51,8 @@ namespace Firecracker_Engine {
 				m_offset = new Vector2(m_source.Width / 2.0f, m_source.Height / 2.0f);
 				m_destination = new Rectangle(0, 0, m_source.Width + 1, m_source.Height + 1);
 			}
-            m_SpriteDepth = 0.0f;
+            //m_SpriteDepth = 0.0f;
+            m_SpriteDepth = 0.5f;
 		}
 
 		public Texture2D image { get { return m_image; } }
