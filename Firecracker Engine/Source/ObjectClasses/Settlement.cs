@@ -43,7 +43,7 @@ namespace Firecracker_Engine
 
         public override void draw(SpriteBatch spriteBatch)
         {
-            sprites[(int)PopulationManager.Instance.age].draw(spriteBatch, Vector2.One, 0, position, SpriteEffects.None);
+            sprites[(int)PopulationManager.Instance.age].drawCentered(spriteBatch, Vector2.One, 0, position, SpriteEffects.None);
             base.draw(spriteBatch);
         }
 

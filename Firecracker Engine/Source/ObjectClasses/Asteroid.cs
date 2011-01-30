@@ -10,7 +10,7 @@ namespace Firecracker_Engine
     {
 
         public Vector2 m_vTargetPosition;
-        public static float m_fSpeed = 1000.0f;
+        public static float m_fSpeed = 1200.0f;
 
         public Asteroid()
             : base()
@@ -24,10 +24,10 @@ namespace Firecracker_Engine
             m_vTargetPosition = TargetPosition;
             position = m_vTargetPosition + new Vector2(400, -500);
 
-            SpriteSheet spriteSheet = Firecracker.spriteSheets.getSpriteSheet("Hut");
+            SpriteSheet spriteSheet = Firecracker.spriteSheets.getSpriteSheet("Asteroid");
             if (spriteSheet != null)
             {
-                Sprite sprite = spriteSheet.getSprite("Hut");
+                Sprite sprite = spriteSheet.getSprite("Asteroid");
                 if (sprite != null)
                 {
                     m_sprite = sprite;
@@ -40,10 +40,10 @@ namespace Firecracker_Engine
         public override void update(GameTime gameTime)
         {
 
-            if (Math.Abs((position - m_vTargetPosition).Length()) <= 10)
+            if (Math.Abs((position - m_vTargetPosition).Length()) <= 20)
             {
                 // Asplode.
-                Explosion exp = new Explosion(position + new Vector2(16.0f, 16.0f));
+                Explosion exp = new Explosion(position);
                 Firecracker.level.addObject(exp);
                 this.toBeDeleted = true;
 
@@ -59,6 +59,8 @@ namespace Firecracker_Engine
                             theObj.toBeDeleted = true;
                             HumanDeath newDeath = new HumanDeath(theObj.position);
                             Firecracker.level.addObject(newDeath);
+                            Explosion explosionDeath = new Explosion(theObj.position);
+                            Firecracker.level.addObject(explosionDeath);
                         }
                     }
                 }
@@ -70,7 +72,6 @@ namespace Firecracker_Engine
                 newPos.Normalize();
                 newPos *= (float)(m_fSpeed * gameTime.ElapsedGameTime.TotalSeconds);
                 position += newPos;
-
             }
 
             base.update(gameTime);
@@ -78,7 +79,8 @@ namespace Firecracker_Engine
 
         public override void draw(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch)
         {
-            base.draw(spriteBatch);
+            float scale = (position.X - m_vTargetPosition.X + 100)/500;
+            m_sprite.drawWithOffset(spriteBatch, new Vector2(scale, scale), 0, position, Microsoft.Xna.Framework.Graphics.SpriteEffects.None, new Vector2(45, 270));
         }
     }
 }

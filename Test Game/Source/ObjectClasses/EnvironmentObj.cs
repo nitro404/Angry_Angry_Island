@@ -85,8 +85,8 @@ namespace Test_Game
      public override void Render()
      {
          TestGame.gameInstance.spriteBatch.Begin();
-         s.draw(TestGame.gameInstance.spriteBatch, Vector2.One, 0.0f,new Vector2(s.xOffset,s.yOffset), SpriteEffects.None);
-         forest.draw(TestGame.gameInstance.spriteBatch, Vector2.One, 0.0f, new Vector2(s.xOffset, s.yOffset), SpriteEffects.None);
+         s.drawCentered(TestGame.gameInstance.spriteBatch, Vector2.One, 0.0f,new Vector2(s.xOffset,s.yOffset), SpriteEffects.None);
+         forest.drawCentered(TestGame.gameInstance.spriteBatch, Vector2.One, 0.0f, new Vector2(s.xOffset, s.yOffset), SpriteEffects.None);
          //Sshadow.draw(TestGame.GameInstance.spriteBatch, new Vector2(1.5f), 0.0f, new Vector2(xPosition + s.xOffset, yPosition + s.yOffset), SpriteEffects.None);
          //sheep.draw(TestGame.GameInstance.spriteBatch, Vector2.One, 0.0f, new Vector2(xPosition + s.xOffset +2,yPosition +s.yOffset +2), SpriteEffects.None);
          //TestGame.GameInstance.spriteBatch.Draw();
