@@ -10,15 +10,8 @@ namespace Firecracker_Engine
 {
     class Settlement : GameObject
     {
-        enum Age
-        {
-            Primitive,
-            Developing,
-            Advanced
-        }
 
         Sprite[] sprites;
-        Age age;
 
         public Settlement()
             : base()
@@ -27,7 +20,6 @@ namespace Firecracker_Engine
             sprites = new Sprite[]{Firecracker.spriteSheets.getSpriteSheet("Hut").getSprite("Hut"),
                        Firecracker.spriteSheets.getSpriteSheet("Settlement").getSprite("Settlement"),
                        Firecracker.spriteSheets.getSpriteSheet("City").getSprite("City")};
-            age = Age.Primitive;
         }
 
         public Settlement(Vector2 vPosition)
@@ -41,7 +33,6 @@ namespace Firecracker_Engine
             {
                 building.m_SpriteDepth = 0.50f;
             }
-            age = Age.Primitive;
         }
 
         public override void update(GameTime gameTime)
@@ -52,7 +43,7 @@ namespace Firecracker_Engine
 
         public override void draw(SpriteBatch spriteBatch)
         {
-            sprites[(int)age].draw(spriteBatch, Vector2.One, 0, position, SpriteEffects.None);
+            sprites[(int)PopulationManager.Instance.age].draw(spriteBatch, Vector2.One, 0, position, SpriteEffects.None);
             base.draw(spriteBatch);
         }
 

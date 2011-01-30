@@ -156,7 +156,7 @@ namespace Test_Game {
         {
             //mouse scrolling
             const int SCROLL_BOUNDARY = 20;
-            const float SCROLL_SPEED = 200; //in pixels
+            const float SCROLL_SPEED = 550; //in pixels
             Vector2 mousePos = m_MouseManager.GetMousePos();
             Vector2 screenSize = new Vector2(settings.screenWidth, settings.screenHeight);
             if (mousePos.X < SCROLL_BOUNDARY ||

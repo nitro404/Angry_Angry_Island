@@ -74,5 +74,10 @@ namespace Firecracker_Engine
 
             base.update(gameTime);
         }
+
+        public override void draw(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch)
+        {
+            base.draw(spriteBatch);
+        }
     }
 }

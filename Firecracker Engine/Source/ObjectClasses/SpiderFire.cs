@@ -78,13 +78,26 @@ namespace Firecracker_Engine
                     i--;
                     continue;
                 }
-            }
 
-            if (m_lFireObjects.Count() == 0)
-            {
-                this.toBeDeleted = true;
+        
+            // check the collisions.
+                for (int j = 0; j < Firecracker.level.numberOfObjects(); j++)
+                {
+                    GameObject theObj = Firecracker.level.objectAt(j);
+                    if (theObj.GetType() == typeof(NPCObject))
+                    {
+                        if ((theObj.position - m_lFireObjects[i].m_vCurrentLocation).Length() < 10)
+                        {
+                            // kill this guy.
+                            theObj.toBeDeleted = true;
+                            Explosion newDeath = new Explosion(theObj.position);
+                            HumanDeath ashDeath = new HumanDeath(theObj.position);
+                            Firecracker.level.addObject(newDeath);
+                            Firecracker.level.addObject(ashDeath);
+                        }
+                    }
+                }
             }
-
             base.update(gameTime);
         }
 

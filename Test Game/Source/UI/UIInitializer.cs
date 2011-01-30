@@ -20,7 +20,7 @@ namespace Test_Game
             Style.font = Firecracker.engineInstance.Content.Load<SpriteFont>(@"UI\font");
             Style.fontColor = Color.White;
             Style.LogEntry = "testbutton";
-            Style.LogEntrySize = new Vector2(300, 20);
+            Style.LogEntrySize = new Vector2(300, 40);
             Style.PopupButtonMouseOver = "testbuttonhover";
             Style.PopupButtonNormal = "testbutton";
             Style.PopupButtonPressed = "testbuttonclicked";

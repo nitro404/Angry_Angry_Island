@@ -143,6 +143,8 @@ namespace Firecracker_Engine {
 
 			Level newLevel = Level.readFrom(Content.RootDirectory + "\\Levels\\" + levelName + ".2d");
 
+            PopulationManager tempPopulationManagerRef = new PopulationManager();
+
 			if(newLevel != null) {
                 
                 level = newLevel;

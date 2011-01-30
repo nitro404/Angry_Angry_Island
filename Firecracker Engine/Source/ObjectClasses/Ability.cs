@@ -10,8 +10,8 @@ namespace Firecracker_Engine
     public enum AbilityType
     {
         Lightning,
-        Fireball,
-        Earthquake,
+        Asteroid,
+        SpiderFire,
         GodAnimal,
         NumAbilityTypes,
 
@@ -30,12 +30,12 @@ namespace Firecracker_Engine
             type = whichAbility;
             switch (type)
             {
-                case AbilityType.Fireball:
+                case AbilityType.Asteroid:
                     m_cost = 5;
                     m_cooldown = 5;
                     m_iconTextureAssetName = "testicon";
                     break;
-                case AbilityType.Earthquake:
+                case AbilityType.SpiderFire:
                     m_cost = 50;
                     m_cooldown = 5;
                     m_iconTextureAssetName = "testicon";
@@ -57,11 +57,11 @@ namespace Firecracker_Engine
         {
             switch (type)
             {
-                case AbilityType.Fireball:
+                case AbilityType.Asteroid:
                     Asteroid newAsteroid = new Asteroid(position);
                     Firecracker.level.addObject(newAsteroid);
                     break;
-                case AbilityType.Earthquake:
+                case AbilityType.SpiderFire:
                     SpiderFire newSpiderFire = new SpiderFire(position);
                     Firecracker.level.addObject(newSpiderFire);
                     break;
