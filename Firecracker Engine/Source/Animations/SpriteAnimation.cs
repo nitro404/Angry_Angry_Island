@@ -99,6 +99,12 @@ namespace Firecracker_Engine {
 			return m_sprites.Count();
 		}
 
+		public Sprite getSprite(int index) {
+			if(index < 0 || index >= m_sprites.Count()) { return null; }
+
+			return m_sprites[index];
+		}
+
 		// add a frame to the animation
 		public void addSprite(Sprite sprite) {
 			if(sprite == null) { return; }
