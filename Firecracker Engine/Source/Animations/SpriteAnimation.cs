@@ -301,7 +301,7 @@ namespace Firecracker_Engine {
 
 			// obtain and add the sprites to the sprite animation
 			Sprite sprite;
-			for(int i=1;i<numberOfFrames;i++) {
+			for(int i=1;i<=numberOfFrames;i++) {
 				sprite = spriteSheet.getSprite(spriteName + " " + i);
 				if(sprite == null) { return null; }
 
