@@ -272,7 +272,7 @@ namespace Firecracker_Engine {
 				if(property == null) { return null; }
 
 				animationProperties.add(property);
-			} while(animationProperties.size() < 6);
+			} while(animationProperties.size() < 7);
 
 			// parse the animation name
 			String animationName = animationProperties.getValue("Animation Name");
@@ -306,6 +306,13 @@ namespace Firecracker_Engine {
 			String spriteName = animationProperties.getValue("Sprite Name");
 			if(spriteName == null) { return null; }
 
+            string startIndex = animationProperties.getValue("Start Index");
+            int iStartIndex = 1;
+            if (startIndex != null)
+            {
+                iStartIndex = int.Parse(startIndex);
+            }
+
 			animation = new SpriteAnimation(animationName, duration, animationType);
 
 			// get the sprite sheet which contains the animation
@@ -314,8 +321,8 @@ namespace Firecracker_Engine {
 
 			// obtain and add the sprites to the sprite animation
 			Sprite sprite;
-			for(int i=1;i<=numberOfFrames;i++) {
-				sprite = spriteSheet.getSprite(spriteName + " " + i);
+			for(int i=0;i<numberOfFrames;i++) {
+                sprite = spriteSheet.getSprite(spriteName + " " + (i+iStartIndex));
 				if(sprite == null) { return null; }
 
 				animation.addSprite(sprite);

@@ -333,6 +333,14 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Sprites\human_sprite_sheet_walking.png">
+      <Name>human_sprite_sheet_walking</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Sprites\candyCane.png">
       <Name>candyCane</Name>
       <Importer>TextureImporter</Importer>

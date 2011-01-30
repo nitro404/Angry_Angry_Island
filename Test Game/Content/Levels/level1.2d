@@ -16,26 +16,38 @@ Objects: 8
 	NPCObject:
 		Position: 794, 889
 		LayerDepth: 0.5
-		Sprite Name: Person_1
 		SpriteSheet Name: NPCPeasentObject
+		Anim Name N: PersonWalkN
+		Anim Name S: PersonWalkS
+		Anim Name E: PersonWalkE
+		Anim Name W: PersonWalkW
 		IsKillable: true
 	NPCObject:
 		Position: 623, 577
 		LayerDepth: 0.5
-		Sprite Name: Person_1
 		SpriteSheet Name: NPCPeasentObject
+		Anim Name N: PersonWalkN
+		Anim Name S: PersonWalkS
+		Anim Name E: PersonWalkE
+		Anim Name W: PersonWalkW
 		IsKillable: true
 	NPCObject:
 		Position: 600, 799
 		LayerDepth: 0.5
-		Sprite Name: Person_1
 		SpriteSheet Name: NPCPeasentObject
+		Anim Name N: PersonWalkN
+		Anim Name S: PersonWalkS
+		Anim Name E: PersonWalkE
+		Anim Name W: PersonWalkW
 		IsKillable: true
 	NPCObject:
 		Position: 770, 1100
 		LayerDepth: 0.5
-		Sprite Name: Person_1
 		SpriteSheet Name: NPCPeasentObject
+		Anim Name N: PersonWalkN
+		Anim Name S: PersonWalkS
+		Anim Name E: PersonWalkE
+		Anim Name W: PersonWalkW
 		IsKillable: true
 	Player:
 		

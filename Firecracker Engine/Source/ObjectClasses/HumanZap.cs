@@ -34,7 +34,7 @@ namespace Firecracker_Engine
 
         public override void draw(SpriteBatch spriteBatch)
         {
-            m_Anim.drawCentered(spriteBatch, Vector2.One, 0, position, SpriteEffects.None);
+            m_Anim.draw(spriteBatch, Vector2.One, 0, position, SpriteEffects.None);
             base.draw(spriteBatch);
         }
     }

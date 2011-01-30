@@ -19,7 +19,7 @@ namespace Firecracker_Engine
         AI_None,
     }
 
-    public class NPCObject : GameObject
+    public class NPCObject : AnimatedGameObject
     {
         protected float m_fAge;
         protected float m_fDeathAt;
@@ -31,10 +31,14 @@ namespace Firecracker_Engine
         protected bool m_bKillable;
         public float eventTime, currentTime; // add for make the effect last a certain time
         public Vector2 PointOfTerror;
+        public Variable AnimNameN;
+        public Variable AnimNameS;
+        public Variable AnimNameE;
+        public Variable AnimNameW;
+
         protected float m_fMaxAge;
         protected AIWanderType m_eWanderType;
 
-        public Sprite sheep, Sshadow;
         public GamePadState gamePadStatus;
 
         bool diedNaturally = false;
@@ -54,8 +58,36 @@ namespace Firecracker_Engine
             m_fIdleTime = 0.0f;
             m_eWanderType = AIWanderType.AI_Random;
             Firecracker.engineInstance.numPeoples++;
-            m_fDeathAt = (float)Firecracker.random.NextDouble()*5+5+(100.0f*(Firecracker.engineInstance.numPeoples/500.0f));
+            m_fDeathAt = (float)Firecracker.random.NextDouble() * 5 + 5 + (100.0f * (Firecracker.engineInstance.numPeoples / 500.0f));
             m_bKillable = true;
+        }
+
+        public NPCObject(Vector2 position, NPCObject objRef)
+            : base()
+        {
+            this.sprite = null;
+            this.position = position;
+
+            m_bIsMoving = false;
+            m_vTargetLocation = new Vector2();
+            m_fSpeed = 50.0f;
+            m_fWaitTime = 1.0f;
+            m_fIdleTime = 0.0f;
+
+            Firecracker.engineInstance.numPeoples++;
+            m_fDeathAt = Firecracker.random.Next(5, 6 + (int)(60.0f * (Firecracker.engineInstance.numPeoples / 500.0f)));
+            m_bKillable = true;
+
+            this.AnimNameN = objRef.AnimNameN;
+            this.AnimNameS = objRef.AnimNameS;
+            this.AnimNameE = objRef.AnimNameE;
+            this.AnimNameW = objRef.AnimNameW;
+
+            SetIsDirectionBased(true);
+            SetDirAnimation(AnimDirection.DIR_N, AnimNameN.value);
+            SetDirAnimation(AnimDirection.DIR_S, AnimNameS.value);
+            SetDirAnimation(AnimDirection.DIR_E, AnimNameE.value);
+            SetDirAnimation(AnimDirection.DIR_W, AnimNameW.value);
         }
 
         public AIWanderType wanderType
@@ -72,27 +104,6 @@ namespace Firecracker_Engine
             Variable position = Variable.parseFrom(input.ReadLine());
             if (position == null || !position.id.Equals("Position", StringComparison.OrdinalIgnoreCase)) { return null; }
 
-            // Get the layer depth of this sprite
-            Variable layerDepth = Variable.parseFrom(input.ReadLine());
-            if (layerDepth == null || !layerDepth.id.Equals("LayerDepth", StringComparison.OrdinalIgnoreCase)) { return null; }
-
-            // get the sprite's name
-            Variable spriteName = Variable.parseFrom(input.ReadLine());
-            if (spriteName == null || !spriteName.id.Equals("Sprite Name", StringComparison.OrdinalIgnoreCase)) { return null; }
-
-            // get the name of the spritesheet in which the sprite is found
-            Variable spriteSheetName = Variable.parseFrom(input.ReadLine());
-            if (spriteSheetName == null || !spriteSheetName.id.Equals("SpriteSheet Name", StringComparison.OrdinalIgnoreCase)) { return null; }
-
-            Variable isKillable = Variable.parseFrom(input.ReadLine());
-            if (isKillable == null || !isKillable.id.Equals("IsKillable", StringComparison.OrdinalIgnoreCase)) { return null; }
-
-            // get the object's sprite
-            SpriteSheet spriteSheet = spriteSheets.getSpriteSheet(spriteSheetName.value);
-            if (spriteSheet == null) { return null; }
-            Sprite sprite = spriteSheet.getSprite(spriteName.value);
-            if (sprite == null) { return null; }
-
             // parse the sprite's position
             String[] positionData = position.value.Split(',');
             if (positionData.Length != 2) { return null; }
@@ -105,10 +116,46 @@ namespace Firecracker_Engine
             }
             catch (Exception) { return null; }
 
+
+            // Get the layer depth of this sprite
+            Variable layerDepth = Variable.parseFrom(input.ReadLine());
+            if (layerDepth == null || !layerDepth.id.Equals("LayerDepth", StringComparison.OrdinalIgnoreCase)) { return null; }
+
+
+            // get the name of the spritesheet in which the sprite is found
+            Variable spriteSheetName = Variable.parseFrom(input.ReadLine());
+            if (spriteSheetName == null || !spriteSheetName.id.Equals("SpriteSheet Name", StringComparison.OrdinalIgnoreCase)) { return null; }
+
+
             // create the object
-            NPCObject newObject = new NPCObject(newPosition, sprite);
+            NPCObject newObject = new NPCObject(newPosition, (Sprite)null);
+
+            // get the sprite's name
+            newObject.AnimNameN = Variable.parseFrom(input.ReadLine());
+            if (newObject.AnimNameN == null || !newObject.AnimNameN.id.Equals("Anim Name N", StringComparison.OrdinalIgnoreCase)) { return null; }
+            newObject.AnimNameS = Variable.parseFrom(input.ReadLine());
+            if (newObject.AnimNameS == null || !newObject.AnimNameS.id.Equals("Anim Name S", StringComparison.OrdinalIgnoreCase)) { return null; }
+            newObject.AnimNameE = Variable.parseFrom(input.ReadLine());
+            if (newObject.AnimNameE == null || !newObject.AnimNameE.id.Equals("Anim Name E", StringComparison.OrdinalIgnoreCase)) { return null; }
+            newObject.AnimNameW = Variable.parseFrom(input.ReadLine());
+            if (newObject.AnimNameW == null || !newObject.AnimNameW.id.Equals("Anim Name W", StringComparison.OrdinalIgnoreCase)) { return null; }
+
+            Variable isKillable = Variable.parseFrom(input.ReadLine());
+            if (isKillable == null || !isKillable.id.Equals("IsKillable", StringComparison.OrdinalIgnoreCase)) { return null; }
+
+
+            // get the object's sprite
+            SpriteSheet spriteSheet = spriteSheets.getSpriteSheet(spriteSheetName.value);
+            if (spriteSheet == null) { return null; }
+
+
             newObject.m_bKillable = bool.Parse(isKillable.value);
-            newObject.sprite.m_SpriteDepth = float.Parse(layerDepth.value);
+            //newObject.sprite.m_SpriteDepth = float.Parse(layerDepth.value);
+            newObject.SetIsDirectionBased(true);
+            newObject.SetDirAnimation(AnimDirection.DIR_N, newObject.AnimNameN.value);
+            newObject.SetDirAnimation(AnimDirection.DIR_S, newObject.AnimNameS.value);
+            newObject.SetDirAnimation(AnimDirection.DIR_E, newObject.AnimNameE.value);
+            newObject.SetDirAnimation(AnimDirection.DIR_W, newObject.AnimNameW.value);
             newObject.updateInitialValues();
 
             return newObject;
@@ -138,12 +185,7 @@ namespace Firecracker_Engine
 
                 if (Firecracker.engineInstance.numPeoples <= 500)
                 {
-                    NPCObject newObject = new NPCObject(position + new Vector2(16.0f, 16.0f), sprite);
-                    Firecracker.level.addObject(newObject);
-
-                    newObject = new NPCObject(position - new Vector2(16.0f, 16.0f), sprite);
-                    Firecracker.level.addObject(newObject);
-                    for(int i = 0; i < 2; i++)
+                    for (int i = 0; i < 2; i++)
                     {
                         Vector2 spawnPosition = position;
                         for (int j = 0; j < 5; j++)
@@ -156,7 +198,8 @@ namespace Firecracker_Engine
                             }
                             spawnPosition = position;
                         }
-                        newObject = new NPCObject(spawnPosition, sprite);
+
+                        NPCObject newObject = new NPCObject(spawnPosition, this);
                         Firecracker.level.addObject(newObject);
                     }
                 }
@@ -199,7 +242,7 @@ namespace Firecracker_Engine
 
             if (m_eWanderType == AIWanderType.AI_Scatter)
             {
-              
+
                 m_vTargetLocation += position;
                 m_fIdleTime = 0.0f;
                 m_bIsMoving = true;
@@ -239,7 +282,7 @@ namespace Firecracker_Engine
                 interest = 100;
             }
         }
-         */ 
+         */
 
 
 
@@ -256,7 +299,7 @@ namespace Firecracker_Engine
                     Vector2 targetpos = position;
                     for (int j = 0; j < 5; j++)
                     {
-                        //try 5 times to find a legal spawn position
+                        //try 5 times to find a legal position
                         targetpos = position + new Vector2((float)Firecracker.random.NextDouble() * 60 - 30, (float)Firecracker.random.NextDouble() * 60 - 30);
                         if (Terrain.Instance == null || Terrain.Instance.isPositionWalkable(targetpos))
                         {
@@ -265,6 +308,7 @@ namespace Firecracker_Engine
                         targetpos = position;
                     }
                     m_vTargetLocation = targetpos;
+                    playAnimation(AnimDirection.DIR_S);
                 }
             }
             else
@@ -274,6 +318,7 @@ namespace Firecracker_Engine
                 {
                     m_bIsMoving = false;
                     m_fIdleTime = 0.0f;
+                    PauseAnimation();
                 }
                 else
                 {
@@ -309,6 +354,4 @@ namespace Firecracker_Engine
         }
     }
 }
-
-
 
