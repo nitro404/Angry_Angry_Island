@@ -308,7 +308,12 @@ namespace Firecracker_Engine
                         targetpos = position;
                     }
                     m_vTargetLocation = targetpos;
-                    playAnimation(AnimDirection.DIR_S);
+                    float vecAngle = Helpers.GetAngle(targetpos - position);
+                    vecAngle += 45;
+                    if (vecAngle < 0) vecAngle += 360;
+                    if (vecAngle > 360) vecAngle -= 360;
+
+                    playAnimation((AnimDirection)(((int)vecAngle)/90));
                 }
             }
             else

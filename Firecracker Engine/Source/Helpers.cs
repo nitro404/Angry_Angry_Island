@@ -137,5 +137,14 @@ namespace Firecracker_Engine
             newPoint.Y = int.Parse(tempString.Substring(tempString.IndexOf(",")+1));
             return newPoint;
         }
+
+        public static float GetAngle(Vector2 vector)
+        {
+            float radians = (float)Math.Atan2(vector.X, vector.Y);
+
+            float degrees = MathHelper.ToDegrees(radians);
+
+            return degrees;
+        }
     }
 }
