@@ -16,7 +16,6 @@ namespace Firecracker_Engine
             Rage
         }
         public fightStyle CreatureStyle;
-        public Sprite Model;
         float currentTime;
         //what we what to kill
         public GameObject theObj,targetObj;
