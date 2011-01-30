@@ -54,7 +54,7 @@ namespace Firecracker_Engine
                     break;
 
                 case AbilityType.CandyCane:
-                    m_cost = 10;
+                    m_cost = 40;
                     m_cooldown = 5;
                     m_iconTextureAssetName = "CandyCaneIcon";
                     break;

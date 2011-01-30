@@ -23,9 +23,11 @@ namespace Firecracker_Engine
         int populationForDeveloping = 50;
         int populationForDeveloped = 150;
         int populationForAdvanced = 350;
+        int populationToLose = 450;
         float TimeRequiredForDeveloping = 20;
         float TimeRequiredForDeveloped = 20;
         float TimeRequiredForAdvanced = 20;
+        float TimeRequiredToLose = 30;
         float TimeSpentAboveThreshold = 0;
 
         public PopulationManager()
@@ -90,6 +92,25 @@ namespace Firecracker_Engine
                 {
                     TimeSpentAboveThreshold = 0;
                 }
+            }
+            else if (age == Age.Advanced)
+            {
+                if (Firecracker.engineInstance.numPeoples >= populationToLose)
+                {
+                    TimeSpentAboveThreshold += deltaT;
+                    if (TimeSpentAboveThreshold > TimeRequiredToLose)
+                    {
+                        PopupNotification.instance.ShowNotification("You lose."  ,"You get nothing.");
+                    }
+                }
+                else
+                {
+                    TimeSpentAboveThreshold = 0;
+                }
+            }
+            if (Firecracker.engineInstance.numPeoples <= 0)
+            {
+                PopupNotification.instance.ShowNotification("You win!", "Congrats!");
             }
         }
     }

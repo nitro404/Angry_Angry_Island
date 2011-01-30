@@ -37,13 +37,11 @@ namespace Firecracker_Engine
             size = InnerElements[0].size + new Vector2(120, 120);
             InnerElements[2].pos.Y = (size.Y / 2) + 65;
             hidden = false;
-                OnScreenPrompt.instance.hidden = true;
         }
 
         public void HideNotification()
         {
             hidden = true;
-                OnScreenPrompt.instance.hidden = false;
         }
 
     }

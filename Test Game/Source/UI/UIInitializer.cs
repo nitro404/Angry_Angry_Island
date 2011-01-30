@@ -22,10 +22,11 @@ namespace Test_Game
             Style.LogEntry = "testbutton";
             Style.LogEntrySize = new Vector2(300, 40);
             Style.PopupButtonMouseOver = "testbuttonhover";
-            Style.PopupButtonNormal = "testbutton";
+            Style.PopupButtonNormal = "transparentgrey";
             Style.PopupButtonPressed = "testbuttonclicked";
-            Style.PopupWindowBox = "testbutton";
-            Style.PopupWindowTitle = "testbutton";
+            Style.PopupWindowBox = "transparentgrey";
+            Style.PopupWindowTitle = "transparentgrey";
+            Style.PopupTitleSize = new Vector2(170, 40);
 
             UIScreenManager.Instance.currentScreen = new Screen(
                 new List<UIObject>{new AbilityBar(), new InfoBar(), new PopupNotification()});

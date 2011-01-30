@@ -50,10 +50,6 @@
       <Name>level2</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Levels\level3.2d">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <Name>level3</Name>
-    </None>
     <None Include="Objects\StaticObjects.DEF">
       <Name>StaticObjects</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

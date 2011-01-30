@@ -25,7 +25,7 @@ namespace Test_Game
         private Label creditLabel;
 
         public AbilityBar()
-            : base(Vector2.Zero, new Vector2((ICON_WIDTH + BUTTON_PADDING * 2) * 4 + (BAR_PADDING*2), ICON_HEIGHT + BUTTON_PADDING * 2 + BAR_PADDING * 2), HAlign.Left, VAlign.Bottom, false, ContentType.Image, "transparentgrey")
+            : base(Vector2.Zero, new Vector2((ICON_WIDTH + BUTTON_PADDING * 2) * 5 + (BAR_PADDING*2), ICON_HEIGHT + BUTTON_PADDING * 2 + BAR_PADDING * 2), HAlign.Left, VAlign.Bottom, false, ContentType.Image, "transparentgrey")
         {
             InnerElements = new List<UIObject>();
             creditLabel = new Label(new Vector2(BAR_PADDING, 0), HAlign.Left, VAlign.Center, "Credits:");

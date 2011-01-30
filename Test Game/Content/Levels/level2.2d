@@ -1,49 +1,36 @@
 2D Cartesian Level: Version 2.0
 Grid Size: 32
-Dimensions: 32, 32
+Dimensions: 64, 64
 Collision Edges: 0
-Objects: 9
+Objects: 7
+	Terrain:
+		Visible: true
+		Heightmap Name: terrain
+	Settlement:
+		Position: 700, 700
 	NPCObject:
-		Position: 100, 100
-		LayerDepth: 0.5
-		Sprite Name: Sheep 1
-		SpriteSheet Name: NPCObject
-		IsKillable: false
-	NPCObject:
-		Position: 200, 200
-		LayerDepth: 0.5
-		Sprite Name: Sheep 1
-		SpriteSheet Name: NPCObject
-		IsKillable: false
-	NPCObject:
-		Position: 300, 300
-		LayerDepth: 0.5
-		Sprite Name: Sheep 1
-		SpriteSheet Name: NPCObject
-		IsKillable: false
-	NPCObject:
-		Position: 400, 400
-		LayerDepth: 0.5
-		Sprite Name: Sheep 1
-		SpriteSheet Name: NPCObject
-		IsKillable: false
-	NPCObject:
-		Position: 450, 450
+		Position: 794, 889
 		LayerDepth: 0.5
 		Sprite Name: Person_1
 		SpriteSheet Name: NPCPeasentObject
 		IsKillable: true
-	
-	Game Tile:
-		Position: 0, 0
-		LayerDepth: 0.52
-		Sprite Name: Island Rocks
-		SpriteSheet Name: Island Rocks
-	Game Tile:
-		Position: 0, 0
-		LayerDepth: 0.51
-		Sprite Name: Island Trees
-		SpriteSheet Name: Island Trees
+	NPCObject:
+		Position: 623, 577
+		LayerDepth: 0.5
+		Sprite Name: Person_1
+		SpriteSheet Name: NPCPeasentObject
+		IsKillable: true
+	NPCObject:
+		Position: 600, 799
+		LayerDepth: 0.5
+		Sprite Name: Person_1
+		SpriteSheet Name: NPCPeasentObject
+		IsKillable: true
+	NPCObject:
+		Position: 770, 1100
+		LayerDepth: 0.5
+		Sprite Name: Person_1
+		SpriteSheet Name: NPCPeasentObject
+		IsKillable: true
 	Player:
-	Settlement:
-		Position: 500, 500
+		
