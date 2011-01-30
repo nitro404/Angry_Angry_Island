@@ -178,6 +178,37 @@ namespace Firecracker_Engine {
 			return Vector2.Zero;
 		}
 
+		public Vector2 getNewHomePosition() {
+			if(Terrain.Instance == null) {
+				return new Vector2(Firecracker.random.Next(gridSize * m_dimensions.X),
+								   Firecracker.random.Next(gridSize * m_dimensions.Y));
+			}
+			else {
+				Vector2 position;
+				int iterations = 0;
+				do {
+					position = new Vector2(Firecracker.random.Next(gridSize * m_dimensions.X),
+										   Firecracker.random.Next(gridSize * m_dimensions.Y));
+				} while(iterations < 500 &&
+						checkMinimumSettlementDistance(position, 500) &&
+						Terrain.Instance.isPositionWalkable(position));
+
+				return position;
+			}
+		}
+
+		public bool checkMinimumSettlementDistance(Vector2 position, float distance) {
+			for(int i=0;i<m_objects.Count();i++) {
+				if(m_objects[i] is Settlement) {
+					if(Math.Sqrt(Math.Pow(m_objects[i].position.X - position.X, 2) +
+								 Math.Pow(m_objects[i].position.Y - position.Y, 2)) < distance) {
+						return false;
+					}
+				}
+			}
+			return true;
+		}
+
 		public static Level readFrom(String fileName) {
 			if(fileName == null || fileName.Length == 0) { return null; }
 

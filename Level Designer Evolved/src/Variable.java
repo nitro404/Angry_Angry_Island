@@ -28,7 +28,7 @@ public class Variable {
 	/**
 	 * The character used to separate the id from the value.
 	 */
-	final private static char separatorChar = '=';
+	final public static char separatorChar = ':';
 	
 	/**
 	 * Constructs a Variable object instantiated with the specified id and value. 

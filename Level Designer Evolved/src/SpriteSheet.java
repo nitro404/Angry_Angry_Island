@@ -49,6 +49,8 @@ public class SpriteSheet {
 	/** Multiple Grid SpriteSheet type constant. */
 	final public static int TYPE_MULTIPLE_GRIDS = 2;
 	
+	final public static int TYPE_SINGLE = 3;
+	
 	/**
 	 * Constructs an empty SpriteSheet.
 	 */
@@ -410,7 +412,7 @@ public class SpriteSheet {
 								}
 								
 								// get the offset for the Sprite
-								spriteOffset = Utilities.parsePoint(spriteAttributes.getValue("Offset"));
+								spriteOffset = Utilities.parsePoint(spriteAttributes.getValue("Pixel Offset"));
 								if(spriteOffset == null) {
 									System.out.println("ERROR: Invalid or missing sprite offset.");
 									return null;
@@ -457,7 +459,7 @@ public class SpriteSheet {
 							}
 							
 							// get the grid offset
-							offset = Utilities.parsePoint(properties.getValue("Offset"));
+							offset = Utilities.parsePoint(properties.getValue("Pixel Offset"));
 							if(offset == null) {
 								System.out.println("ERROR: Invalid or missing sprite sheet offset.");
 								return null;
@@ -619,22 +621,22 @@ public class SpriteSheet {
 								}
 								
 								// get the offset for the current grid
-								offset[gridIndex] = Utilities.parsePoint(gridAttributes.getValue("Offset"));
-								if(offset == null) {
+								offset[gridIndex] = Utilities.parsePoint(gridAttributes.getValue("Pixel Offset"));
+								if(offset[gridIndex] == null) {
 									System.out.println("ERROR: Invalid or missing sprite sheet offset.");
 									return null;
 								}
 								
 								// get the size of the cells in the grid
 								size[gridIndex] = Utilities.parseDimension(gridAttributes.getValue("Size"));
-								if(size == null) {
+								if(size[gridIndex] == null) {
 									System.out.println("ERROR: Invalid or missing sprite sheet tile size.");
 									return null;
 								}
 								
 								// get the increment values for the current grid
 								increment[gridIndex] = Utilities.parseDimension(gridAttributes.getValue("Increment"));
-								if(increment == null) {
+								if(increment[gridIndex] == null) {
 									System.out.println("ERROR: Invalid or missing sprite sheet tile increment.");
 									return null;
 								}

@@ -16,8 +16,10 @@ import java.io.*;
  */
 public class Level {
 	
+	/** The type of level */
+	public LevelType type;
 	/** The size of the Grid in the current Level. */
-	public Vertex gridSize;
+	public int gridSize;
 	/** The dimensions of the current Level. */
 	public Dimension dimensions;
 	/** The collection dynamic collision boundaries associated with the Level. */
@@ -28,20 +30,64 @@ public class Level {
 	private Vector<Entity> tiles;
 	
 	/** A String representing the type of Level that the Level Designer currently supports. */
-	final public static String LEVEL_TYPE = "2D Cartesian Level";
+	final public static String[] LEVEL_TYPE = new String[]{"2D Cartesian Level", "2D Isometric Level"};
 	/** The version of the Level that the Level Designer currently supports. */
 	final public static double LEVEL_VERSION = 2.0;
 	/** The size of the Grid the Level Designer supports by default. */
-	final public static int GRID_SIZE = 64;
+	final public static int DEFAULT_GRID_SIZE = 64;
 	
 	/**
 	 * Constructs an empty Level object.
 	 */
 	public Level() {
 		// initialise the collections associated with the Level
+		this(LevelType.Cartesian, DEFAULT_GRID_SIZE, new Dimension(0, 0));
+		
 		this.collisionData = new Graph();
 		this.entities = new Vector<Entity>();
 		this.tiles = new Vector<Entity>();
+	}
+	
+	public Level(LevelType type, int gridSize, Dimension dimensions) {
+		this.type = type;
+		this.gridSize = (gridSize < 1) ? DEFAULT_GRID_SIZE : gridSize;
+		this.dimensions = dimensions;
+	}
+	
+	public LevelType getType() {
+		return type;
+	}
+	
+	public void setType(LevelType type) {
+		this.type = type;
+	}
+	
+	public String getTypeString() {
+		if(type == LevelType.Cartesian) {
+			return LEVEL_TYPE[0];
+		}
+		if(type == LevelType.Isometric) {
+			return LEVEL_TYPE[1];
+		}
+		return null;
+	}
+	
+	public int getGridSize() {
+		return gridSize;
+	}
+	
+	public void setGridSize(int gridSize) {
+		if(gridSize >= 1) {
+			this.gridSize = gridSize;
+		}
+	}
+	
+	public Dimension getDimensions() {
+		return dimensions;
+	}
+	
+	public Graph getCollisionData() {
+		return collisionData;
 	}
 
 	/**
@@ -351,6 +397,54 @@ public class Level {
 		this.removeTile(e);
 	}
 	
+	public Vertex getScreenPosition(Vertex gamePosition) {
+		return getScreenPosition(gamePosition, type, gridSize);
+	}
+
+	public static Vertex getScreenPosition(Vertex gamePosition, LevelType type, int gridSize) {
+		if(type == LevelType.Cartesian) {
+			return gamePosition;
+		}
+		else if(type == LevelType.Isometric) {
+			Vertex screenPosition = new Vertex(0, 0);
+			float isoCos = (float) Math.cos(Math.PI / 4.0f);
+			float isoSin = (float) Math.sin(Math.PI / 4.0f);
+
+			float x = gamePosition.x * ((gridSize / 2.0f) / 45.0f);
+			float y = gamePosition.y * (gridSize / 45.0f);
+
+			screenPosition.x = (int) ((isoCos * x) + (isoSin * y));
+			screenPosition.y = (int) (((-isoSin) * x) + (isoCos * y));
+
+			return screenPosition;
+		}
+		return null;
+	}
+
+	public Vertex getGamePosition(Vertex screenPosition) {
+		return getGamePosition(screenPosition, type, gridSize);
+	}
+
+	public static Vertex getGamePosition(Vertex screenPosition, LevelType type, int gridSize) {
+		if (type == LevelType.Cartesian) {
+			return screenPosition;
+		}
+		else if (type == LevelType.Isometric) {
+			Vertex gamePosition = new Vertex(0, 0);
+			float isoCos = (float) Math.cos(Math.PI / 4.0f);
+			float isoSin = (float) Math.sin(Math.PI / 4.0f);
+
+			gamePosition.x = (int) ((isoCos * screenPosition.x) + ((-isoCos) * screenPosition.y));
+			gamePosition.x *= 45.0f / (gridSize / 2.0f);
+
+			gamePosition.y = (int) ((isoSin * screenPosition.y) + (isoCos * screenPosition.y));
+			gamePosition.y *= 45.0f / gridSize;
+
+			return gamePosition;
+		}
+		return null;
+	}
+	
 	/**
 	 * Parses a Level from the specified file and instantiates all of the Entities using their corresponding Sprites found in the collection of SpriteSheets.
 	 * 
@@ -404,9 +498,15 @@ public class Level {
 		
 		// input the Level header and verify the type and version of the map
 		input = in.readLine();
-		String levelType = input.substring(0, input.indexOf(':', 0)).trim();
-		if(!LEVEL_TYPE.equalsIgnoreCase(levelType)) {
-			System.out.println("ERROR: Incompatible level type (" + levelType + "). Current editor only supports levels of type " + LEVEL_TYPE + ".");
+		String levelTypeString = input.substring(0, input.indexOf(':', 0)).trim();
+		if(levelTypeString.equalsIgnoreCase(LEVEL_TYPE[0])) {
+			level.setType(LevelType.Cartesian);
+		}
+		else if(levelTypeString.equalsIgnoreCase(LEVEL_TYPE[1])) {
+			level.setType(LevelType.Isometric);
+		}
+		else {
+			System.out.println("ERROR: Incompatible level type (" + levelTypeString + "). Current editor only supports levels of type " + LEVEL_TYPE[0] + " and " + LEVEL_TYPE[1] + ".");
 			return null;
 		}
 		double levelVersion = Double.valueOf(input.substring(input.lastIndexOf(' ', input.length() - 1), input.length()).trim());
@@ -423,10 +523,11 @@ public class Level {
 			return null;
 		}
 		int fileGridSize = Integer.valueOf(input.substring(input.indexOf(':', 0) + 1, input.length()).trim());
-		if(fileGridSize != GRID_SIZE) {
-			System.out.println("ERROR: Incompatible grid size: " + fileGridSize + ". The editor only supports a grid size of " + GRID_SIZE + ".");
+		if(fileGridSize < 1) {
+			System.out.println("ERROR: Incompatible grid size: " + fileGridSize + ". Please enter a grid size larger than 0.");
 			return null;
 		}
+		level.gridSize = fileGridSize;
 		
 		// read in the map dimensions
 		input = in.readLine();
@@ -437,14 +538,14 @@ public class Level {
 		}
 		int mapWidth = Integer.valueOf(input.substring(input.indexOf(':', 0) + 1, input.indexOf(',', 0)).trim());
 		int mapHeight = Integer.valueOf(input.substring(input.indexOf(',', 0) + 1, input.length()).trim());
-		level.gridSize = new Vertex(mapWidth, mapHeight);
-		level.dimensions = new Dimension((mapWidth * GRID_SIZE) + 1, (mapHeight * GRID_SIZE) + 1);
+		level.dimensions = new Dimension(mapWidth, mapHeight);
+		//level.dimensions = new Dimension((mapWidth * GRID_SIZE) + 1, (mapHeight * GRID_SIZE) + 1);
 		
 		// read in the collision data
 		input = in.readLine();
 		String edgesHeader = input.substring(0, input.indexOf(':', 0)).trim();
-		if(!edgesHeader.equalsIgnoreCase("Edges")) {
-			System.out.println("ERROR: Corrupted level file. Expected header \"Edges\", found \"" + edgesHeader + "\".");
+		if(!edgesHeader.equalsIgnoreCase("Collision Edges")) {
+			System.out.println("ERROR: Corrupted level file. Expected header \"Collision Edges\", found \"" + edgesHeader + "\".");
 			return null;
 		}
 		int numberOfEdges = Integer.valueOf(input.substring(input.lastIndexOf(':', input.length() - 1) + 1, input.length()).trim());
@@ -453,30 +554,67 @@ public class Level {
 			level.addEdge(Edge.parseFrom(input));
 		}
 		
-		// read in the entities
+		// read in the game objects header
 		input = in.readLine();
 		String entitiesHeader = input.substring(0, input.indexOf(':', 0)).trim();
-		if(!entitiesHeader.equalsIgnoreCase("Entities")) {
-			System.out.println("ERROR: Corrupted level file. Expected header \"Entites\", found \"" + entitiesHeader + "\".");
+		if(!entitiesHeader.equalsIgnoreCase("Objects")) {
+			System.out.println("ERROR: Corrupted level file. Expected header \"Objects\", found \"" + entitiesHeader + "\".");
 			return null;
 		}
 		int numberOfEntities = Integer.valueOf(input.substring(input.lastIndexOf(':', input.length() - 1) + 1, input.length()).trim());
-		for(int i=0;i<numberOfEntities;i++) {
-			input = in.readLine().trim();
-			level.addEntity(Entity.parseFrom(input, spriteSheets));
-		}
 		
-		// read in the tiles
-		input = in.readLine();
-		String tilesHeader = input.substring(0, input.indexOf(':', 0)).trim();
-		if(!tilesHeader.equalsIgnoreCase("Tiles")) {
-			System.out.println("ERROR: Corrupted level file. Expected header \"Tiles\", found \"" + tilesHeader + "\".");
-			return null;
-		}
-		int numberOfTiles = Integer.valueOf(input.substring(input.lastIndexOf(':', input.length() - 1) + 1, input.length()).trim());
-		for(int i=0;i<numberOfTiles;i++) {
-			input = in.readLine().trim();
-			level.addTile(Entity.parseFrom(input, spriteSheets));
+		// read in the game objects
+		int currentObject = 0;
+		String data;
+		while(currentObject < numberOfEntities) {
+			data = in.readLine();
+			String objectHeader = data.trim();
+			if(objectHeader.length() == 0) { continue; }
+
+			// parse object type
+			String objectType;
+			if(objectHeader.charAt(objectHeader.length() - 1) == ':') {
+				objectType = objectHeader.substring(0, objectHeader.length() - 1);
+			}
+			else { return null; }
+
+			// parse the object based on its type
+			Entity newObject = null;
+			if(objectType.equalsIgnoreCase("Static Object")) {
+				newObject = Entity.parseFrom(in, spriteSheets);
+				if(newObject == null) { return null; }
+				currentObject++;
+				level.addEntity(newObject);
+			}
+			/*
+			else if(objectType.equalsIgnoreCase("Game Tile")) {
+				newObject = GameTile.parseFrom(in, spriteSheets);
+				if(newObject == null) { return null; }
+				currentObject++;
+				level.addEntity(newObject);
+			}
+            else if (objectType.equalsIgnoreCase("NPCObject")) {
+                newObject = NPCObject.parseFrom(in, spriteSheets);
+                if(newObject == null) { return null; }
+				currentObject++;
+				level.addEntity(newObject);
+            }
+            */
+            else if (objectType.equalsIgnoreCase("Player")) {
+				currentObject++;
+            }
+			/*
+            else if (objectType.equalsIgnoreCase("Settlement")) {
+                newObject = Settlement.parseFrom(in, spriteSheets);
+                if(newObject == null) { return null; }
+				currentObject++;
+				level.addEntity(newObject);
+            }
+            */
+			// verify that the object was successfully parsed
+			else {
+				return null;
+			}
 		}
 		
 		return level;
@@ -521,33 +659,34 @@ public class Level {
 	 */
 	public void writeTo(PrintWriter out) throws IOException {
 		// write the level header and version
-		out.println(LEVEL_TYPE + ": Version " + LEVEL_VERSION);
+		if(type == LevelType.Cartesian) {
+			out.print(LEVEL_TYPE[0]);
+		}
+		else if(type == LevelType.Isometric) {
+			out.print(LEVEL_TYPE[1]);
+		}
+		out.println(Variable.separatorChar + " Version " + LEVEL_VERSION);
 		
 		// write grid size
-		out.println("Grid Size: " + GRID_SIZE);
+		out.println("Grid Size" + Variable.separatorChar + " " + gridSize);
 		
 		// write the dimensions
-		out.print("Dimensions: ");
-		gridSize.writeTo(out);
-		out.println();
+		out.println("Dimensions" + Variable.separatorChar + " " + dimensions.width + ", " + dimensions.height);
 		
 		// write the collision edges
 		out.println("Collision Edges: " + this.collisionData.size());
 		this.collisionData.writeTo(out);
 		
 		// write the entities
-		out.println("Entities: " + this.entities.size());
-		for(int i=0;i<this.entities.size();i++) {
-			out.print("\t");
-			this.entities.elementAt(i).writeTo(out);
-			out.println();
-		}
-		
-		// write the tiles
-		out.println("Tiles: " + this.tiles.size());
+		out.println("Objects: " + this.tiles.size() + this.entities.size());
 		for(int i=0;i<this.tiles.size();i++) {
 			out.print("\t");
 			this.tiles.elementAt(i).writeTo(out);
+			out.println();
+		}
+		for(int i=0;i<this.entities.size();i++) {
+			out.print("\t");
+			this.entities.elementAt(i).writeTo(out);
 			out.println();
 		}
 	}

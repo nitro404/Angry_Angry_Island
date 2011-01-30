@@ -7,7 +7,6 @@
 
 import java.awt.Graphics;
 import java.io.*;
-import java.util.StringTokenizer;
 
 /**
  * 
@@ -30,6 +29,8 @@ public class Entity {
 	 * The index of the Sprite within the originating SpriteSheet (for quick reference).
 	 */
 	public int spriteSheetIndex;
+	
+	public float layerDepth;
 	
 	/**
 	 * Constructs an Entity and initialises it with the specified location and Sprite. 
@@ -111,14 +112,14 @@ public class Entity {
 	 * 
 	 * @param g the Graphics object to render the Entity's Sprite onto.
 	 */
-	public void paintOn(Graphics g) {
-		// if the Sprite is tiled, align it to the grid and then render it
+	public void paintOn(Graphics g, int gridSize) {
+		if(gridSize <= 0) { return; }
+		
 		if(sprite.isTiled()) {
-			sprite.paintOn(g, location.x * Level.GRID_SIZE, location.y * Level.GRID_SIZE);
-		}
-		// otherwise, simply render it at it's corresponding location
-		else {
 			sprite.paintOn(g, location.x, location.y);
+		}
+		else {
+			sprite.paintOn(g, location.x * gridSize, location.y * gridSize);
 		}
 	}
 	
@@ -135,51 +136,73 @@ public class Entity {
 	 * @param spriteSheets the collection of SpriteSheets to initialise the Entity's corresponding Sprite with.
 	 * @return the Entity parsed from the specified input parameters.
 	 */
-	public static Entity parseFrom(String input, SpriteSheets spriteSheets) {
-		if(input == null || input.trim().length() == 0) {
-			return null;
+	public static Entity parseFrom(BufferedReader in, SpriteSheets spriteSheets) {
+		if(in == null || spriteSheets == null) { return null; }
+
+		Entity entity;
+		VariableSystem properties = new VariableSystem();
+
+		// store all of the animation properties
+		String data;
+		Variable property;
+		do {
+			try { data = in.readLine(); }
+			catch(IOException e) { return null; }
+			if(data == null) { return null; }
+
+			data = data.trim();
+			if(data.length() == 0) { continue; }
+
+			property = Variable.parseFrom(data);
+			if(property == null) { return null; }
+
+			properties.add(property);
+		} while(properties.size() < 4);
+		
+		// get the object's position
+		String positionData = properties.getValue("Position");
+		if(positionData == null) { return null; }
+		
+		// parse the sprite's position
+		String[] positionValues = positionData.split(",");
+		if(positionValues.length != 2) { return null; }
+
+		Vertex newPosition = new Vertex();
+		try {
+			newPosition.x = Integer.parseInt(positionValues[0]);
+			newPosition.y = Integer.parseInt(positionValues[1]);
 		}
+		catch(Exception e) { return null; }
+
+        // get the layer depth of this sprite
+        String layerDepthData = properties.getValue("LayerDepth");
+        if(layerDepthData == null) { return null; }
+        
+        float layerDepth;
+        try {
+            layerDepth = Float.parseFloat(layerDepthData);
+        }
+        catch(Exception e) { return null; }
+
+		// get the sprite's name
+        String spriteName = properties.getValue("Sprite Name");
+		if(spriteName == null) { return null; }
+
+		// get the name of the spritesheet in which the sprite is found
+		String spriteSheetName = properties.getValue("SpriteSheet Name");
+		if(spriteSheetName == null) { return null; }
 		
-		String data = input.trim();
-		
-		// create a StringTokenizer to parse through the data String based on the delimiter as a comma
-		// if less than the x and y coordinates or more than the x and y coordinates and the Sprite name / parent SpriteSheet name have been specified, then do not parse the Entity
-		StringTokenizer st = new StringTokenizer(data, ",", false);
-		if(st.countTokens() < 2 || st.countTokens() > 4) { return null; }
-		
-		// parse the Vertex (location) of the Entity from the String
-		Vertex v = new Vertex(Integer.valueOf(st.nextToken().trim()), Integer.valueOf(st.nextToken().trim()));
-		
-		// parse the Sprite name and the parent SpriteSheet name from the String
-		Entity newEntity = null;
-		SpriteSheet spriteSheet;
-		Sprite sprite;
-		if(st.countTokens() == 2) {
-			String spriteSheetName = st.nextToken().trim();
-			String spriteName = st.nextToken().trim();
-			
-			// get the SpriteSheet based on its name
-			spriteSheet = spriteSheets.getSpriteSheet(spriteSheetName);
-			if(spriteSheet == null) {
-				System.out.println("ERROR: Unable to load entity sprite \"" + spriteName + "\" from sprite sheet \"" + spriteSheetName + "\".");
-				return null;
-			}
-			
-			// get the Sprite from the corresponding SpriteSheet based on its name
-			sprite = spriteSheet.getSprite(spriteName);
-			if(sprite == null) {
-				System.out.println("ERROR: Unable to load entity sprite \"" + spriteName + "\" from sprite sheet \"" + spriteSheetName + "\".");
-				return null;
-			}
-			
-			// create the entity and initialise its index within the parent SpriteSheet
-			newEntity = new Entity(v, sprite);
-			newEntity.spriteSheetIndex = spriteSheets.getSpriteSheetIndex(spriteSheetName);
-		}
-		else {
-			newEntity = new Entity(v, null);
-		}
-		return newEntity;
+		// get the object's sprite
+		SpriteSheet spriteSheet = spriteSheets.getSpriteSheet(spriteSheetName);
+		if(spriteSheet == null) { return null; }
+		Sprite sprite = spriteSheet.getSprite(spriteName);
+		if(sprite == null) { return null; }
+
+		// create the object
+		entity = new Entity(newPosition, sprite);
+		entity.layerDepth = layerDepth;
+
+		return entity;
 	}
 	
 	/**
@@ -195,10 +218,11 @@ public class Entity {
 	 * @throws IOException if there was an error writing to the output stream.
 	 */
 	public void writeTo(PrintWriter out) throws IOException {
-		this.location.writeTo(out);
-		if(sprite != null) {
-			out.print(", " + sprite.getParentName() + ", " + sprite.getName());
-		}
+		out.println("\tStatic Object" + Variable.separatorChar);
+		out.println("\t\tPosition" + Variable.separatorChar + " " + location.x + ", " + location.y);
+		out.println("\t\tLayerDepth" + Variable.separatorChar + " " + layerDepth);
+		out.println("\t\tSprite Name" + Variable.separatorChar + " " + sprite.getName());
+		out.println("\t\tSpriteSheet Name" + Variable.separatorChar + " " + sprite.getParentName());
 	}
 	
 	/* (non-Javadoc)

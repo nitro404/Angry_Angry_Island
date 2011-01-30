@@ -17,13 +17,13 @@ public class EditorWindow extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	
 	final public static String DEFAULT_SETTINGS_FILE = "settings.ini";
-	final public static String DEFAULT_SPRITESHEET_FILE = "spritesheets.ini";
-	final public static String DEFAULT_MAP_DIRECTORY = "../Maps";
-	final public static String DEFAULT_SPRITE_DIRECTORY = "../Sprites";
+	final public static String DEFAULT_SPRITESHEET_FILE = "../Test Game/Content/spritesheets.ini";
+	final public static String DEFAULT_MAP_DIRECTORY = "../Test Game/Content/Levels";
+	final public static String DEFAULT_SPRITE_DIRECTORY = "../Test Game/Content/Sprites";
 	final public static String ALTERNATE_SETTINGS_FILE = "../settings.ini";
-	final public static String ALTERNATE_SPRITESHEET_FILE = "../spritesheets.ini";
-	final public static String ALTERNATE_MAP_DIRECTORY = "../../Maps";
-	final public static String ALTERNATE_SPRITE_DIRECTORY = "../../Sprites";
+	final public static String ALTERNATE_SPRITESHEET_FILE = "../" + DEFAULT_SPRITESHEET_FILE;
+	final public static String ALTERNATE_MAP_DIRECTORY = "../" + DEFAULT_MAP_DIRECTORY;
+	final public static String ALTERNATE_SPRITE_DIRECTORY = "../" + DEFAULT_SPRITE_DIRECTORY;
 	private int DEFAULT_EDITOR_WIDTH = 1080;
 	private int DEFAULT_EDITOR_HEIGHT = 768;
 	private int DEFAULT_XPOS = 0;
@@ -42,8 +42,8 @@ public class EditorWindow extends JFrame implements ActionListener {
 	
 	public Level level;
 	
-	final public static int DEFAULT_WIDTH = 18;
-	final public static int DEFAULT_HEIGHT = 12;
+	final public static int DEFAULT_WIDTH = 32;
+	final public static int DEFAULT_HEIGHT = 16;
 	
 	private JMenuBar menu;
 	private JMenu menuFile;
@@ -148,17 +148,17 @@ public class EditorWindow extends JFrame implements ActionListener {
 		PrintWriter out;
 		try {
 			out = new PrintWriter(new FileWriter(this.settingsFileName));
-			out.println("Map Directory=" + this.mapDirectory);
-			out.println("Sprite Directory=" + this.spriteDirectory);
-			out.println("SpriteSheet File=" + this.spriteSheetFileName);
-			out.println("Editor Window Position=" + this.getLocation().x + ", " + this.getLocation().y);
-			out.println("Editor Window Size=" + this.getWidth() + ", " + this.getHeight());
-			out.println("Palette Window Position=" + this.paletteWindow.getLocation().x + ", " + this.paletteWindow.getLocation().y);
-			out.println("Palette Window Size=" + this.paletteWindow.getWidth() + ", " + this.paletteWindow.getHeight());
-			out.println("Grid Colour=" + this.editorPanel.gridColour.getRed() + ", " + this.editorPanel.gridColour.getGreen() + ", " + this.editorPanel.gridColour.getBlue());
-			out.println("Line Colour=" + this.editorPanel.lineColour.getRed() + ", " + this.editorPanel.lineColour.getGreen() + ", " + this.editorPanel.lineColour.getBlue());
-			out.println("Vertex Colour=" + this.editorPanel.vertexColour.getRed() + ", " + this.editorPanel.vertexColour.getGreen() + ", " + this.editorPanel.vertexColour.getBlue());
-			out.println("Selected Colour=" + this.editorPanel.selectedColour.getRed() + ", " + this.editorPanel.selectedColour.getGreen() + ", " + this.editorPanel.selectedColour.getBlue());
+			out.println("Map Directory" + Variable.separatorChar + this.mapDirectory);
+			out.println("Sprite Directory" + Variable.separatorChar + this.spriteDirectory);
+			out.println("SpriteSheet File" + Variable.separatorChar + this.spriteSheetFileName);
+			out.println("Editor Window Position" + Variable.separatorChar + this.getLocation().x + ", " + this.getLocation().y);
+			out.println("Editor Window Size" + Variable.separatorChar + this.getWidth() + ", " + this.getHeight());
+			out.println("Palette Window Position" + Variable.separatorChar + this.paletteWindow.getLocation().x + ", " + this.paletteWindow.getLocation().y);
+			out.println("Palette Window Size" + Variable.separatorChar + this.paletteWindow.getWidth() + ", " + this.paletteWindow.getHeight());
+			out.println("Grid Colour" + Variable.separatorChar + this.editorPanel.gridColour.getRed() + ", " + this.editorPanel.gridColour.getGreen() + ", " + this.editorPanel.gridColour.getBlue());
+			out.println("Line Colour" + Variable.separatorChar + this.editorPanel.lineColour.getRed() + ", " + this.editorPanel.lineColour.getGreen() + ", " + this.editorPanel.lineColour.getBlue());
+			out.println("Vertex Colour" + Variable.separatorChar + this.editorPanel.vertexColour.getRed() + ", " + this.editorPanel.vertexColour.getGreen() + ", " + this.editorPanel.vertexColour.getBlue());
+			out.println("Selected Colour" + Variable.separatorChar + this.editorPanel.selectedColour.getRed() + ", " + this.editorPanel.selectedColour.getGreen() + ", " + this.editorPanel.selectedColour.getBlue());
 			out.close();
 		}
 		catch(IOException e) { }
@@ -360,8 +360,7 @@ public class EditorWindow extends JFrame implements ActionListener {
 	}
 	
 	public void setMapDimensions(Level level, int newWidth, int newHeight) {
-		level.gridSize = new Vertex(newWidth, newHeight);
-		level.dimensions = new Dimension((newWidth * Level.GRID_SIZE) + 1, (newHeight * Level.GRID_SIZE) + 1);
+		level.dimensions = new Dimension(newWidth, newHeight);
 	}
 	
 	public void update() {

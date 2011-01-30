@@ -169,7 +169,7 @@ public class EditorPanel extends JPanel implements Scrollable, ActionListener, M
 			return level.dimensions;
 		}
 		else {
-			return new Dimension(16 * Level.GRID_SIZE, 16 * Level.GRID_SIZE);
+			return new Dimension(16 * Level.DEFAULT_GRID_SIZE, 16 * Level.DEFAULT_GRID_SIZE);
 		}
 	}
 	
@@ -202,10 +202,10 @@ public class EditorPanel extends JPanel implements Scrollable, ActionListener, M
 	
 	public int getScrollableBlockIncrement(Rectangle visibleRect, int orientation, int direction) {
 		if(orientation == SwingConstants.HORIZONTAL) {
-			return visibleRect.width - Level.GRID_SIZE;
+			return visibleRect.width - Level.DEFAULT_GRID_SIZE;
 		}
 		else {
-			return visibleRect.height - Level.GRID_SIZE;
+			return visibleRect.height - Level.DEFAULT_GRID_SIZE;
 		}
 	}
 	
@@ -417,8 +417,8 @@ public class EditorPanel extends JPanel implements Scrollable, ActionListener, M
 					Entity e = level.getTile(i);
 					if(selectedGridBlock.x >= e.location.x &&
 					   selectedGridBlock.y >= e.location.y &&
-					   selectedGridBlock.x <= e.location.x + (e.getWidth() / Level.GRID_SIZE) - 1 &&
-					   selectedGridBlock.y <= e.location.y + (e.getHeight() / Level.GRID_SIZE) - 1) {
+					   selectedGridBlock.x <= e.location.x + (e.getWidth() / level.gridSize) - 1 &&
+					   selectedGridBlock.y <= e.location.y + (e.getHeight() / level.gridSize) - 1) {
 						selectedSprite = e;
 						break;
 					}
@@ -432,9 +432,9 @@ public class EditorPanel extends JPanel implements Scrollable, ActionListener, M
 		
 		Point current = p;
 		Point offset = new Point(current.x, current.y);
-		Point location = new Point(offset.x / Level.GRID_SIZE,
-				 				   offset.y / Level.GRID_SIZE);
-		if(location.x < 0 || location.y < 0 || location.x >= level.gridSize.x || location.y >= level.gridSize.y) {
+		Point location = new Point(offset.x / level.gridSize,
+				 				   offset.y / level.gridSize);
+		if(location.x < 0 || location.y < 0 || location.x >= level.dimensions.width || location.y >= level.dimensions.height) {
 			selectedGridBlock = null;
 		}
 		selectedGridBlock = location;
@@ -453,8 +453,8 @@ public class EditorPanel extends JPanel implements Scrollable, ActionListener, M
 		drawGrid(g);
 		
 		if(mode == MODE_TILING && selectedGridBlock != null && editorWindow.activeSprite != null) {
-			int xPos = editorWindow.activeSprite.isTiled() ? selectedGridBlock.x * Level.GRID_SIZE : (mousePosition == null) ? 0 : (int) (mousePosition.x - (editorWindow.activeSprite.getWidth() / 2.0f));
-			int yPos = editorWindow.activeSprite.isTiled() ? selectedGridBlock.y * Level.GRID_SIZE : (mousePosition == null) ? 0 : (int) (mousePosition.y - (editorWindow.activeSprite.getHeight() / 2.0f));
+			int xPos = editorWindow.activeSprite.isTiled() ? selectedGridBlock.x * level.gridSize : (mousePosition == null) ? 0 : (int) (mousePosition.x - (editorWindow.activeSprite.getWidth() / 2.0f));
+			int yPos = editorWindow.activeSprite.isTiled() ? selectedGridBlock.y * level.gridSize : (mousePosition == null) ? 0 : (int) (mousePosition.y - (editorWindow.activeSprite.getHeight() / 2.0f));
 			editorWindow.activeSprite.paintOn(g, xPos, yPos);
 		}
 		
@@ -478,12 +478,12 @@ public class EditorPanel extends JPanel implements Scrollable, ActionListener, M
 			g.setColor(gridColour);
 			
 			if(gridEnabled) {
-				for(int i=0;i<level.gridSize.x+1;i++) {
-					g.drawLine(i * Level.GRID_SIZE, 0, i * Level.GRID_SIZE, level.gridSize.y * Level.GRID_SIZE);
+				for(int i=0;i<level.dimensions.width+1;i++) {
+					g.drawLine(i * level.gridSize, 0, i * level.gridSize, level.dimensions.height * level.gridSize);
 				}
 				
-				for(int j=0;j<level.gridSize.y+1;j++) {
-					g.drawLine(0, j * Level.GRID_SIZE, level.gridSize.x * Level.GRID_SIZE, j * Level.GRID_SIZE);
+				for(int j=0;j<level.dimensions.height+1;j++) {
+					g.drawLine(0, j * level.gridSize, level.dimensions.width * level.gridSize, j * level.gridSize);
 				}
 				
 				if(mode == MODE_TILING && selectedGridBlock != null) {
@@ -504,7 +504,7 @@ public class EditorPanel extends JPanel implements Scrollable, ActionListener, M
 						Stroke s = g2.getStroke();
 						g2.setStroke(new BasicStroke(2));
 						g2.setColor(selectedColour);
-						int d = Level.GRID_SIZE;
+						int d = level.gridSize;
 						int w = sprite.getWidth();
 						int h = sprite.getHeight();
 						g2.drawLine( x*d,     y*d,   (x*d)+w,  y*d);
@@ -516,10 +516,10 @@ public class EditorPanel extends JPanel implements Scrollable, ActionListener, M
 				}
 			}
 			else {
-				g.drawLine(0, 0, 0, level.gridSize.y * Level.GRID_SIZE);
-				g.drawLine(level.gridSize.x * Level.GRID_SIZE, 0, level.gridSize.x * Level.GRID_SIZE, level.gridSize.y * Level.GRID_SIZE);
-				g.drawLine(0, 0, level.gridSize.x * Level.GRID_SIZE, 0);
-				g.drawLine(0, level.gridSize.y * Level.GRID_SIZE, level.gridSize.x * Level.GRID_SIZE, level.gridSize.y * Level.GRID_SIZE);
+				g.drawLine(0, 0, 0, level.dimensions.height * level.gridSize);
+				g.drawLine(level.dimensions.width * level.gridSize, 0, level.dimensions.width * level.gridSize, level.dimensions.height * level.gridSize);
+				g.drawLine(0, 0, level.dimensions.width * level.gridSize, 0);
+				g.drawLine(0, level.dimensions.height * level.gridSize, level.dimensions.width * level.gridSize, level.dimensions.height * level.gridSize);
 			}
 		}
 	}
@@ -528,11 +528,11 @@ public class EditorPanel extends JPanel implements Scrollable, ActionListener, M
 		if(level == null) { return; }
 		
 		for(int i=0;i<level.numberOfTiles();i++) {
-			level.getTile(i).paintOn(g);
+			level.getTile(i).paintOn(g, level.gridSize);
 		}
 		
 		for(int i=0;i<level.numberOfEntities();i++) {
-			level.getEntity(i).paintOn(g);
+			level.getEntity(i).paintOn(g, level.gridSize);
 		}
 	}
 	

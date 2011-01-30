@@ -21,6 +21,11 @@ public class Vertex {
 	/** The y coordinate of the Vertex. */
 	public int y;
 	
+	public Vertex() {
+		x = 0;
+		y = 0;
+	}
+	
 	/**
 	 * Constructs a Vertex based on the specified coordinates.
 	 * 
