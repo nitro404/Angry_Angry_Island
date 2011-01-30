@@ -11,7 +11,7 @@ namespace Firecracker_Engine
         private List<GameObject> m_lForestList;
         List<Sprite> m_lTreeSprites;
 
-        private static int TOTAL_STARTING_TREES = 200;
+        private static int TOTAL_STARTING_TREES = 400;
 
         public Forest()
         {
@@ -34,13 +34,16 @@ namespace Firecracker_Engine
 
             for (int i = 0; i < TOTAL_STARTING_TREES; i++)
             {
-                Vector2 pos = new Vector2(Firecracker.random.Next(0, 1280), Firecracker.random.Next(0, 1024));
-                int RandomIndex = Firecracker.random.Next(0, 4);
-                StaticObject newTree = new StaticObject(pos, m_lTreeSprites[RandomIndex]);
-                if (newTree != null)
+                Vector2 pos = new Vector2(Firecracker.random.Next(0, Firecracker.level.dimensions.X * Firecracker.level.gridSize), Firecracker.random.Next(0, Firecracker.level.dimensions.Y * Firecracker.level.gridSize));
+                if (Terrain.Instance == null || Terrain.Instance.isPositionWalkable(pos))
                 {
-                    Firecracker.level.addObject(newTree);
-                    m_lForestList.Add(newTree);
+                    int RandomIndex = Firecracker.random.Next(0, 4);
+                    StaticObject newTree = new StaticObject(pos, m_lTreeSprites[RandomIndex]);
+                    if (newTree != null)
+                    {
+                        Firecracker.level.addObject(newTree);
+                        m_lForestList.Add(newTree);
+                    }
                 }
             }
 

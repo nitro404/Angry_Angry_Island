@@ -27,6 +27,8 @@ namespace Firecracker_Engine {
             y += m_itemFont.LineSpacing;
 			addItem(new SimpleMenuItem("Level 2", x, y, m_itemFont, m_selectedItemColour, m_unselectedItemColour, m_arrowColour));
 			y += m_itemFont.LineSpacing;
+            addItem(new SimpleMenuItem("Level 3", x, y, m_itemFont, m_selectedItemColour, m_unselectedItemColour, m_arrowColour));
+            y += m_itemFont.LineSpacing;
 			addItem(new SimpleMenuItem("Back", x, y, m_itemFont, m_selectedItemColour, m_unselectedItemColour, m_arrowColour));
 		}
 
@@ -55,9 +57,15 @@ namespace Firecracker_Engine {
 				Firecracker.interpreter.execute("menu off");
 				Firecracker.interpreter.execute("level level2");
 			}
-			else if(m_index == 2) {
-				m_parentMenu.back();
-			}
+            else if (m_index == 2)
+            {
+                Firecracker.interpreter.execute("menu off");
+                Firecracker.interpreter.execute("level level3");
+            }
+            else if (m_index == 3)
+            {
+                m_parentMenu.back();
+            }
 		}
 
 	}

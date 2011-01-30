@@ -21,7 +21,7 @@ namespace Firecracker_Engine
         }
         public void spawn ()
         {
-            position = new Vector2(Firecracker.random.Next(0, 1280) + Firecracker.random.Next(-200, 280), Firecracker.random.Next(0, 1024) + Firecracker.random.Next(-200, 280));
+            position = new Vector2(Firecracker.random.Next(0, Firecracker.level.dimensions.X * Firecracker.level.gridSize) + Firecracker.random.Next(-200, 280), Firecracker.random.Next(0, Firecracker.level.dimensions.Y * Firecracker.level.gridSize) + Firecracker.random.Next(-200, 280));
             m_time = 0;
             //scale = new Vector2(Firecracker.random.Next(0, 10) / 10.0f );
          //   m_scale = m_scale / 2;

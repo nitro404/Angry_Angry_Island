@@ -183,7 +183,11 @@ namespace Firecracker_Engine
                 {
                     diffVec.Normalize();
                     diffVec *= m_fSpeed;
-                    position = position + Firecracker.level.getScreenPosition((diffVec * ((float)gameTime.ElapsedGameTime.Milliseconds / 1000.0f)));
+                    Vector2 newPosition = position + Firecracker.level.getScreenPosition((diffVec * ((float)gameTime.ElapsedGameTime.Milliseconds / 1000.0f)));
+                    if (Terrain.Instance == null || Terrain.Instance.isPositionWalkable(newPosition))
+                    {
+                        position = newPosition;
+                    }
                 }
             }
         }

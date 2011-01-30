@@ -96,6 +96,7 @@
     <Compile Include="Source\Graph\Vertex.cs" />
     <Compile Include="Source\ObjectClasses\Ability.cs" />
     <Compile Include="Source\ObjectClasses\Asteroid.cs" />
+    <Compile Include="Source\ObjectClasses\BigExplosion.cs" />
     <Compile Include="Source\ObjectClasses\CameraBase.cs" />
     <Compile Include="Source\ObjectClasses\BaseObject.cs" />
     <Compile Include="Source\ObjectClasses\Cloud.cs" />
@@ -136,6 +137,7 @@
     <Compile Include="Source\ObjectClasses\PopulationManager.cs" />
     <Compile Include="Source\ObjectClasses\SpiderFire.cs" />
     <Compile Include="Source\ObjectClasses\Settlement.cs" />
+    <Compile Include="Source\ObjectClasses\Terrain.cs" />
     <Compile Include="Source\Settings File Manager\GameSettings.cs" />
     <Compile Include="Source\Settings File Manager\Variable.cs" />
     <Compile Include="Source\Settings File Manager\VariableSystem.cs" />

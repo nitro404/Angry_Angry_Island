@@ -30,15 +30,19 @@ namespace Firecracker_Engine
     {
         int waterOffsetX = -110;
         int waterOffsetY = -110;
-        for (int x = 0; x < 80; x++)
+        for (int y = 0; y < (Firecracker.level.dimensions.Y * Firecracker.level.gridSize) / 16 + 8; y++)//+8 is not exact. bleh.
         {
-            for (int y = 0; y < 50; y++)
+            for (int x = 0; x < (Firecracker.level.dimensions.X * Firecracker.level.gridSize) / 64 + 16; x++)
             {
                 m_water.draw(spriteBatch, m_scale, m_rotation, new Vector2(waterOffsetX,waterOffsetY), SpriteEffects.None);
-                waterOffsetX += 32;
+                waterOffsetX += 64;
             }
             waterOffsetY += 16;
             waterOffsetX = -110;
+            if (y % 2 == 0)
+            {
+                waterOffsetX -= 32;
+            }
         }
     }
     

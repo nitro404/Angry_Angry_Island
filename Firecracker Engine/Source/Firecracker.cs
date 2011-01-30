@@ -154,7 +154,7 @@ namespace Firecracker_Engine {
                 for (int i = 1; i < 4; i++)
                 {
                     Cloud fluffyAndWhite = new Cloud(i);
-                    fluffyAndWhite.position = new Vector2(Firecracker.random.Next(0, 1280), Firecracker.random.Next(0, 1240));
+                    fluffyAndWhite.position = new Vector2(Firecracker.random.Next(0, Firecracker.level.dimensions.X * Firecracker.level.gridSize), Firecracker.random.Next(0, Firecracker.level.dimensions.Y * Firecracker.level.gridSize));
                     Sky.Add(fluffyAndWhite);
                 }
 

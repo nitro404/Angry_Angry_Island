@@ -42,6 +42,10 @@
       <Name>animations</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Levels\level3.2d">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>level3</Name>
+    </None>
     <None Include="Levels\level2.2d">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Name>level2</Name>
@@ -210,6 +214,27 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Sprites\grassisometric.png">
+      <Name>grassisometric</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Sprites\terrain.png">
+      <Name>terrain</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Sprites\grasscartesian.png">
+      <Name>grasscartesian</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Sprites\KevinMoose.png">
       <Name>KevinMoose</Name>
       <Importer>TextureImporter</Importer>
@@ -226,6 +251,13 @@
   <ItemGroup>
     <Compile Include="Sprites\KevinMooseSpirteSheet.png">
       <Name>KevinMooseSpirteSheet</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Sprites\sandcartesian.png">
+      <Name>sandcartesian</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

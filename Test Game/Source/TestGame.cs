@@ -101,6 +101,7 @@ namespace Test_Game {
 		protected override void Draw(GameTime gameTime) {
 			base.Draw(gameTime);
 
+
 			graphics.GraphicsDevice.SetRenderTarget(0, buffer);
 			GraphicsDevice.Clear(Color.CornflowerBlue);
 

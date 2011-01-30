@@ -345,6 +345,10 @@ namespace Firecracker_Engine {
                 else if (objectType.Equals("Settlement", StringComparison.OrdinalIgnoreCase)) {
                     newObject = Settlement.parseFrom(input, Firecracker.spriteSheets);
                 }
+                else if (objectType.Equals("Terrain", StringComparison.OrdinalIgnoreCase))
+                {
+                    newObject = Terrain.parseFrom(input, Firecracker.spriteSheets);
+                }
 				// verify that the object was successfully parsed
 				if(newObject != null) {
 					currentObject++;

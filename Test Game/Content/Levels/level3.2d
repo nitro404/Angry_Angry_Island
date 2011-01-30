@@ -1,0 +1,45 @@
+2D Cartesian Level: Version 2.0
+Grid Size: 32
+Dimensions: 64, 64
+Collision Edges: 11
+	213, 301; 430, 317
+	430, 317; 421, 226
+	421, 226; 544, 230
+	544, 230; 618, 401
+	618, 401; 439, 453
+	439, 453; 287, 424
+	287, 424; 430, 317
+	430, 317; 295, 192
+	295, 192; 376, 130
+	376, 130; 421, 226
+	421, 226; 295, 192
+Objects: 7
+	Terrain:
+	Settlement:
+		Position: 700, 700
+	NPCObject:
+		Position: 794, 889
+		LayerDepth: 0.5
+		Sprite Name: Person_1
+		SpriteSheet Name: NPCPeasentObject
+		IsKillable: true
+	NPCObject:
+		Position: 623, 577
+		LayerDepth: 0.5
+		Sprite Name: Person_1
+		SpriteSheet Name: NPCPeasentObject
+		IsKillable: true
+	NPCObject:
+		Position: 600, 799
+		LayerDepth: 0.5
+		Sprite Name: Person_1
+		SpriteSheet Name: NPCPeasentObject
+		IsKillable: true
+	NPCObject:
+		Position: 770, 1100
+		LayerDepth: 0.5
+		Sprite Name: Person_1
+		SpriteSheet Name: NPCPeasentObject
+		IsKillable: true
+	Player:
+		
