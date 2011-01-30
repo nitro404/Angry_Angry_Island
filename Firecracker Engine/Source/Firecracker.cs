@@ -43,7 +43,7 @@ namespace Firecracker_Engine {
         public int timeInSeconds = 0;
         public int timeInMinutes = 0;
 
-        public double[] elapsedTime = new double[2];
+        public double elapsedTime = 0;
         public double[] maxTime = new double[2];
 
 
@@ -111,8 +111,8 @@ namespace Firecracker_Engine {
             theCamera = new CameraBase();
             theCamera.initialize();
 
-            maxTime[0] = 0;
-            maxTime[1] = 15;
+            maxTime[0] = 2;
+            maxTime[1] = 60;
 
 			base.Initialize();
 		}
@@ -146,7 +146,7 @@ namespace Firecracker_Engine {
 			if(newLevel != null) {
                 
                 level = newLevel;
-                elapsedTime[0] = 0; elapsedTime[1] = 0;
+                elapsedTime = 0;
                 m_Forest.Initialize(Firecracker.spriteSheets);
                 Ocean water = new Ocean();
                 water.position = new Vector2(10, 10);
@@ -217,9 +217,9 @@ namespace Firecracker_Engine {
         /// <returns>0 if the number is negative, or the difference between the maximum and the current</returns>
         public int TimeRemaining(double maxNum, double curNum)
         {
-            if (maxNum < curNum)
-                return 0;
-            else
+            //if (maxNum < curNum)
+            //    return 0;
+            //else
                 return (int)(maxNum - curNum);
         }
 

@@ -39,7 +39,7 @@ namespace Test_Game {
 			base.Initialize();
 
 			ObjectDefinitions.Initialize();
-            Firecracker.engineInstance.elapsedTime[0] = 0; Firecracker.engineInstance.elapsedTime[1] = 0;
+            //Firecracker.engineInstance.elapsedTime[0] = 0; Firecracker.engineInstance.elapsedTime[1] = 0;
 
 			// initialize the draw buffer
 			buffer = new RenderTarget2D(graphics.GraphicsDevice, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height, 1, GraphicsDevice.DisplayMode.Format);
@@ -68,8 +68,8 @@ namespace Test_Game {
 
 		public override void updateGame(GameTime gameTime) {
 			base.updateGame(gameTime);
-            Firecracker.engineInstance.elapsedTime[1] += gameTime.ElapsedGameTime.TotalSeconds; //gameTime.TotalGameTime.Seconds;
-            Firecracker.engineInstance.elapsedTime[0] += gameTime.ElapsedGameTime.TotalMinutes;//gameTime.TotalGameTime.Minutes;
+            Firecracker.engineInstance.elapsedTime += gameTime.ElapsedGameTime.TotalSeconds; //gameTime.TotalGameTime.Seconds;
+            //Firecracker.engineInstance.elapsedTime[0] += gameTime.ElapsedGameTime.TotalMinutes;//gameTime.TotalGameTime.Minutes;
 		}
 
 		/// <summary>
