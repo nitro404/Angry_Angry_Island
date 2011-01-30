@@ -419,7 +419,7 @@ namespace Firecracker_Engine {
 
             PopupNotification.instance.ShowNotification("Objective", "Destroy all of the humans before they multiply and acquire\n"+
                                                                      "the technology to leave the island. The more you destroy,\n"+
-                                                                     "the more devistating abilities you will be able to use.", false);
+                                                                     "the more devastating abilities you will be able to use.", false);
 
 			return level;
 		}
