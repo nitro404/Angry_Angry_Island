@@ -350,7 +350,7 @@ namespace Firecracker_Engine {
         /// <returns>The formatted time string</returns>
         public string makeTimeString(double input)
         {
-            int minutes = 0, i_Seconds = 0;
+            int minutes = 0;
             double d_Seconds;
 
             if (input > 60)

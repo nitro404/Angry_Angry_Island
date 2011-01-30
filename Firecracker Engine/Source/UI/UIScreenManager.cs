@@ -38,9 +38,6 @@ namespace Firecracker_Engine
 
         #endregion
 
-        MouseState m_MouseState;
-        MouseState m_OldMouseState;
-
         public bool mouseBlocked;
 
         //this should be called each frame during update

@@ -66,6 +66,22 @@ namespace Firecracker_Engine {
 			return true;
 		}
 
+		public bool addObjects(List<GameObject> objects) {
+			if(objects == null) { return false; }
+			for(int i=0;i<objects.Count();i++) {
+				addObject(objects[i]);
+			}
+			return true;
+		}
+
+		public bool addObjects(GameObject[] objects) {
+			if(objects == null) { return false; }
+			for(int i=0;i<objects.Count();i++) {
+				addObject(objects[i]);
+			}
+			return true;
+		}
+
 		public GameObject objectAt(int index) {
 			if(index < 0 || index >= m_objects.Count()) { return null; }
 			return m_objects[index];

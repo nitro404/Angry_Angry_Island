@@ -19,8 +19,6 @@ namespace Firecracker_Engine
             AI_None,
         }
 
-        private float m_colour;
-
         protected float m_fAge;
         protected float m_fDeathAt;
         protected bool m_bIsMoving;
