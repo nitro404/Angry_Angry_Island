@@ -256,6 +256,20 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Sprites\KevinMooseSpirteSheet01.png">
+      <Name>KevinMooseSpirteSheet01</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Sprites\KevinMooseSpirteSheet02.png">
+      <Name>KevinMooseSpirteSheet02</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Sprites\sandcartesian.png">
       <Name>sandcartesian</Name>
       <Importer>TextureImporter</Importer>

@@ -19,23 +19,28 @@ namespace Firecracker_Engine
         float currentTime;
         //what we what to kill
         public GameObject theObj,targetObj;
-        public bool target, eating;
-        public SpriteAnimation Moose; 
+        public bool target, eating, Die;
+        public SpriteAnimation Moose, MooseWalk,MooseDie; 
         public KevinMoose(Vector2 thePos)
             : base()
         {
             m_position = thePos;
             CreatureStyle = fightStyle.Rage;
             Moose = Firecracker.animations.getAnimation("KevinMoose");
+            MooseWalk = Firecracker.animations.getAnimation("KevinMooseWalk");
+            MooseDie = Firecracker.animations.getAnimation("KevinMooseDie");
+
+            
             Moose.sprite.m_SpriteDepth = 0.4f;
             target = false;
             eating = false;
+            Die = false;
             
         }
         public override void update(GameTime gameTime)
         {
             
-            //Moose.update(gameTime);
+          
             if (target == false)
             {
                 Scearch(gameTime);
@@ -44,11 +49,16 @@ namespace Firecracker_Engine
             {
                 Hunt(gameTime);
             }
-            
+
             if (eating == true)
             {
                 Moose.update(gameTime);
             }
+            else if(Die == false)
+            {
+                MooseWalk.update(gameTime);
+            }
+
             if (Moose.finished())
             {
                 target = false;
@@ -60,9 +70,14 @@ namespace Firecracker_Engine
             }
             //hacked timer
             currentTime = currentTime + 0.01f;
-            if(currentTime > 20.0f)
+            if (currentTime > 15.0f)
             {
-                this.toBeDeleted = true;
+                Die = true;
+                MooseDie.update(gameTime);
+                if (MooseDie.finished())
+                {
+                    this.toBeDeleted = true;
+                }
             }
             
         }
@@ -138,8 +153,18 @@ namespace Firecracker_Engine
 
         public override void draw(SpriteBatch spriteBatch)
         {
-
-            Moose.draw(spriteBatch, m_scale, m_rotation, m_position, SpriteEffects.None);
+            if (eating == true)
+            {
+                Moose.draw(spriteBatch, m_scale, m_rotation, m_position, SpriteEffects.None);
+            }
+            else if (Die == false) 
+            {
+                MooseWalk.draw(spriteBatch, m_scale, m_rotation, m_position, SpriteEffects.None);
+            }
+            else if (Die == true)
+            {
+                MooseDie.draw(spriteBatch, m_scale, m_rotation, m_position, SpriteEffects.None);
+            }
         }
     }
 }
