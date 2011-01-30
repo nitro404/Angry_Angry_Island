@@ -250,7 +250,7 @@ namespace Firecracker_Engine {
 
         public virtual void OnDestroyed()
         {
-
+            
         }
 	}
 

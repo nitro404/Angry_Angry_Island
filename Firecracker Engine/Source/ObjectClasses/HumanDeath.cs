@@ -37,5 +37,6 @@ namespace Firecracker_Engine
             m_Anim.draw(spriteBatch, Vector2.One, 0, position, SpriteEffects.None);
             base.draw(spriteBatch);
         }
+
     }
 }

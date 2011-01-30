@@ -46,6 +46,7 @@ namespace Firecracker_Engine
 
                 Filesystem.ReadLine(ref currentLine);
             }
+            
 
             // The file will close itself when it hits the EOF so we don't need to worry about cleanup.
             return true;

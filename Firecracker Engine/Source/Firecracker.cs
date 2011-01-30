@@ -40,7 +40,13 @@ namespace Firecracker_Engine {
         public int maxticks = 100;
 
         public int numPeoples = 1;
-        public int ageEvolve = 0;
+        public int timeInSeconds = 0;
+        public int timeInMinutes = 0;
+
+        public double[] elapsedTime = new double[2];
+        public double[] maxTime = new double[2];
+
+
 
         public static Random theRandom = new Random();
 
@@ -104,6 +110,8 @@ namespace Firecracker_Engine {
             theCamera = new CameraBase();
             theCamera.initialize();
 
+            maxTime[0] = 0;
+            maxTime[1] = 15;
 
 			base.Initialize();
 		}
@@ -136,6 +144,7 @@ namespace Firecracker_Engine {
 
 			if(newLevel != null) {
 				level = newLevel;
+                elapsedTime[0] = 0; elapsedTime[1] = 0;
                 m_Forest.Initialize(Firecracker.spriteSheets);
 				return true;
 			}
@@ -195,6 +204,19 @@ namespace Firecracker_Engine {
 				return CreateObjectByDefinition(objDef);
 			return false;
 		}
+        /// <summary>
+        /// TimeRemaining takes a digit from the time and subtracts it from one to the other lol
+        /// </summary>
+        /// <param name="maxNum">The maximum amount of time</param>
+        /// <param name="minNum">The current amount of time</param>
+        /// <returns>0 if the number is negative, or the difference between the maximum and the current</returns>
+        public int TimeRemaining(double maxNum, double curNum)
+        {
+            if (maxNum < curNum)
+                return 0;
+            else
+                return (int)(maxNum - curNum);
+        }
 
 		public bool CreateObjectByDefinition(ObjectDefinition ObjectDefinition) {
 			CBaseObject newObject = null;

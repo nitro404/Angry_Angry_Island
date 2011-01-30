@@ -28,7 +28,10 @@ namespace Test_Game
 
         public override void Update(float deltaT)
         {
-            infoLabel.SetText("Seconds: " + Firecracker.engineInstance.ageEvolve.ToString() + " Llamas Licked: " + Firecracker.engineInstance.numPeoples.ToString());
+            int difTimeMins = Firecracker.engineInstance.TimeRemaining(Firecracker.engineInstance.maxTime[0], Firecracker.engineInstance.elapsedTime[0]);
+            int difTimeSecs = Firecracker.engineInstance.TimeRemaining(Firecracker.engineInstance.maxTime[1], Firecracker.engineInstance.elapsedTime[1]);
+
+            infoLabel.SetText("Time: " + difTimeMins.ToString() + ":" + difTimeSecs.ToString() + " Llamas Licked: " + Firecracker.engineInstance.numPeoples.ToString());
             
             base.Update(deltaT);
         }

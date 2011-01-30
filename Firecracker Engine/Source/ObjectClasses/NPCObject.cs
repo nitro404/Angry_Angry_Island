@@ -133,8 +133,6 @@ namespace Firecracker_Engine
                 HumanDeath newDeath = new HumanDeath(position);
                 Firecracker.level.addObject(newDeath);
 
-                Firecracker.engineInstance.numPeoples--;
-
                 toBeDeleted = true;
             }
 
@@ -194,5 +192,11 @@ namespace Firecracker_Engine
 
 			base.draw(spriteBatch);
 		}
+
+        public override void OnDestroyed()
+        {
+            Firecracker.engineInstance.numPeoples--;
+            base.OnDestroyed();
+        }
     }
 }
