@@ -65,6 +65,15 @@ namespace Firecracker_Engine
                                 Firecracker.level.addObject(explosionDeath);
                             }
                         }
+                        if ((theObj.position - position).Length() < 180)
+                        {
+                            NPCObject person = (NPCObject)theObj;
+                            person.wanderType = AIWanderType.AI_Scatter;
+                            person.PointOfTerror = new Vector2(position.X, position.Y);
+                            person.eventTime = 1.2f;
+                            person.FleeFromPoint(person.PointOfTerror);
+                        }
+
                     }
                 }
             }

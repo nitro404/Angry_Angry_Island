@@ -13,6 +13,7 @@ namespace Firecracker_Engine
         GodAnimal,
         SpiderFire,
         Asteroid,
+        CandyCane,
         NumAbilityTypes,
 
     }
@@ -52,6 +53,11 @@ namespace Firecracker_Engine
                     m_iconTextureAssetName = "meteor_icon";
                     break;
 
+                case AbilityType.CandyCane:
+                    m_cost = 10;
+                    m_cooldown = 5;
+                    m_iconTextureAssetName = "CandyCaneIcon";
+                    break;
             }
         }
 
@@ -74,6 +80,10 @@ namespace Firecracker_Engine
                 case AbilityType.GodAnimal:
                     KevinMoose newKevinMoose = new KevinMoose(position);
                     Firecracker.level.addObject(newKevinMoose);
+                    break;
+                case AbilityType.CandyCane:
+                    CandyCane newCandyCane = new CandyCane(position);
+                    Firecracker.level.addObject(newCandyCane);
                     break;
                 
             }
