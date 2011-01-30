@@ -63,8 +63,6 @@ namespace Firecracker_Engine
             {
                 target = false;
                 theObj.toBeDeleted = true;
-                HumanZap newDeath = new HumanZap(theObj.position);
-                Firecracker.level.addObject(newDeath);
                 eating = false;
                 Moose.reset();
             }
