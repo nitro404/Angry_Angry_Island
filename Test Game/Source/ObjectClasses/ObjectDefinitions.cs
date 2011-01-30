@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Firecracker_Engine;
 
-namespace Test_Game
+namespace Angry_Angry_Island
 {
     /// <summary>
     /// This class extends the functionality of the Firecracker_Engine.LevelLoaderObjectTypeList function

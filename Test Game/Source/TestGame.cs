@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
 using Firecracker_Engine;
 
-namespace Test_Game {
+namespace Angry_Angry_Island {
 
 	/// <summary>
 	/// This is the main type for your game

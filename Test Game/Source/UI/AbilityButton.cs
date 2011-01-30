@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 
-namespace Test_Game
+namespace Angry_Angry_Island
 {
     class AbilityButton : Button
     {

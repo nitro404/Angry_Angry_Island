@@ -1,6 +1,6 @@
 using System;
 
-namespace Test_Game {
+namespace Angry_Angry_Island {
 	public static class Program {
 		[STAThread]
 		/// <summary>

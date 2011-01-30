@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 //
 
-namespace Test_Game
+namespace Angry_Angry_Island
 {
     class CEnvironmentObj :CBaseObject
     {
