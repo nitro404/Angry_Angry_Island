@@ -112,6 +112,9 @@ namespace Firecracker_Engine
             {
                 PopupNotification.instance.ShowNotification("You win!", "Congrats!",true);
             }
+            Firecracker.engineInstance.elapsedTime = TimeRequiredToLose - TimeSpentAboveThreshold;
+            if (Firecracker.engineInstance.elapsedTime < 0)
+                Firecracker.engineInstance.elapsedTime = 0;
         }
     }
 }

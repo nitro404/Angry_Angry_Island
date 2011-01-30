@@ -71,7 +71,7 @@ namespace Test_Game {
 
 		public override void updateGame(GameTime gameTime) {
 			base.updateGame(gameTime);
-            Firecracker.engineInstance.elapsedTime += gameTime.ElapsedGameTime.TotalSeconds; //gameTime.TotalGameTime.Seconds;
+            //Firecracker.engineInstance.elapsedTime += gameTime.ElapsedGameTime.TotalSeconds; //gameTime.TotalGameTime.Seconds;
             //Firecracker.engineInstance.elapsedTime[0] += gameTime.ElapsedGameTime.TotalMinutes;//gameTime.TotalGameTime.Minutes;
 
 
