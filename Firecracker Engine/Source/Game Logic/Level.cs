@@ -178,7 +178,7 @@ namespace Firecracker_Engine {
 			return Vector2.Zero;
 		}
 
-		public Vector2 getNewHomePosition() {
+		public Vector2 getNewSettlementPosition() {
 			if(Terrain.Instance == null) {
 				return new Vector2(Firecracker.random.Next(gridSize * m_dimensions.X),
 								   Firecracker.random.Next(gridSize * m_dimensions.Y));
@@ -186,12 +186,14 @@ namespace Firecracker_Engine {
 			else {
 				Vector2 position;
 				int iterations = 0;
-				do {
+				while(true) {
 					position = new Vector2(Firecracker.random.Next(gridSize * m_dimensions.X),
 										   Firecracker.random.Next(gridSize * m_dimensions.Y));
-				} while(iterations < 500 &&
-						checkMinimumSettlementDistance(position, 500) &&
-						Terrain.Instance.isPositionWalkable(position));
+
+					if(iterations > 500) { break; }
+					if(checkMinimumSettlementDistance(position, 500) &&
+					   Terrain.Instance.isPositionWalkable(position)) { break; }
+				}
 
 				return position;
 			}
@@ -207,6 +209,31 @@ namespace Firecracker_Engine {
 				}
 			}
 			return true;
+		}
+
+		public void attackSettlements(Vector2 position, float distance) {
+			int numberOfSettlementsToCreate = 0;
+			for(int i=0;i<m_objects.Count();i++) {
+				if(m_objects[i] is Settlement) {
+					if(Math.Sqrt(Math.Pow(m_objects[i].position.X - position.X, 2) +
+								 Math.Pow(m_objects[i].position.Y - position.Y, 2)) < distance) {
+						Settlement s = ((Settlement) m_objects[i]);
+						s.attack();
+						if(s.health == 0) {
+							numberOfSettlementsToCreate++;
+						}
+					}
+				}
+			}
+
+			if(numberOfSettlementsToCreate > 0) {
+				PopulationManager.Instance.age = PopulationManager.Age.Primitive;
+				PopulationManager.Instance.TimeSpentAboveThreshold = 0;
+			}
+
+			for(int i=0;i<numberOfSettlementsToCreate;i++) {
+				m_objects.Add(new Settlement(getNewSettlementPosition()));
+			}
 		}
 
 		public static Level readFrom(String fileName) {

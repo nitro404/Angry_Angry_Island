@@ -6,51 +6,61 @@ using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Firecracker_Engine
-{
-    class Settlement : GameObject
-    {
+namespace Firecracker_Engine {
 
-        Sprite[] sprites;
+    public class Settlement : GameObject {
 
-        public Settlement()
-            : base()
-        {
-            position = Vector2.Zero;
-            sprites = new Sprite[]{Firecracker.spriteSheets.getSpriteSheet("Hut").getSprite("Hut"),
-                       Firecracker.spriteSheets.getSpriteSheet("Hamlet").getSprite("Hamlet"),
-                       Firecracker.spriteSheets.getSpriteSheet("Settlement").getSprite("Settlement"),
-                       Firecracker.spriteSheets.getSpriteSheet("City").getSprite("City")};
-        }
+        private Sprite[] sprites;
+		private SpriteAnimation[] destructionSprites;
+		public int health = 2;
 
-        public Settlement(Vector2 vPosition)
-            : base()
-        {
+		public Settlement() : this(Vector2.Zero) { }
+
+        public Settlement(Vector2 vPosition) : base() {
             position = vPosition;
             sprites = new Sprite[]{Firecracker.spriteSheets.getSpriteSheet("Hut").getSprite("Hut"),
                        Firecracker.spriteSheets.getSpriteSheet("Hamlet").getSprite("Hamlet"),
                        Firecracker.spriteSheets.getSpriteSheet("Settlement").getSprite("Settlement"),
                        Firecracker.spriteSheets.getSpriteSheet("City").getSprite("City")};
-            foreach (Sprite building in sprites)
-            {
+			destructionSprites = new SpriteAnimation[] { Firecracker.animations.getAnimation("Hut Destruction"),
+														 Firecracker.animations.getAnimation("Village Destruction"),
+														 Firecracker.animations.getAnimation("Old City Destruction"),
+														 Firecracker.animations.getAnimation("City Destruction") };
+            foreach(Sprite building in sprites) {
                 building.m_SpriteDepth = 0.51f;
+				foreach(SpriteAnimation a in destructionSprites) {
+					a.SetAnimDepthLayer(0.51f);
+				}
             }
         }
 
-        public override void update(GameTime gameTime)
-        {
-            
+		public void attack() {
+			health--;
+			if(health < 0) health=0;
+			
+		}
+
+        public override void update(GameTime gameTime) {
             base.update(gameTime);
+			if(health == 0) {
+				destructionSprites[(int) PopulationManager.Instance.age].update(gameTime);
+				if(destructionSprites[(int) PopulationManager.Instance.age].finished()) {
+					toBeDeleted = true;
+				}
+			}
         }
 
-        public override void draw(SpriteBatch spriteBatch)
-        {
-            sprites[(int)PopulationManager.Instance.age].drawCentered(spriteBatch, Vector2.One, 0, position, SpriteEffects.None);
+        public override void draw(SpriteBatch spriteBatch) {
+			if(health > 0) {
+				sprites[(int) PopulationManager.Instance.age].drawCentered(spriteBatch, Vector2.One, 0, position, SpriteEffects.None);
+			}
+			else {
+				destructionSprites[(int) PopulationManager.Instance.age].drawCentered(spriteBatch, Vector2.One, 0, position, SpriteEffects.None);
+			}
             base.draw(spriteBatch);
         }
 
-        public static Settlement parseFrom(StreamReader input, SpriteSheetCollection spriteSheets)
-        {
+        public static Settlement parseFrom(StreamReader input, SpriteSheetCollection spriteSheets) {
             if (input == null || spriteSheets == null) { return null; }
 
             // get the object's position

@@ -47,34 +47,32 @@ namespace Firecracker_Engine
                 Firecracker.level.addObject(exp);
                 this.toBeDeleted = true;
 
+				Firecracker.level.attackSettlements(exp.position, 200);
+
                 // find all the NPCs nearby and kill 'em all. MUAUAhahah.....ha
                 for (int i = 0; i < Firecracker.level.numberOfObjects(); i++)
                 {
                     GameObject theObj = Firecracker.level.objectAt(i);
-                    if (theObj.GetType() == typeof(NPCObject))
-                    {
-                        if ((theObj.position - position).Length() < 120)
-                        {
-                            // kill this guy.
-                            theObj.toBeDeleted = true;
-                            HumanDeath newDeath = new HumanDeath(theObj.position);
-                            Firecracker.level.addObject(newDeath);
-                            if ((theObj.position - position).Length() < 60)
-                            {
-                                Explosion explosionDeath = new Explosion(theObj.position);
-                                Firecracker.level.addObject(explosionDeath);
-                            }
-                        }
-                        if ((theObj.position - position).Length() < 180)
-                        {
-                            NPCObject person = (NPCObject)theObj;
-                            person.wanderType = AIWanderType.AI_Scatter;
-                            person.PointOfTerror = new Vector2(position.X, position.Y);
-                            person.eventTime = 1.2f;
-                            person.FleeFromPoint(person.PointOfTerror);
-                        }
+					if(theObj.GetType() == typeof(NPCObject)) {
+						if((theObj.position - position).Length() < 120) {
+							// kill this guy.
+							theObj.toBeDeleted = true;
+							HumanDeath newDeath = new HumanDeath(theObj.position);
+							Firecracker.level.addObject(newDeath);
+							if((theObj.position - position).Length() < 60) {
+								Explosion explosionDeath = new Explosion(theObj.position);
+								Firecracker.level.addObject(explosionDeath);
+							}
+						}
+						if((theObj.position - position).Length() < 180) {
+							NPCObject person = (NPCObject) theObj;
+							person.wanderType = AIWanderType.AI_Scatter;
+							person.PointOfTerror = new Vector2(position.X, position.Y);
+							person.eventTime = 1.2f;
+							person.FleeFromPoint(person.PointOfTerror);
+						}
 
-                    }
+					}
                 }
             }
             else
