@@ -17,15 +17,14 @@ namespace Angry_Angry_Island {
 	/// <summary>
 	/// This is the main type for your game
 	/// </summary>
-	public class TestGame : Firecracker {
+	public class AngryAngryIsland : Firecracker {
 
-        public static TestGame gameInstance;
+		public static AngryAngryIsland gameInstance;
 		protected RenderTarget2D buffer;
 		protected Effect blur;
         Texture2D cursorTex;
 
-
-		public TestGame() : base() {
+		public AngryAngryIsland() : base() {
 			gameInstance = this;
 		}
 

@@ -228,11 +228,6 @@ namespace Firecracker_Engine {
 				}
 			}
 
-			if(numberOfSettlementsToCreate > 0) {
-				PopulationManager.Instance.age = PopulationManager.Age.Primitive;
-				PopulationManager.Instance.TimeSpentAboveThreshold = 0;
-			}
-
 			for(int i=0;i<numberOfSettlementsToCreate;i++) {
 				m_objects.Add(new Settlement(getNewSettlementPosition()));
 			}

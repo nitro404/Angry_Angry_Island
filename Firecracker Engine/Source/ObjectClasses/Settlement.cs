@@ -46,6 +46,8 @@ namespace Firecracker_Engine {
 				destructionSprites[(int) PopulationManager.Instance.age].update(gameTime);
 				if(destructionSprites[(int) PopulationManager.Instance.age].finished()) {
 					toBeDeleted = true;
+					PopulationManager.Instance.age = PopulationManager.Age.Primitive;
+					PopulationManager.Instance.TimeSpentAboveThreshold = 0;
 				}
 			}
         }

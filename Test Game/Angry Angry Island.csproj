@@ -92,7 +92,7 @@
     <Compile Include="Source\ObjectClasses\ObjectDefinitions.cs" />
     <Compile Include="Source\ObjectClasses\TestGameObject.cs" />
     <Compile Include="Source\Program.cs" />
-    <Compile Include="Source\TestGame.cs" />
+    <Compile Include="Source\AngryAngryIsland.cs" />
     <Compile Include="Source\UI\AbilityBar.cs" />
     <Compile Include="Source\UI\AbilityButton.cs" />
     <Compile Include="Source\UI\InfoBar.cs" />

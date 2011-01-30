@@ -33,8 +33,8 @@ namespace Angry_Angry_Island
         public CEnvironmentObj()
             : base()
         {
-             s = new Sprite("Sprites/first_island_test_rock", TestGame.gameInstance.Content);
-             forest = new Sprite("Sprites/first_island_test_trees",  TestGame.gameInstance.Content);
+             s = new Sprite("Sprites/first_island_test_rock", AngryAngryIsland.gameInstance.Content);
+			 forest = new Sprite("Sprites/first_island_test_trees", AngryAngryIsland.gameInstance.Content);
              //sheep = new Sprite( new Sprite("Sprites/sheep_sheet01", TestGame.GameInstance.Content),new Rectangle(0,102, 34,34));
              //Sshadow = new Sprite("Sprites/sheep_shadow01", TestGame.GameInstance.Content); 
              //xPosition = 0;
@@ -84,13 +84,13 @@ namespace Angry_Angry_Island
         }
      public override void Render()
      {
-         TestGame.gameInstance.spriteBatch.Begin();
-         s.drawCentered(TestGame.gameInstance.spriteBatch, Vector2.One, 0.0f,new Vector2(s.xOffset,s.yOffset), SpriteEffects.None);
-         forest.drawCentered(TestGame.gameInstance.spriteBatch, Vector2.One, 0.0f, new Vector2(s.xOffset, s.yOffset), SpriteEffects.None);
+		 AngryAngryIsland.gameInstance.spriteBatch.Begin();
+		 s.drawCentered(AngryAngryIsland.gameInstance.spriteBatch, Vector2.One, 0.0f, new Vector2(s.xOffset, s.yOffset), SpriteEffects.None);
+		 forest.drawCentered(AngryAngryIsland.gameInstance.spriteBatch, Vector2.One, 0.0f, new Vector2(s.xOffset, s.yOffset), SpriteEffects.None);
          //Sshadow.draw(TestGame.GameInstance.spriteBatch, new Vector2(1.5f), 0.0f, new Vector2(xPosition + s.xOffset, yPosition + s.yOffset), SpriteEffects.None);
          //sheep.draw(TestGame.GameInstance.spriteBatch, Vector2.One, 0.0f, new Vector2(xPosition + s.xOffset +2,yPosition +s.yOffset +2), SpriteEffects.None);
          //TestGame.GameInstance.spriteBatch.Draw();
-         TestGame.gameInstance.spriteBatch.End();
+		 AngryAngryIsland.gameInstance.spriteBatch.End();
 
          base.Render();
      }

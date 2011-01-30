@@ -53,8 +53,7 @@ namespace Firecracker_Engine
 
         public override void draw(SpriteBatch spriteBatch)
         {
-            m_Anim.drawCentered(spriteBatch, Vector2.One, 0, position, SpriteEffects.None);
-            base.draw(spriteBatch);
+            m_Anim.drawWithOffset(spriteBatch, Vector2.One, 0, position, SpriteEffects.None, new Vector2(126, 216));
         }
     }
 }
