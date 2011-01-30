@@ -70,6 +70,8 @@ namespace Test_Game {
 			base.updateGame(gameTime);
             Firecracker.engineInstance.elapsedTime += gameTime.ElapsedGameTime.TotalSeconds; //gameTime.TotalGameTime.Seconds;
             //Firecracker.engineInstance.elapsedTime[0] += gameTime.ElapsedGameTime.TotalMinutes;//gameTime.TotalGameTime.Minutes;
+
+
 		}
 
 		/// <summary>

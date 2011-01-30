@@ -147,6 +147,7 @@ namespace Firecracker_Engine {
                 
                 level = newLevel;
                 elapsedTime = 0;
+                numPeoples = 1;
                 m_Forest.Initialize(Firecracker.spriteSheets);
                 Ocean water = new Ocean();
                 water.position = new Vector2(10, 10);
@@ -340,6 +341,33 @@ namespace Firecracker_Engine {
             }
 
             return returnObject;
+        }
+
+        /// <summary>
+        /// Forces the time to output itself as a string.
+        /// </summary>
+        /// <param name="input">The number of seconds as a double</param>
+        /// <returns>The formatted time string</returns>
+        public string makeTimeString(double input)
+        {
+            int minutes = 0, i_Seconds = 0;
+            double d_Seconds;
+
+            if (input > 60)
+            {
+                d_Seconds = input;
+                d_Seconds = d_Seconds / 60;
+
+                if (d_Seconds > 1)
+                {
+                    minutes = (int)d_Seconds;
+                }
+                d_Seconds = input - (60 * minutes);
+            }
+            else
+                d_Seconds = input;
+
+            return minutes.ToString() + ":" + ((int)d_Seconds).ToString();
         }
 
 	};
