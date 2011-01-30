@@ -50,7 +50,8 @@ namespace Firecracker_Engine
             m_fWaitTime = 1.0f;
             m_fIdleTime = 0.0f;
 
-            m_fDeathAt = Firecracker.random.Next(5, 7);
+            Firecracker.engineInstance.numPeoples++;
+            m_fDeathAt = Firecracker.random.Next(5, 6+(int)(60.0f*(Firecracker.engineInstance.numPeoples/500.0f)));
             m_bKillable = true;
 		}
 
@@ -120,12 +121,14 @@ namespace Firecracker_Engine
                 Explosion exp2 = new Explosion(position - new Vector2(16.0f, 16.0f));
                 Firecracker.level.addObject(exp2);
 
-                NPCObject newObject = new NPCObject(position + new Vector2(16.0f, 16.0f), sprite);
-                Firecracker.level.addObject(newObject);
-                Firecracker.engineInstance.numPeoples++;
-                newObject = new NPCObject(position - new Vector2(16.0f, 16.0f), sprite);
-                Firecracker.level.addObject(newObject);
-                Firecracker.engineInstance.numPeoples++;
+                if (Firecracker.engineInstance.numPeoples <= 500)
+                {
+                    NPCObject newObject = new NPCObject(position + new Vector2(16.0f, 16.0f), sprite);
+                    Firecracker.level.addObject(newObject);
+                    
+                    newObject = new NPCObject(position - new Vector2(16.0f, 16.0f), sprite);
+                    Firecracker.level.addObject(newObject);
+                }
 
                 HumanDeath newDeath = new HumanDeath(position);
                 Firecracker.level.addObject(newDeath);
