@@ -173,6 +173,8 @@ namespace Firecracker_Engine {
 		
 		// restart the animation
 		public void reset() {
+			m_index = 0;
+			m_finished = false;
 			m_sequence = 0;
 		}
 
