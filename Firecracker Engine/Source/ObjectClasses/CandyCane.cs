@@ -39,7 +39,7 @@ namespace Firecracker_Engine
                 PingCall = false;
             }
 
-            TimeTracker += 0.01f;
+            TimeTracker += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             if (Life == 3)
             {
