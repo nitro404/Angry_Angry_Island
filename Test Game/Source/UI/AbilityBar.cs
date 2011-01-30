@@ -25,11 +25,11 @@ namespace Test_Game
         private Label creditLabel;
 
         public AbilityBar()
-            : base(Vector2.Zero, new Vector2((ICON_WIDTH + BUTTON_PADDING * 2) * 5 + (BAR_PADDING*2), ICON_HEIGHT + BUTTON_PADDING * 2 + BAR_PADDING * 2), HAlign.Left, VAlign.Bottom, false, ContentType.Image, "testbutton")
+            : base(Vector2.Zero, new Vector2((ICON_WIDTH + BUTTON_PADDING * 2) * 4 + (BAR_PADDING*2), ICON_HEIGHT + BUTTON_PADDING * 2 + BAR_PADDING * 2), HAlign.Left, VAlign.Bottom, false, ContentType.Image, "abilitybar")
         {
             InnerElements = new List<UIObject>();
             creditLabel = new Label(new Vector2(BAR_PADDING, 0), HAlign.Left, VAlign.Center, "Credits:");
-            InnerElements.Add(new UIObject(new Vector2(0, -CREDITS_HEIGHT), new Vector2(CREDITS_WIDTH, CREDITS_HEIGHT), HAlign.Left, VAlign.Top, false, ContentType.Image, "testbutton",
+            InnerElements.Add(new UIObject(new Vector2(0, -CREDITS_HEIGHT), new Vector2(CREDITS_WIDTH, CREDITS_HEIGHT), HAlign.Left, VAlign.Top, false, ContentType.Image, "abilitybar",
                 new List<UIObject>{creditLabel}));
             Instance = this;
         }

@@ -19,7 +19,7 @@ namespace Test_Game
         private Label infoLabel;
 
         public InfoBar()
-            : base(Vector2.Zero, new Vector2(BAR_WIDTH, BAR_HEIGHT), HAlign.Left, VAlign.Top, false, ContentType.Image, "testbutton")
+            : base(Vector2.Zero, new Vector2(BAR_WIDTH, BAR_HEIGHT), HAlign.Left, VAlign.Top, false, ContentType.Image, "infobar")
         {
             InnerElements = new List<UIObject>();
             infoLabel = new Label(new Vector2(BAR_PADDING, 0), HAlign.Left, VAlign.Center, "Age: Dark Age       Llamas Licked: " + Firecracker.engineInstance.numPeoples.ToString()); //+ Firecracker.engineInstance.theCamera.GetCameraPos());

@@ -13,10 +13,10 @@ namespace Test_Game
 {
     class AbilityButton : Button
     {
-        const string REGULAR_TEX = "testbutton";
-        const string PRESSED_TEX = "testbuttonclicked";
-        const string MOUSEOVER_TEX = "testbuttonhover";
-        const string SELECTED_TEX = "testbuttonselected";
+        const string REGULAR_TEX = "abilitybutton";
+        const string PRESSED_TEX = "abilitybuttonclicked";
+        const string MOUSEOVER_TEX = "abilitybuttonmouseover";
+        const string SELECTED_TEX = "abilitybuttonselected";
 
         AbilityType m_abilityType;
 
@@ -40,16 +40,16 @@ namespace Test_Game
             }
             if (!isOnCoolDown && m_abilityType == Player.Instance.SelectedAbility.type)
             {
-                regularImageID = "testbuttonselected";
-                mouseOverImageID = "testbuttonselected";
-                clickImageID = "testbuttonselected";
+                regularImageID = SELECTED_TEX;
+                mouseOverImageID = SELECTED_TEX;
+                clickImageID = SELECTED_TEX;
             }
             else
             {
 
-                regularImageID = "testbutton";
-                mouseOverImageID = "testbuttonhover";
-                clickImageID = "testbuttonclicked";
+                regularImageID = REGULAR_TEX;
+                mouseOverImageID = MOUSEOVER_TEX;
+                clickImageID = PRESSED_TEX;
             }
 
             base.Update(deltaT);

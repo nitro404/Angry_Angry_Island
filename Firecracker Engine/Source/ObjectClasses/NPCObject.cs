@@ -123,11 +123,23 @@ namespace Firecracker_Engine
 
                 if (Firecracker.engineInstance.numPeoples <= 500)
                 {
-                    NPCObject newObject = new NPCObject(position + new Vector2(16.0f, 16.0f), sprite);
-                    Firecracker.level.addObject(newObject);
-                    
-                    newObject = new NPCObject(position - new Vector2(16.0f, 16.0f), sprite);
-                    Firecracker.level.addObject(newObject);
+                    for(int i = 0; i < 2; i++)
+                    {
+                        Vector2 spawnPosition = position;
+                        for (int j = 0; j < 5; j++)
+                        {
+                            //try 5 times to find a legal spawn position
+                            spawnPosition = position + new Vector2((float)Firecracker.random.NextDouble() * 32 - 16, (float)Firecracker.random.NextDouble() * 32 - 16);
+                            if (Terrain.Instance == null || Terrain.Instance.isPositionWalkable(spawnPosition))
+                            {
+                                break;
+                            }
+                            spawnPosition = position;
+                        }
+
+                        NPCObject newObject = new NPCObject(spawnPosition, sprite);
+                        Firecracker.level.addObject(newObject);
+                    }
                 }
 
                 HumanDeath newDeath = new HumanDeath(position);
@@ -167,8 +179,19 @@ namespace Firecracker_Engine
                 {
                     m_fIdleTime = 0.0f;
                     m_bIsMoving = true;
-                    m_vTargetLocation.X = position.X + Firecracker.theRandom.Next(-30, 30);
-                    m_vTargetLocation.Y = position.Y + Firecracker.theRandom.Next(-30, 30);
+
+                    Vector2 targetpos = position;
+                    for (int j = 0; j < 5; j++)
+                    {
+                        //try 5 times to find a legal spawn position
+                        targetpos = position + new Vector2((float)Firecracker.random.NextDouble() * 60 - 30, (float)Firecracker.random.NextDouble() * 60 - 30);
+                        if (Terrain.Instance == null || Terrain.Instance.isPositionWalkable(targetpos))
+                        {
+                            break;
+                        }
+                        targetpos = position;
+                    }
+                    m_vTargetLocation = targetpos;
                 }
             }
             else
@@ -187,6 +210,10 @@ namespace Firecracker_Engine
                     if (Terrain.Instance == null || Terrain.Instance.isPositionWalkable(newPosition))
                     {
                         position = newPosition;
+                    }
+                    else
+                    {
+                        m_vTargetLocation = position;
                     }
                 }
             }

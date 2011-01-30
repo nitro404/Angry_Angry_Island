@@ -33,17 +33,17 @@ namespace Firecracker_Engine
                 case AbilityType.Asteroid:
                     m_cost = 5;
                     m_cooldown = 5;
-                    m_iconTextureAssetName = "testicon";
+                    m_iconTextureAssetName = "meteor_icon";
                     break;
                 case AbilityType.SpiderFire:
                     m_cost = 50;
                     m_cooldown = 5;
-                    m_iconTextureAssetName = "testicon";
+                    m_iconTextureAssetName = "fire_icon";
                     break;
                 case AbilityType.Lightning:
                     m_cost = 5;
                     m_cooldown = 1;
-                    m_iconTextureAssetName = "testicon";
+                    m_iconTextureAssetName = "lightning_icon";
                     break;
                 case AbilityType.GodAnimal:
                     m_cost = 40;

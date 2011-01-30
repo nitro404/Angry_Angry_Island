@@ -18,6 +18,7 @@ namespace Firecracker_Engine
         {
             position = Vector2.Zero;
             sprites = new Sprite[]{Firecracker.spriteSheets.getSpriteSheet("Hut").getSprite("Hut"),
+                       Firecracker.spriteSheets.getSpriteSheet("Hamlet").getSprite("Hamlet"),
                        Firecracker.spriteSheets.getSpriteSheet("Settlement").getSprite("Settlement"),
                        Firecracker.spriteSheets.getSpriteSheet("City").getSprite("City")};
         }
@@ -27,6 +28,7 @@ namespace Firecracker_Engine
         {
             position = vPosition;
             sprites = new Sprite[]{Firecracker.spriteSheets.getSpriteSheet("Hut").getSprite("Hut"),
+                       Firecracker.spriteSheets.getSpriteSheet("Hamlet").getSprite("Hamlet"),
                        Firecracker.spriteSheets.getSpriteSheet("Settlement").getSprite("Settlement"),
                        Firecracker.spriteSheets.getSpriteSheet("City").getSprite("City")};
             foreach (Sprite building in sprites)

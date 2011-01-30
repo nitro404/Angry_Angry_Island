@@ -14,14 +14,17 @@ namespace Firecracker_Engine
         {
             Primitive,
             Developing,
+            Developed,
             Advanced
         }
 
         public Age age;
         public static PopulationManager Instance;
-        int populationForDeveloping = 150;
+        int populationForDeveloping = 50;
+        int populationForDeveloped = 150;
         int populationForAdvanced = 350;
         float TimeRequiredForDeveloping = 20;
+        float TimeRequiredForDeveloped = 20;
         float TimeRequiredForAdvanced = 20;
         float TimeSpentAboveThreshold = 0;
 
@@ -57,6 +60,22 @@ namespace Firecracker_Engine
                 }
             }
             else if (age == Age.Developing)
+            {
+                if (Firecracker.engineInstance.numPeoples >= populationForDeveloped)
+                {
+                    TimeSpentAboveThreshold += deltaT;
+                    if (TimeSpentAboveThreshold > TimeRequiredForDeveloped)
+                    {
+                        age = Age.Developed;
+                        TimeSpentAboveThreshold = 0;
+                    }
+                }
+                else
+                {
+                    TimeSpentAboveThreshold = 0;
+                }
+            }
+            else if (age == Age.Developed)
             {
                 if (Firecracker.engineInstance.numPeoples >= populationForAdvanced)
                 {
