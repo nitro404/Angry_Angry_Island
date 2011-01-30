@@ -33,7 +33,7 @@ namespace Firecracker_Engine
                        Firecracker.spriteSheets.getSpriteSheet("City").getSprite("City")};
             foreach (Sprite building in sprites)
             {
-                building.m_SpriteDepth = 0.50f;
+                building.m_SpriteDepth = 0.51f;
             }
         }
 
