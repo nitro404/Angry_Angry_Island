@@ -328,7 +328,10 @@ namespace Firecracker_Engine {
                 {
                     newObject = Player.parseFrom(input, Firecracker.spriteSheets);
                 }
-
+                else if (objectType.Equals("Settlement", StringComparison.OrdinalIgnoreCase))
+                {
+                    newObject = Settlement.parseFrom(input, Firecracker.spriteSheets);
+                }
 				// verify that the object was successfully parsed
 				if(newObject != null) {
 					currentObject++;

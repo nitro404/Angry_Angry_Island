@@ -73,6 +73,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml">
       <Private>False</Private>
@@ -129,6 +130,7 @@
     <Compile Include="Source\ObjectClasses\Player.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Source\ObjectClasses\Settlement.cs" />
     <Compile Include="Source\Settings File Manager\GameSettings.cs" />
     <Compile Include="Source\Settings File Manager\Variable.cs" />
     <Compile Include="Source\Settings File Manager\VariableSystem.cs" />

@@ -30,6 +30,12 @@ namespace Firecracker_Engine
         public Player(Sprite theSprite)
             : base()
         {
+            for (int i = 0; i < (int)AbilityType.NumAbilityTypes; i++)
+            {
+                m_abilities.Add(new Ability((AbilityType)i));
+            }
+            m_selectedAbility = m_abilities[0];
+            Instance = this;
             m_sprite = theSprite;
         }
 
@@ -52,7 +58,7 @@ namespace Firecracker_Engine
                 DoSelectedAbility(Firecracker.engineInstance.m_MouseManager.GetMousePos()+Firecracker.engineInstance.theCamera.GetCameraPos());
             }
 
-            m_credits += (float)((float)gameTime.ElapsedGameTime.Milliseconds/1000.0f) * CREDIT_TRICKLE_RATE;
+            m_credits += (float)((float)gameTime.ElapsedGameTime.TotalSeconds) * CREDIT_TRICKLE_RATE;
             foreach (Ability ability in m_abilities)
             {
                 ability.Update((float)gameTime.ElapsedGameTime.TotalSeconds);

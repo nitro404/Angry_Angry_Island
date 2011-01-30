@@ -34,7 +34,7 @@ namespace Firecracker_Engine
                     m_iconTextureAssetName = "testicon";
                     break;
                 case AbilityType.Earthquake:
-                    m_cost = 5;
+                    m_cost = 50;
                     m_cooldown = 5;
                     m_iconTextureAssetName = "testicon";
                     break;

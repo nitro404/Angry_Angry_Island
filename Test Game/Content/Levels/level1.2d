@@ -13,7 +13,7 @@ Collision Edges: 11
 	295, 192; 376, 130
 	376, 130; 421, 226
 	421, 226; 295, 192
-Objects: 6
+Objects: 7
 	NPCObject:
 		Position: 100, 100
 		LayerDepth: 0.5
@@ -44,5 +44,7 @@ Objects: 6
 		Sprite Name: Person_1
 		SpriteSheet Name: NPCPeasentObject
 		IsKillable: true
+	Settlement:
+		Position: 500, 500
 	Player:
 		
