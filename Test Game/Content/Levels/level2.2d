@@ -13,8 +13,8 @@ Objects: 7
 		LayerDepth: 0.5
 		SpriteSheet Name: NPCPeasentObject
 		Anim Name N: PersonWalkN
-		Anim Name S: PersonWalkS
 		Anim Name E: PersonWalkE
+		Anim Name S: PersonWalkS
 		Anim Name W: PersonWalkW
 		IsKillable: true
 	NPCObject:
@@ -22,8 +22,8 @@ Objects: 7
 		LayerDepth: 0.5
 		SpriteSheet Name: NPCPeasentObject
 		Anim Name N: PersonWalkN
-		Anim Name S: PersonWalkS
 		Anim Name E: PersonWalkE
+		Anim Name S: PersonWalkS
 		Anim Name W: PersonWalkW
 		IsKillable: true
 	NPCObject:
@@ -31,8 +31,8 @@ Objects: 7
 		LayerDepth: 0.5
 		SpriteSheet Name: NPCPeasentObject
 		Anim Name N: PersonWalkN
-		Anim Name S: PersonWalkS
 		Anim Name E: PersonWalkE
+		Anim Name S: PersonWalkS
 		Anim Name W: PersonWalkW
 		IsKillable: true
 	NPCObject:
@@ -40,8 +40,8 @@ Objects: 7
 		LayerDepth: 0.5
 		SpriteSheet Name: NPCPeasentObject
 		Anim Name N: PersonWalkN
-		Anim Name S: PersonWalkS
 		Anim Name E: PersonWalkE
+		Anim Name S: PersonWalkS
 		Anim Name W: PersonWalkW
 		IsKillable: true
 	Player:

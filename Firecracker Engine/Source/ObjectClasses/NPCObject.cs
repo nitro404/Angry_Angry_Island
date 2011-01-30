@@ -79,14 +79,14 @@ namespace Firecracker_Engine
             m_bKillable = true;
 
             this.AnimNameN = objRef.AnimNameN;
-            this.AnimNameS = objRef.AnimNameS;
             this.AnimNameE = objRef.AnimNameE;
+            this.AnimNameS = objRef.AnimNameS;
             this.AnimNameW = objRef.AnimNameW;
 
             SetIsDirectionBased(true);
             SetDirAnimation(AnimDirection.DIR_N, AnimNameN.value);
-            SetDirAnimation(AnimDirection.DIR_S, AnimNameS.value);
             SetDirAnimation(AnimDirection.DIR_E, AnimNameE.value);
+            SetDirAnimation(AnimDirection.DIR_S, AnimNameS.value);
             SetDirAnimation(AnimDirection.DIR_W, AnimNameW.value);
         }
 
@@ -133,10 +133,10 @@ namespace Firecracker_Engine
             // get the sprite's name
             newObject.AnimNameN = Variable.parseFrom(input.ReadLine());
             if (newObject.AnimNameN == null || !newObject.AnimNameN.id.Equals("Anim Name N", StringComparison.OrdinalIgnoreCase)) { return null; }
-            newObject.AnimNameS = Variable.parseFrom(input.ReadLine());
-            if (newObject.AnimNameS == null || !newObject.AnimNameS.id.Equals("Anim Name S", StringComparison.OrdinalIgnoreCase)) { return null; }
             newObject.AnimNameE = Variable.parseFrom(input.ReadLine());
             if (newObject.AnimNameE == null || !newObject.AnimNameE.id.Equals("Anim Name E", StringComparison.OrdinalIgnoreCase)) { return null; }
+            newObject.AnimNameS = Variable.parseFrom(input.ReadLine());
+            if (newObject.AnimNameS == null || !newObject.AnimNameS.id.Equals("Anim Name S", StringComparison.OrdinalIgnoreCase)) { return null; }
             newObject.AnimNameW = Variable.parseFrom(input.ReadLine());
             if (newObject.AnimNameW == null || !newObject.AnimNameW.id.Equals("Anim Name W", StringComparison.OrdinalIgnoreCase)) { return null; }
 
@@ -153,8 +153,8 @@ namespace Firecracker_Engine
             //newObject.sprite.m_SpriteDepth = float.Parse(layerDepth.value);
             newObject.SetIsDirectionBased(true);
             newObject.SetDirAnimation(AnimDirection.DIR_N, newObject.AnimNameN.value);
-            newObject.SetDirAnimation(AnimDirection.DIR_S, newObject.AnimNameS.value);
             newObject.SetDirAnimation(AnimDirection.DIR_E, newObject.AnimNameE.value);
+            newObject.SetDirAnimation(AnimDirection.DIR_S, newObject.AnimNameS.value);
             newObject.SetDirAnimation(AnimDirection.DIR_W, newObject.AnimNameW.value);
             newObject.updateInitialValues();
 
@@ -312,8 +312,13 @@ namespace Firecracker_Engine
                     vecAngle += 45;
                     if (vecAngle < 0) vecAngle += 360;
                     if (vecAngle > 360) vecAngle -= 360;
-
-                    playAnimation((AnimDirection)(((int)vecAngle)/90));
+                    AnimDirection theDir = (AnimDirection)(((int)vecAngle) / 90);
+                    // Le Cheat Hack!
+                    if (theDir == AnimDirection.DIR_N)
+                        theDir = AnimDirection.DIR_S;
+                    else if (theDir == AnimDirection.DIR_S)
+                        theDir = AnimDirection.DIR_N;
+                    playAnimation(theDir);
                 }
             }
             else

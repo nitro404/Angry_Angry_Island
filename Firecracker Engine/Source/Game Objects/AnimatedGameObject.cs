@@ -10,8 +10,8 @@ namespace Firecracker_Engine {
     public enum AnimDirection
     {
         DIR_N = 0,
-        DIR_S,
         DIR_E,
+        DIR_S,
         DIR_W,
         DIR_MAX
     }
