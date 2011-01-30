@@ -30,9 +30,9 @@ namespace Firecracker_Engine
             m_cameraLookAtPos = new Vector2(0.0f, 0.0f);
 
             m_cameraLimitUp = -100.0f;
-            m_cameraLimitDown = 100.0f;
+			m_cameraLimitDown = 2148.0f;
             m_cameraLimitLeft = -100.0f;
-            m_cameraLimitRight = 100.0f;
+			m_cameraLimitRight = 2148.0f;
         }
 
         /// <summary>

@@ -14,6 +14,13 @@ Collision Edges: 11
 	376, 130; 421, 226
 	421, 226; 295, 192
 Objects: 7
+	Game Tile:
+		Position: 0, 0
+		LayerDepth: 0.52
+		Sprite Name: Island
+		SpriteSheet Name: Island
+	Settlement:
+		Position: 500, 500
 	NPCObject:
 		Position: 100, 100
 		LayerDepth: 0.5
@@ -44,7 +51,5 @@ Objects: 7
 		Sprite Name: Person_1
 		SpriteSheet Name: NPCPeasentObject
 		IsKillable: true
-	Settlement:
-		Position: 500, 500
 	Player:
 		
