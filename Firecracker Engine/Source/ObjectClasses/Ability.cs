@@ -10,9 +10,9 @@ namespace Firecracker_Engine
     public enum AbilityType
     {
         Lightning,
-        Asteroid,
-        SpiderFire,
         GodAnimal,
+        SpiderFire,
+        Asteroid,
         NumAbilityTypes,
 
     }
@@ -30,16 +30,7 @@ namespace Firecracker_Engine
             type = whichAbility;
             switch (type)
             {
-                case AbilityType.Asteroid:
-                    m_cost = 5;
-                    m_cooldown = 5;
-                    m_iconTextureAssetName = "meteor_icon";
-                    break;
-                case AbilityType.SpiderFire:
-                    m_cost = 50;
-                    m_cooldown = 5;
-                    m_iconTextureAssetName = "fire_icon";
-                    break;
+
                 case AbilityType.Lightning:
                     m_cost = 5;
                     m_cooldown = 1;
@@ -50,6 +41,17 @@ namespace Firecracker_Engine
                     m_cooldown = 10;
                     m_iconTextureAssetName = "KevinMooseIcon";
                     break;
+                case AbilityType.SpiderFire:
+                    m_cost = 80;
+                    m_cooldown = 10;
+                    m_iconTextureAssetName = "fire_icon";
+                    break;
+                case AbilityType.Asteroid:
+                    m_cost = 120;
+                    m_cooldown = 1;
+                    m_iconTextureAssetName = "meteor_icon";
+                    break;
+
             }
         }
 

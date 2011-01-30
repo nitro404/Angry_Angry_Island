@@ -24,7 +24,8 @@ namespace Test_Game
             : base(pos, size, hAlign, vAlign, "", REGULAR_TEX, MOUSEOVER_TEX, PRESSED_TEX)
         {
             m_abilityType = abilityType;
-            InnerElements.Add(new UIObject(Vector2.Zero, new Vector2(AbilityBar.ICON_WIDTH, AbilityBar.ICON_HEIGHT), HAlign.Center, VAlign.Center, false, ContentType.Image, Player.Instance.GetAbilityByType(m_abilityType).m_iconTextureAssetName));
+            InnerElements.Add(new UIObject(Vector2.Zero, new Vector2(AbilityBar.ICON_WIDTH, AbilityBar.ICON_HEIGHT), HAlign.Center, VAlign.Center, false, ContentType.Image, Player.Instance.GetAbilityByType(m_abilityType).m_iconTextureAssetName,
+                new List<UIObject>{new Label(Vector2.Zero, HAlign.Right, VAlign.Bottom, Player.Instance.GetAbilityByType(abilityType).Cost.ToString())}));
         }
 
         public override void Update(float deltaT)

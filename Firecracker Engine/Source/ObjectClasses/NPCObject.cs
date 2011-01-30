@@ -34,6 +34,8 @@ namespace Firecracker_Engine
         public Sprite sheep,Sshadow;
         public GamePadState gamePadStatus;
 
+        bool diedNaturally = false;
+
         public NPCObject(Vertex position, Sprite sprite) : this(position.toVector(), sprite) { }
 
         public NPCObject(Vector2 position, Sprite sprite)
@@ -49,7 +51,7 @@ namespace Firecracker_Engine
             m_fIdleTime = 0.0f;
 
             Firecracker.engineInstance.numPeoples++;
-            m_fDeathAt = Firecracker.random.Next(5, 6+(int)(60.0f*(Firecracker.engineInstance.numPeoples/500.0f)));
+            m_fDeathAt = (float)Firecracker.random.NextDouble()*5+5+(100.0f*(Firecracker.engineInstance.numPeoples/500.0f));
             m_bKillable = true;
 		}
 
@@ -112,10 +114,11 @@ namespace Firecracker_Engine
 
             sheepUpdate(gameTime);
             if (m_bKillable)
-                m_fAge += (float)gameTime.ElapsedGameTime.Milliseconds / 1000.0f;
+                m_fAge += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             if (m_fAge >= m_fDeathAt)
             {
+                diedNaturally = true;
                 //Explosion exp = new Explosion(position + new Vector2(16.0f, 16.0f));
                 //Firecracker.level.addObject(exp);
                 //Explosion exp2 = new Explosion(position - new Vector2(16.0f, 16.0f));
@@ -227,6 +230,10 @@ namespace Firecracker_Engine
         public override void OnDestroyed()
         {
             Firecracker.engineInstance.numPeoples--;
+            if (!diedNaturally)
+            {
+                Player.Instance.Credits += 3;
+            }
             base.OnDestroyed();
         }
     }

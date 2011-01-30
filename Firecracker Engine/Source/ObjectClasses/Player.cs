@@ -11,7 +11,7 @@ namespace Firecracker_Engine
     public class Player : GameObject
     {
 
-        private const float CREDIT_TRICKLE_RATE = 5f;
+        private const float CREDIT_TRICKLE_RATE = 0.5f;
         private float m_credits;
         private Ability m_selectedAbility;
         private List<Ability> m_abilities = new List<Ability>();

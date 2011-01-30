@@ -16,7 +16,7 @@ namespace Firecracker_Engine
             Rage
         }
         public fightStyle CreatureStyle;
-        float currentTime;
+        float timeLived = 0;
         //what we what to kill
         public GameObject theObj,targetObj;
         public bool target, eating, Die;
@@ -67,8 +67,8 @@ namespace Firecracker_Engine
                 Moose.reset();
             }
             //hacked timer
-            currentTime = currentTime + 0.01f;
-            if (currentTime > 15.0f)
+            timeLived += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if (timeLived > 40f)
             {
                 Die = true;
                 MooseDie.update(gameTime);
@@ -106,19 +106,19 @@ namespace Firecracker_Engine
                        
                             if (position.X < theObj.position.X)
                             {
-                                position = new Vector2(position.X + 30.0f * (float)gameTime.ElapsedGameTime.Milliseconds / 1000.0f, position.Y);
+                                position = new Vector2(position.X + 40.0f * (float)gameTime.ElapsedGameTime.Milliseconds / 1000.0f, position.Y);
                             }
                             if (position.X > theObj.position.X)
                             {
-                                position = new Vector2(position.X - 30.0f * (float)gameTime.ElapsedGameTime.Milliseconds / 1000.0f, position.Y);
+                                position = new Vector2(position.X - 40.0f * (float)gameTime.ElapsedGameTime.Milliseconds / 1000.0f, position.Y);
                             }
                             if (position.Y > theObj.position.Y)
                             {
-                                position = new Vector2(position.X, position.Y - 30.0f * (float)gameTime.ElapsedGameTime.Milliseconds / 1000.0f);
+                                position = new Vector2(position.X, position.Y - 40.0f * (float)gameTime.ElapsedGameTime.Milliseconds / 1000.0f);
                             }
                             if (position.Y < theObj.position.Y)
                             {
-                                position = new Vector2(position.X, position.Y + 30.0f * (float)gameTime.ElapsedGameTime.Milliseconds / 1000.0f);
+                                position = new Vector2(position.X, position.Y + 40.0f * (float)gameTime.ElapsedGameTime.Milliseconds / 1000.0f);
                             }
 
                             if ((theObj.position - position).Length() < 0.5f)
