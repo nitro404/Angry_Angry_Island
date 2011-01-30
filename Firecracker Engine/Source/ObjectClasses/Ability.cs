@@ -12,7 +12,9 @@ namespace Firecracker_Engine
         Lightning,
         Fireball,
         Earthquake,
-        NumAbilityTypes
+        GodAnimal,
+        NumAbilityTypes,
+
     }
 
     public class Ability
@@ -42,6 +44,11 @@ namespace Firecracker_Engine
                     m_cost = 5;
                     m_cooldown = 1;
                     m_iconTextureAssetName = "testicon";
+                    break;
+                case AbilityType.GodAnimal:
+                    m_cost = 40;
+                    m_cooldown = 25;
+                    m_iconTextureAssetName = "KevinMooseIcon";
                     break;
             }
         }
