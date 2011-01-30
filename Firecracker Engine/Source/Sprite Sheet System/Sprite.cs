@@ -111,8 +111,8 @@ namespace Firecracker_Engine {
 			// update the destination rectangle
 			m_destination.X = (int) position.X;
 			m_destination.Y = (int) position.Y;
-			m_destination.Width = (m_source.Width + 1) * (int) scale.X;
-			m_destination.Height = (m_source.Height + 1) * (int) scale.Y;
+			m_destination.Width = (int) ((m_source.Width + 1) * scale.X);
+			m_destination.Height = (int) ((m_source.Height + 1) * scale.Y);
 
 			// draw the sprite
 			spriteBatch.Draw(m_image, m_destination, m_source, Color.White, MathHelper.ToRadians(rotationDegrees), Vector2.Zero, effect, m_SpriteDepth);
@@ -126,8 +126,8 @@ namespace Firecracker_Engine {
 			// update the destination rectangle
 			m_destination.X = (int) position.X;
 			m_destination.Y = (int) position.Y;
-			m_destination.Width = (m_source.Width + 1) * (int) scale.X;
-			m_destination.Height = (m_source.Height + 1) * (int) scale.Y;
+			m_destination.Width = (int) ((m_source.Width + 1) * scale.X);
+			m_destination.Height = (int) ((m_source.Height + 1) * scale.Y);
 
 			// draw the sprite
 			spriteBatch.Draw(m_image, m_destination, m_source, Color.White, MathHelper.ToRadians(rotationDegrees), m_offset, effect, m_SpriteDepth);
@@ -141,8 +141,8 @@ namespace Firecracker_Engine {
 			// update the destination rectangle
 			m_destination.X = (int) position.X;
 			m_destination.Y = (int) position.Y;
-			m_destination.Width = (m_source.Width + 1) * (int) scale.X;
-			m_destination.Height = (m_source.Height + 1) * (int) scale.Y;
+			m_destination.Width = (int) ((m_source.Width + 1) * scale.X);
+			m_destination.Height = (int) ((m_source.Height + 1) * scale.Y);
 
 			// draw the sprite
 			spriteBatch.Draw(m_image, m_destination, m_source, Color.White, MathHelper.ToRadians(rotationDegrees), offset, effect, m_SpriteDepth);
