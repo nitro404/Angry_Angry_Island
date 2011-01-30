@@ -176,21 +176,53 @@ namespace Firecracker_Engine {
 			m_sequence = 0;
 		}
 
-		// draw the currently active animation frame sprite
 		public void draw(SpriteBatch spriteBatch, Vector2 scale, float rotation, Vector2 position, SpriteEffects effect) {
 			if(m_sprites.Count() == 0) { return; }
 
 			if(!finished()) {
-				sprite.draw(spriteBatch, scale, rotation, position, effect);
+				sprite.draw(spriteBatch, scale, rotation, position, effect, Color.White);
 			}
 		}
 
-		// draw the currently active animation frame sprite centered
 		public void drawCentered(SpriteBatch spriteBatch, Vector2 scale, float rotation, Vector2 position, SpriteEffects effect) {
 			if(m_sprites.Count() == 0) { return; }
 
 			if(!finished()) {
-				sprite.drawCentered(spriteBatch, scale, rotation, position, effect);
+				sprite.drawCentered(spriteBatch, scale, rotation, position, effect, Color.White);
+			}
+		}
+
+		public void drawWithOffset(SpriteBatch spriteBatch, Vector2 scale, float rotation, Vector2 position, SpriteEffects effect, Vector2 offset) {
+			if(m_sprites.Count() == 0) { return; }
+
+			if(!finished()) {
+				sprite.drawWithOffset(spriteBatch, scale, rotation, position, effect, Color.White, offset);
+			}
+		}
+
+		// draw the currently active animation frame sprite
+		public void draw(SpriteBatch spriteBatch, Vector2 scale, float rotation, Vector2 position, SpriteEffects effect, Color colour) {
+			if(m_sprites.Count() == 0) { return; }
+
+			if(!finished()) {
+				sprite.draw(spriteBatch, scale, rotation, position, effect, colour);
+			}
+		}
+
+		// draw the currently active animation frame sprite centered
+		public void drawCentered(SpriteBatch spriteBatch, Vector2 scale, float rotation, Vector2 position, SpriteEffects effect, Color colour) {
+			if(m_sprites.Count() == 0) { return; }
+
+			if(!finished()) {
+				sprite.drawCentered(spriteBatch, scale, rotation, position, effect, colour);
+			}
+		}
+
+		public void drawWithOffset(SpriteBatch spriteBatch, Vector2 scale, float rotation, Vector2 position, SpriteEffects effect, Color colour, Vector2 offset) {
+			if(m_sprites.Count() == 0) { return; }
+
+			if(!finished()) {
+				sprite.drawWithOffset(spriteBatch, scale, rotation, position, effect, colour, offset);
 			}
 		}
 
