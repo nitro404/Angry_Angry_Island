@@ -27,12 +27,14 @@ namespace Firecracker_Engine
         //could add more later for different elevations.
         Sprite m_grassSprite;
         Sprite m_sandSprite;
+        bool visible;
 
 
-        public Terrain()
+        public Terrain(bool visible, string heightmapName)
         {
+            this.visible = visible;
             Instance = this;
-            Texture2D terrain = Firecracker.engineInstance.Content.Load<Texture2D>(@"Sprites/terrain");
+            Texture2D terrain = Firecracker.engineInstance.Content.Load<Texture2D>(@"Sprites/"+heightmapName);
             Color[] c = new Color[WIDTH*HEIGHT];
             terrain.GetData(c);
             
@@ -78,17 +80,20 @@ namespace Firecracker_Engine
 
         public override void draw(SpriteBatch spriteBatch)
         {
-            for (int y = 0; y < HEIGHT; y++)
+            if (visible)
             {
-                for (int x = 0; x < WIDTH; x++)
+                for (int y = 0; y < HEIGHT; y++)
                 {
-                    if (tiles[x, y] == 1)
+                    for (int x = 0; x < WIDTH; x++)
                     {
-                        m_sandSprite.drawWithOffset(spriteBatch, Vector2.One, 0, new Vector2(x * TILE_WIDTH, y * TILE_HEIGHT), SpriteEffects.None, new Vector2(16, 16));
-                    }
-                    else if (tiles[x, y] == 2)
-                    {
-                        m_grassSprite.drawWithOffset(spriteBatch, Vector2.One, 0, new Vector2(x * TILE_WIDTH, y * TILE_HEIGHT), SpriteEffects.None, new Vector2(16,16));
+                        if (tiles[x, y] == 1)
+                        {
+                            m_sandSprite.drawWithOffset(spriteBatch, Vector2.One, 0, new Vector2(x * TILE_WIDTH, y * TILE_HEIGHT), SpriteEffects.None, new Vector2(16, 16));
+                        }
+                        else if (tiles[x, y] == 2)
+                        {
+                            m_grassSprite.drawWithOffset(spriteBatch, Vector2.One, 0, new Vector2(x * TILE_WIDTH, y * TILE_HEIGHT), SpriteEffects.None, new Vector2(16, 16));
+                        }
                     }
                 }
             }
@@ -98,9 +103,41 @@ namespace Firecracker_Engine
 
         public static Terrain parseFrom(StreamReader input, SpriteSheetCollection spriteSheets)
         {
+            if (input == null || spriteSheets == null) { return null; }
+
+            VariableSystem properties = new VariableSystem();
+
+            // store all of the animation properties
+            String data;
+            Variable property;
+            do
+            {
+                data = input.ReadLine();
+                if (data == null) { return null; }
+
+                data = data.Trim();
+                if (data.Length == 0) { continue; }
+
+                property = Variable.parseFrom(data);
+                if (property == null) { return null; }
+
+                properties.add(property);
+            } while (properties.size() < 2);
+
+            String heightmapName = properties.getValue("Heightmap Name");
+            if (heightmapName == null)
+            {
+                return null;
+            }
+            string visibleString = properties.getValue("Visible");
+            if (visibleString == null)
+            {
+                return null;
+            }
+            bool visible = visibleString.Equals("True", StringComparison.OrdinalIgnoreCase);
+
             // create the object
-            Terrain newObject = new Terrain();
-            newObject.updateInitialValues();
+            Terrain newObject = new Terrain(visible, heightmapName);
 
             return newObject;
 

@@ -1,52 +1,38 @@
 2D Cartesian Level: Version 2.0
-Grid Size: 64
-Dimensions: 24, 12
-Collision Edges: 11
-	213, 301; 430, 317
-	430, 317; 421, 226
-	421, 226; 544, 230
-	544, 230; 618, 401
-	618, 401; 439, 453
-	439, 453; 287, 424
-	287, 424; 430, 317
-	430, 317; 295, 192
-	295, 192; 376, 130
-	376, 130; 421, 226
-	421, 226; 295, 192
+Grid Size: 32
+Dimensions: 64, 64
+Collision Edges: 0
 Objects: 8
+	Terrain:
+		Visible: false
+		Heightmap Name: firstislandmask
 	Game Tile:
 		Position: 0, 0
 		LayerDepth: 0.52
 		Sprite Name: Island
 		SpriteSheet Name: Island
 	Settlement:
-		Position: 500, 500
+		Position: 700, 700
 	NPCObject:
-		Position: 100, 100
+		Position: 794, 889
 		LayerDepth: 0.5
-		Sprite Name: Sheep 1
-		SpriteSheet Name: NPCObject
-		IsKillable: false
+		Sprite Name: Person_1
+		SpriteSheet Name: NPCPeasentObject
+		IsKillable: true
 	NPCObject:
-		Position: 200, 200
+		Position: 623, 577
 		LayerDepth: 0.5
-		Sprite Name: Sheep 1
-		SpriteSheet Name: NPCObject
-		IsKillable: false
+		Sprite Name: Person_1
+		SpriteSheet Name: NPCPeasentObject
+		IsKillable: true
 	NPCObject:
-		Position: 300, 300
+		Position: 600, 799
 		LayerDepth: 0.5
-		Sprite Name: Sheep 1
-		SpriteSheet Name: NPCObject
-		IsKillable: false
+		Sprite Name: Person_1
+		SpriteSheet Name: NPCPeasentObject
+		IsKillable: true
 	NPCObject:
-		Position: 400, 400
-		LayerDepth: 0.5
-		Sprite Name: Sheep 1
-		SpriteSheet Name: NPCObject
-		IsKillable: false
-	NPCObject:
-		Position: 450, 450
+		Position: 770, 1100
 		LayerDepth: 0.5
 		Sprite Name: Person_1
 		SpriteSheet Name: NPCPeasentObject
