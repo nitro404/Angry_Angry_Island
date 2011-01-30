@@ -81,6 +81,7 @@ namespace Firecracker_Engine {
             thekeyboard = new KeyboardState();
 
             m_Forest = new Forest();
+
 		}
 
 		protected override void Initialize() {
@@ -143,9 +144,13 @@ namespace Firecracker_Engine {
 			Level newLevel = Level.readFrom(Content.RootDirectory + "\\Levels\\" + levelName + ".2d");
 
 			if(newLevel != null) {
-				level = newLevel;
+                
+                level = newLevel;
                 elapsedTime[0] = 0; elapsedTime[1] = 0;
                 m_Forest.Initialize(Firecracker.spriteSheets);
+                Ocean water = new Ocean();
+                water.position = new Vector2(10, 10);
+                level.addObject(water);
 				return true;
 			}
 			return false;

@@ -127,6 +127,7 @@
     <Compile Include="Source\Game Objects\GameTile.cs" />
     <Compile Include="Source\Game Objects\StaticObject.cs" />
     <Compile Include="Source\ObjectClasses\NPCObject.cs" />
+    <Compile Include="Source\ObjectClasses\Ocean.cs" />
     <Compile Include="Source\ObjectClasses\Player.cs">
       <SubType>Code</SubType>
     </Compile>
