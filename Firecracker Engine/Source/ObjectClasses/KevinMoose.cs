@@ -126,6 +126,10 @@ namespace Firecracker_Engine
                                 //Moose.update(gameTime);
                                 eating = true;
                             }
+                            if (theObj.toBeDeleted)
+                            {
+                                target = false;
+                            }
                         
                     }
              
