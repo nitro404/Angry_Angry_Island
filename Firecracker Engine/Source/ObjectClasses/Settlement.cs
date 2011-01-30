@@ -37,6 +37,10 @@ namespace Firecracker_Engine
             sprites = new Sprite[]{Firecracker.spriteSheets.getSpriteSheet("Hut").getSprite("Hut"),
                        Firecracker.spriteSheets.getSpriteSheet("Settlement").getSprite("Settlement"),
                        Firecracker.spriteSheets.getSpriteSheet("City").getSprite("City")};
+            foreach (Sprite building in sprites)
+            {
+                building.m_SpriteDepth = 0.50f;
+            }
             age = Age.Primitive;
         }
 

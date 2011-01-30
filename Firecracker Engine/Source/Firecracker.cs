@@ -148,10 +148,21 @@ namespace Firecracker_Engine {
                 level = newLevel;
                 elapsedTime = 0;
                 numPeoples = 1;
+                List<GameObject> Sky = new List<GameObject>();
+                for (int i = 0; i < 5; i++)
+                {
+                    Cloud fluffyAndWhite = new Cloud();
+
+                    fluffyAndWhite.position = new Vector2(Firecracker.random.Next(0, 1280), Firecracker.random.Next(0, 1240));
+                    Sky.Add(fluffyAndWhite);
+                }
+
+                level.addObjects(Sky);
                 m_Forest.Initialize(Firecracker.spriteSheets);
                 Ocean water = new Ocean();
                 water.position = new Vector2(10, 10);
                 level.addObject(water);
+
 				return true;
 			}
 			return false;

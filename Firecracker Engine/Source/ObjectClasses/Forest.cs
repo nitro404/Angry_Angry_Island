@@ -27,7 +27,8 @@ namespace Firecracker_Engine
             {
                 Sprite sprite = spriteSheet.getSprite(string.Concat("Tree ", i.ToString()));
                 if (sprite == null) { return; }
-
+                //chris edited this
+                sprite.m_SpriteDepth = 0.49f;
                 m_lTreeSprites.Add(sprite);
             }
 

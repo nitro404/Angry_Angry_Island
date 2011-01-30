@@ -98,6 +98,7 @@
     <Compile Include="Source\ObjectClasses\Asteroid.cs" />
     <Compile Include="Source\ObjectClasses\CameraBase.cs" />
     <Compile Include="Source\ObjectClasses\BaseObject.cs" />
+    <Compile Include="Source\ObjectClasses\Cloud.cs" />
     <Compile Include="Source\ObjectClasses\DefinitionLoader.cs" />
     <Compile Include="Source\ObjectClasses\Explosion.cs" />
     <Compile Include="Source\ObjectClasses\Forest.cs" />
