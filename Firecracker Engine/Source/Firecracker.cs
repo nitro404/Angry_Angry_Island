@@ -32,6 +32,7 @@ namespace Firecracker_Engine {
 		public static Level level;
 		public static Random random;
         public CameraBase theCamera;
+        public Forest m_Forest;
 
         //temp values. delete before submission
         public KeyboardState thekeyboard;
@@ -72,6 +73,8 @@ namespace Firecracker_Engine {
 
             //more temp
             thekeyboard = new KeyboardState();
+
+            m_Forest = new Forest();
 		}
 
 		protected override void Initialize() {
@@ -101,6 +104,7 @@ namespace Firecracker_Engine {
             theCamera = new CameraBase();
             theCamera.initialize();
 
+
 			base.Initialize();
 		}
 
@@ -112,6 +116,7 @@ namespace Firecracker_Engine {
 
 			// parse and load all sprite animations
 			animations = SpriteAnimationCollection.readFrom(Content.RootDirectory + "/" + settings.animationsFileName, spriteSheets);
+
 
 			// load game content
 			menu.loadContent(Content);
@@ -131,6 +136,7 @@ namespace Firecracker_Engine {
 
 			if(newLevel != null) {
 				level = newLevel;
+                m_Forest.Initialize(Firecracker.spriteSheets);
 				return true;
 			}
 			return false;

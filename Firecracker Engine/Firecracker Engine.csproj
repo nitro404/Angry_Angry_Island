@@ -98,6 +98,7 @@
     <Compile Include="Source\ObjectClasses\BaseObject.cs" />
     <Compile Include="Source\ObjectClasses\DefinitionLoader.cs" />
     <Compile Include="Source\ObjectClasses\Explosion.cs" />
+    <Compile Include="Source\ObjectClasses\Forest.cs" />
     <Compile Include="Source\ObjectClasses\HumanDeath.cs" />
     <Compile Include="Source\ObjectClasses\HumanZap.cs" />
     <Compile Include="Source\ObjectClasses\Lightning.cs" />
