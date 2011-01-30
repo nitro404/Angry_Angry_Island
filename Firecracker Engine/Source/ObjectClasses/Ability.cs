@@ -55,6 +55,8 @@ namespace Firecracker_Engine
                     Firecracker.level.addObject(newAsteroid);
                     break;
                 case AbilityType.Earthquake:
+                    SpiderFire newSpiderFire = new SpiderFire(position);
+                    Firecracker.level.addObject(newSpiderFire);
                     break;
                 case AbilityType.Lightning:
                     Lightning newLightning = new Lightning(position);

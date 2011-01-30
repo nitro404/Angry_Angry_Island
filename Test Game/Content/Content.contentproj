@@ -120,13 +120,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Sprites\Asteroids.png">
-      <Name>Asteroids</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Sprites\human_sprite_sheet.png">
       <Name>human_sprite_sheet</Name>
       <Importer>TextureImporter</Importer>

@@ -131,6 +131,7 @@
     <Compile Include="Source\ObjectClasses\Player.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Source\ObjectClasses\SpiderFire.cs" />
     <Compile Include="Source\ObjectClasses\Settlement.cs" />
     <Compile Include="Source\Settings File Manager\GameSettings.cs" />
     <Compile Include="Source\Settings File Manager\Variable.cs" />
