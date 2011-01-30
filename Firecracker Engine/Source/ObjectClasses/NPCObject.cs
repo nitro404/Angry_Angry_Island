@@ -234,7 +234,7 @@ namespace Firecracker_Engine
             if (m_vTargetLocation.Length() <= 180.0f && m_vTargetLocation.Length() >= -180.0f)
             {
                 m_vTargetLocation.Normalize();
-                m_vTargetLocation *= 100.0f;
+                m_vTargetLocation *= 70.0f;
             }
         }
         public void personality(GameTime gameTime) //this dictats how people act
