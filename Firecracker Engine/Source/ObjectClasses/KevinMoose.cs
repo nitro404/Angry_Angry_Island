@@ -21,12 +21,14 @@ namespace Firecracker_Engine
         //what we what to kill
         public GameObject theObj,targetObj;
         public bool target;
+        public SpriteAnimation Moose; 
         public KevinMoose(Vector2 thePos)
             : base()
         {
             m_position = thePos;
             CreatureStyle = fightStyle.Rage;
-            Model = Firecracker.spriteSheets.getSpriteSheet("KevinMoose").getSprite("KevinMoose");
+            Model = Firecracker.spriteSheets.getSpriteSheet("KevinMoose").getSprite("KevinMoose 1");
+            Moose = Firecracker.animations.getAnimation("KevinMoose");
             Model.m_SpriteDepth = 0.4f;
             target = false;
            
@@ -52,6 +54,7 @@ namespace Firecracker_Engine
                 {
                     if ((theObj.position - position).Length() < 50)
                     {
+
                         target = true;
                         targetObj = theObj;
                         break;
@@ -66,23 +69,24 @@ namespace Firecracker_Engine
                        
                             if (position.X < theObj.position.X)
                             {
-                                position = new Vector2(position.X + 15.0f * (float)gameTime.ElapsedGameTime.Milliseconds / 1000.0f, position.Y);
+                                position = new Vector2(position.X + 20.0f * (float)gameTime.ElapsedGameTime.Milliseconds / 1000.0f, position.Y);
                             }
                             if (position.X > theObj.position.X)
                             {
-                                position = new Vector2(position.X - 15.0f * (float)gameTime.ElapsedGameTime.Milliseconds / 1000.0f, position.Y);
+                                position = new Vector2(position.X - 20.0f * (float)gameTime.ElapsedGameTime.Milliseconds / 1000.0f, position.Y);
                             }
                             if (position.Y > theObj.position.Y)
                             {
-                                position = new Vector2(position.X, position.Y - 15.0f * (float)gameTime.ElapsedGameTime.Milliseconds / 1000.0f);
+                                position = new Vector2(position.X, position.Y - 20.0f * (float)gameTime.ElapsedGameTime.Milliseconds / 1000.0f);
                             }
                             if (position.Y < theObj.position.Y)
                             {
-                                position = new Vector2(position.X, position.Y + 15.0f * (float)gameTime.ElapsedGameTime.Milliseconds / 1000.0f);
+                                position = new Vector2(position.X, position.Y + 20.0f * (float)gameTime.ElapsedGameTime.Milliseconds / 1000.0f);
                             }
 
                             if ((theObj.position - position).Length() < 5.0f)
                             {
+                                Moose.update(gameTime);
                                 target = false;
                                 theObj.toBeDeleted = true;
                                 HumanZap newDeath = new HumanZap(theObj.position);
@@ -95,7 +99,7 @@ namespace Firecracker_Engine
 
         public override void draw(SpriteBatch spriteBatch)
         {
-            Model.draw(spriteBatch, m_scale, m_rotation, m_position, SpriteEffects.None);
+            Moose.draw(spriteBatch, m_scale, m_rotation, m_position, SpriteEffects.None);
         }
     }
 }
