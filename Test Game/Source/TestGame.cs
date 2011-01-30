@@ -174,19 +174,19 @@ namespace Test_Game {
             //keyboard scrolling
             if (Keyboard.GetState().IsKeyDown(Keys.Left)) //thekeyboard.IsKeyDown(Keys.Left))
             {
-                theCamera.MoveCameraLeft();
+                theCamera.MoveCameraLeft(fTime);
             }
-            else if (Keyboard.GetState().IsKeyDown(Keys.Right)) //(thekeyboard.IsKeyDown(Keys.Right))
+            if (Keyboard.GetState().IsKeyDown(Keys.Right)) //(thekeyboard.IsKeyDown(Keys.Right))
             {
-                theCamera.MoveCameraRight();
+                theCamera.MoveCameraRight(fTime);
             }
-            else if (Keyboard.GetState().IsKeyDown(Keys.Up)) //(thekeyboard.IsKeyDown(Keys.Up))
+            if (Keyboard.GetState().IsKeyDown(Keys.Up)) //(thekeyboard.IsKeyDown(Keys.Up))
             {
-                theCamera.MoveCameraUp();
+                theCamera.MoveCameraUp(fTime);
             }
-            else if (Keyboard.GetState().IsKeyDown(Keys.Down)) //(thekeyboard.IsKeyDown(Keys.Down))
+            if (Keyboard.GetState().IsKeyDown(Keys.Down)) //(thekeyboard.IsKeyDown(Keys.Down))
             {
-                theCamera.MoveCameraDown();
+                theCamera.MoveCameraDown(fTime);
             }
         }
 	}

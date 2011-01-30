@@ -74,10 +74,10 @@ namespace Firecracker_Engine
         /// <summary>
         /// Moves the Camera Left on the X axis. If it's not able to, it sets the x value to the left limit.
         /// </summary>
-        public void MoveCameraLeft()
+        public void MoveCameraLeft(float fTime)
         {
             if (m_cameraPos.X > m_cameraLimitLeft)
-                m_cameraPos.X -= 1.0f;
+                m_cameraPos.X -= 500.0f*fTime;
             else
                 m_cameraPos.X = m_cameraLimitLeft;
         }
@@ -85,10 +85,10 @@ namespace Firecracker_Engine
         /// <summary>
         /// Moves the Camera Right on the X axis. If it's not able to, it sets the x value to the right limit.
         /// </summary>
-        public void MoveCameraRight()
+        public void MoveCameraRight(float fTime)
         {
             if (m_cameraPos.X < m_cameraLimitRight)
-                m_cameraPos.X += 1.0f;
+                m_cameraPos.X += 500.0f * fTime;
             else
                 m_cameraPos.X = m_cameraLimitRight;
         }
@@ -96,10 +96,10 @@ namespace Firecracker_Engine
         /// <summary>
         /// Moves the Camera Up on the Y axis. If it's not able to, it sets the y value to the up limit.
         /// </summary>
-        public void MoveCameraUp()
+        public void MoveCameraUp(float fTime)
         {
             if (m_cameraPos.Y > m_cameraLimitUp)
-                m_cameraPos.Y -= 1.0f;
+                m_cameraPos.Y -= 500.0f * fTime;
             else
                 m_cameraPos.Y = m_cameraLimitUp;
         }
@@ -107,10 +107,10 @@ namespace Firecracker_Engine
         /// <summary>
         /// Moves the Camera Down on the Y axis. If it's not able to, it sets the y value to the down limit.
         /// </summary>
-        public void MoveCameraDown()
+        public void MoveCameraDown(float fTime)
         {
             if (m_cameraPos.Y < m_cameraLimitDown)
-                m_cameraPos.Y += 1.0f;
+                m_cameraPos.Y += 500.0f * fTime;
             else
                 m_cameraPos.Y = m_cameraLimitDown;
         }
