@@ -341,13 +341,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Sprites\candyCane.png">
-      <Name>candyCane</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="UI\CandyCaneIcon.png">
       <Name>CandyCaneIcon</Name>
       <Importer>TextureImporter</Importer>
@@ -394,6 +387,13 @@
   <ItemGroup>
     <Compile Include="Sprites\storm_sheet01.png">
       <Name>storm_sheet01</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Sprites\candyCane.png">
+      <Name>candyCane</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
