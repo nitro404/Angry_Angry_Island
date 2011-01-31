@@ -89,10 +89,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GameConsole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Source\Animations\SpriteAnimationCollection.cs" />
     <Compile Include="Source\Game Logic\Level.cs" />
+    <Compile Include="Source\GameConsole.cs" />
     <Compile Include="Source\Graph\Edge.cs" />
     <Compile Include="Source\Graph\Graph.cs" />
     <Compile Include="Source\Graph\Vertex.cs" />
