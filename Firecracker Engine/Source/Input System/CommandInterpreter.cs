@@ -74,6 +74,44 @@ namespace Firecracker_Engine {
 				Firecracker.controlSystem.removeAllKeyBinds();
 				Firecracker.console.writeLine("Successfully unbound all keys");
 			}
+			else if(matchCommand(cmd, "ability")) {
+				string ability = getStringValue(cmd);
+				if(ability.Equals("1", StringComparison.OrdinalIgnoreCase) ||
+				   ability.Equals("lightning", StringComparison.OrdinalIgnoreCase)) {
+					Player.Instance.SelectedAbility = Player.Instance.GetAbilityByType(AbilityType.Lightning);
+				}
+				else if(ability.Equals("2", StringComparison.OrdinalIgnoreCase) ||
+						ability.Equals("candycane", StringComparison.OrdinalIgnoreCase)) {
+					Player.Instance.SelectedAbility = Player.Instance.GetAbilityByType(AbilityType.CandyCane);
+				}
+				else if(ability.Equals("3", StringComparison.OrdinalIgnoreCase) ||
+						ability.Equals("moosekevin", StringComparison.OrdinalIgnoreCase) ||
+						ability.Equals("kevinmoose", StringComparison.OrdinalIgnoreCase)) {
+					Player.Instance.SelectedAbility = Player.Instance.GetAbilityByType(AbilityType.GodAnimal);
+				}
+				else if(ability.Equals("4", StringComparison.OrdinalIgnoreCase) ||
+						ability.Equals("spiderfire", StringComparison.OrdinalIgnoreCase) ||
+						ability.Equals("fire", StringComparison.OrdinalIgnoreCase)) {
+					Player.Instance.SelectedAbility = Player.Instance.GetAbilityByType(AbilityType.SpiderFire);
+				}
+				else if(ability.Equals("5", StringComparison.OrdinalIgnoreCase) ||
+						ability.Equals("asteroid", StringComparison.OrdinalIgnoreCase) ||
+						ability.Equals("meteorite", StringComparison.OrdinalIgnoreCase)) {
+					Player.Instance.SelectedAbility = Player.Instance.GetAbilityByType(AbilityType.Asteroid);
+				}
+			}
+			else if(matchCommand(cmd, "ability 2") || matchCommand(cmd, "ability candycane")) {
+				
+			}
+			else if(matchCommand(cmd, "ability 3") || matchCommand(cmd, "ability moosekevin") || matchCommand(cmd, "ability kevinmoose")) {
+				
+			}
+			else if(matchCommand(cmd, "ability 4") || matchCommand(cmd, "ability spiderfire") || matchCommand(cmd, "ability fire")) {
+				
+			}
+			else if(matchCommand(cmd, "ability 5") || matchCommand(cmd, "ability asteroid")) {
+				
+			}
 			else { Firecracker.console.writeLine("Unknown command: " + cmd); }
 		}
 

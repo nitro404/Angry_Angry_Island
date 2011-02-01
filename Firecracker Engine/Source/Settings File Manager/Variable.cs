@@ -66,6 +66,7 @@ namespace Firecracker_Engine {
 			if(output == null) { return false; }
 			output.Write(m_id);
 			output.Write(SEPARATOR_CHAR);
+			output.Write(' ');
 			output.Write(m_value);
 			return true;
 		}
@@ -82,7 +83,7 @@ namespace Firecracker_Engine {
 		}
 
 		public override string ToString() {
-			return string.Format("{0}={1}", m_id, m_value);
+			return m_id + SEPARATOR_CHAR + " " + m_value;
 		}
 
 	}
