@@ -11,18 +11,19 @@ namespace Firecracker_Engine
 {
     public class Player : GameObject
     {
-
-        private const float CREDIT_TRICKLE_RATE = 0.5f;
         private float m_credits;
         private Ability m_selectedAbility;
         private List<Ability> m_abilities = new List<Ability>();
         public static Player Instance;
 		int m_lastScrollWheelValue;
 
+		private const float CREDIT_TRICKLE_RATE = 0.5f;
+		private const float NUMBER_OF_ABILITIES = 6;
+
         public Player()
             : base()
         {
-            for (int i = 0; i < (int)AbilityType.NumAbilityTypes; i++)
+            for (int i = 0; i < NUMBER_OF_ABILITIES; i++)
             {
                 m_abilities.Add(new Ability((AbilityType)i));
             }
@@ -33,7 +34,7 @@ namespace Firecracker_Engine
         public Player(Sprite theSprite)
             : base()
         {
-            for (int i = 0; i < (int)AbilityType.NumAbilityTypes; i++)
+            for (int i = 0; i < m_abilities.Count(); i++)
             {
                 m_abilities.Add(new Ability((AbilityType)i));
             }

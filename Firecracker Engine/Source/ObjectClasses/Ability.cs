@@ -15,8 +15,6 @@ namespace Firecracker_Engine
         FreezeTime,
         SpiderFire,
         Asteroid,
-        NumAbilityTypes,
-
     }
 
     public class Ability

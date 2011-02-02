@@ -90,11 +90,16 @@ namespace Firecracker_Engine {
 					Player.Instance.SelectedAbility = Player.Instance.GetAbilityByType(AbilityType.GodAnimal);
 				}
 				else if(ability.Equals("4", StringComparison.OrdinalIgnoreCase) ||
+						ability.Equals("snowman", StringComparison.OrdinalIgnoreCase) ||
+						ability.Equals("freezetime", StringComparison.OrdinalIgnoreCase)) {
+					Player.Instance.SelectedAbility = Player.Instance.GetAbilityByType(AbilityType.FreezeTime);
+				}
+				else if(ability.Equals("5", StringComparison.OrdinalIgnoreCase) ||
 						ability.Equals("spiderfire", StringComparison.OrdinalIgnoreCase) ||
 						ability.Equals("fire", StringComparison.OrdinalIgnoreCase)) {
 					Player.Instance.SelectedAbility = Player.Instance.GetAbilityByType(AbilityType.SpiderFire);
 				}
-				else if(ability.Equals("5", StringComparison.OrdinalIgnoreCase) ||
+				else if(ability.Equals("6", StringComparison.OrdinalIgnoreCase) ||
 						ability.Equals("asteroid", StringComparison.OrdinalIgnoreCase) ||
 						ability.Equals("meteorite", StringComparison.OrdinalIgnoreCase)) {
 					Player.Instance.SelectedAbility = Player.Instance.GetAbilityByType(AbilityType.Asteroid);
