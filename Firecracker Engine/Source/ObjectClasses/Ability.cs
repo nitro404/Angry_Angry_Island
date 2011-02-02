@@ -38,8 +38,8 @@ namespace Firecracker_Engine
                     m_iconTextureAssetName = "lightning_icon";
                     break;
                 case AbilityType.GodAnimal:
-                    m_cost = 30;
-                    m_cooldown = 7;
+                    m_cost = 25;
+                    m_cooldown = 6;
                     m_iconTextureAssetName = "KevinMooseIcon";
                     break;
                 case AbilityType.SpiderFire:

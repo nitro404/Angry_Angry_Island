@@ -48,7 +48,7 @@ namespace Firecracker_Engine
           
             if (target == false)
             {
-                Scearch(gameTime);
+                Search(gameTime);
             }
             else if (target == true)
             {
@@ -73,7 +73,7 @@ namespace Firecracker_Engine
             }
             //hacked timer
             timeLived += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            if (timeLived > 40f)
+            if (timeLived > 50f)
             {
                 Die = true;
                 MooseDie.update(gameTime);
@@ -85,7 +85,7 @@ namespace Firecracker_Engine
             
         }
 
-        public void Scearch(GameTime gameTime)
+        public void Search(GameTime gameTime)
         {
             for (int x = 0; x < Firecracker.level.numberOfObjects(); x++)
             {

@@ -38,7 +38,7 @@ namespace Firecracker_Engine
                 GameObject theObj = Firecracker.level.objectAt(i);
                 if (theObj.GetType() == typeof(NPCObject))
                 {
-                    if ((theObj.position - position).Length() < 20)
+                    if ((theObj.position - position).Length() < 25)
                     {
                         // kill this guy.
                         theObj.toBeDeleted = true;
