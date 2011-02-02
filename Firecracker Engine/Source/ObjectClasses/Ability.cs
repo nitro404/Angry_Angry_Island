@@ -12,6 +12,7 @@ namespace Firecracker_Engine
         Lightning,
         CandyCane,
         GodAnimal,
+        FreezeTime,
         SpiderFire,
         Asteroid,
         NumAbilityTypes,
@@ -58,6 +59,11 @@ namespace Firecracker_Engine
                     m_cooldown = 2;
                     m_iconTextureAssetName = "CandyCaneIcon";
                     break;
+                case AbilityType.FreezeTime:
+                    m_cost = 1;//testing
+                    m_cooldown = 1;
+                    m_iconTextureAssetName = "FreezeIcon";
+                    break;
             }
         }
 
@@ -84,6 +90,10 @@ namespace Firecracker_Engine
                 case AbilityType.CandyCane:
                     CandyCane newCandyCane = new CandyCane(position);
                     Firecracker.level.addObject(newCandyCane);
+                    break;
+                case AbilityType.FreezeTime:
+                    FreezeTime newFreezeTime = new FreezeTime(position);
+                    Firecracker.level.addObject(newFreezeTime);
                     break;
                 
             }

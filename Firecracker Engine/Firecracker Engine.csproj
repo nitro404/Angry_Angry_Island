@@ -106,6 +106,7 @@
     <Compile Include="Source\ObjectClasses\DefinitionLoader.cs" />
     <Compile Include="Source\ObjectClasses\Explosion.cs" />
     <Compile Include="Source\ObjectClasses\Forest.cs" />
+    <Compile Include="Source\ObjectClasses\FreezeTime.cs" />
     <Compile Include="Source\ObjectClasses\HumanDeath.cs" />
     <Compile Include="Source\ObjectClasses\HumanZap.cs" />
     <Compile Include="Source\ObjectClasses\KevinMoose.cs" />

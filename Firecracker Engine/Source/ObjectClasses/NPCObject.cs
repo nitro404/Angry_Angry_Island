@@ -16,6 +16,7 @@ namespace Firecracker_Engine
         AI_Path,
         AI_drawn,
         AI_Scatter,
+        AI_Freeze,
         AI_None,
     }
 
@@ -172,9 +173,11 @@ namespace Firecracker_Engine
         {
 
             personality(gameTime);
-            if (m_bKillable)
-                m_fAge += (float)gameTime.ElapsedGameTime.TotalSeconds;
-
+            if (m_eWanderType != AIWanderType.AI_Freeze)
+            {
+                if (m_bKillable)
+                    m_fAge += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            }
             if (m_fAge >= m_fDeathAt)
             {
                 diedNaturally = true;
@@ -183,7 +186,7 @@ namespace Firecracker_Engine
                 //Explosion exp2 = new Explosion(position - new Vector2(16.0f, 16.0f));
                 //Firecracker.level.addObject(exp2);
 
-                if (Firecracker.engineInstance.numPeoples <= 500)
+                if (Firecracker.engineInstance.numPeoples <= 500) 
                 {
                     for (int i = 0; i < 2; i++)
                     {
@@ -242,7 +245,6 @@ namespace Firecracker_Engine
 
             if (m_eWanderType == AIWanderType.AI_Scatter)
             {
-
                 m_vTargetLocation += position;
                 m_fIdleTime = 0.0f;
                 m_bIsMoving = true;
@@ -256,6 +258,10 @@ namespace Firecracker_Engine
                 m_vTargetLocation += position;
                 m_fIdleTime = 0.0f;
                 m_bIsMoving = true;
+            }
+            else if (m_eWanderType == AIWanderType.AI_Freeze)
+            {
+               // make them blue
             }
             else if (m_eWanderType == AIWanderType.AI_None)
             {
