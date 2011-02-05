@@ -11,8 +11,8 @@ namespace Firecracker_Engine
     {
         Lightning,
         CandyCane,
-        GodAnimal,
         FreezeTime,
+        GodAnimal,
         SpiderFire,
         Asteroid,
     }
@@ -36,6 +36,16 @@ namespace Firecracker_Engine
                     m_cooldown = 1;
                     m_iconTextureAssetName = "lightning_icon";
                     break;
+                case AbilityType.CandyCane:
+                    m_cost = 5;
+                    m_cooldown = 2;
+                    m_iconTextureAssetName = "CandyCaneIcon";
+                    break;
+                case AbilityType.FreezeTime:
+                    m_cost = 10;//testing
+                    m_cooldown = 5;
+                    m_iconTextureAssetName = "FreezeIcon";
+                    break;
                 case AbilityType.GodAnimal:
                     m_cost = 25;
                     m_cooldown = 6;
@@ -50,17 +60,6 @@ namespace Firecracker_Engine
                     m_cost = 120;
                     m_cooldown = 1;
                     m_iconTextureAssetName = "meteor_icon";
-                    break;
-
-                case AbilityType.CandyCane:
-                    m_cost = 5;
-                    m_cooldown = 2;
-                    m_iconTextureAssetName = "CandyCaneIcon";
-                    break;
-                case AbilityType.FreezeTime:
-                    m_cost = 1;//testing
-                    m_cooldown = 1;
-                    m_iconTextureAssetName = "FreezeIcon";
                     break;
             }
         }

@@ -173,44 +173,42 @@ namespace Firecracker_Engine
         {
 
             personality(gameTime);
-            if (m_eWanderType != AIWanderType.AI_Freeze)
-            {
                 if (m_bKillable)
                     m_fAge += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            }
-            if (m_fAge >= m_fDeathAt)
-            {
-                diedNaturally = true;
-                //Explosion exp = new Explosion(position + new Vector2(16.0f, 16.0f));
-                //Firecracker.level.addObject(exp);
-                //Explosion exp2 = new Explosion(position - new Vector2(16.0f, 16.0f));
-                //Firecracker.level.addObject(exp2);
 
-                if (Firecracker.engineInstance.numPeoples <= 500) 
+                if (m_fAge >= m_fDeathAt)
                 {
-                    for (int i = 0; i < 2; i++)
+                    diedNaturally = true;
+                    //Explosion exp = new Explosion(position + new Vector2(16.0f, 16.0f));
+                    //Firecracker.level.addObject(exp);
+                    //Explosion exp2 = new Explosion(position - new Vector2(16.0f, 16.0f));
+                    //Firecracker.level.addObject(exp2);
+
+                    if (Firecracker.engineInstance.numPeoples <= 500)
                     {
-                        Vector2 spawnPosition = position;
-                        for (int j = 0; j < 5; j++)
+                        for (int i = 0; i < 2; i++)
                         {
-                            //try 5 times to find a legal spawn position
-                            spawnPosition = position + new Vector2((float)Firecracker.random.NextDouble() * 32 - 16, (float)Firecracker.random.NextDouble() * 32 - 16);
-                            if (Terrain.Instance == null || Terrain.Instance.isPositionWalkable(spawnPosition))
+                            Vector2 spawnPosition = position;
+                            for (int j = 0; j < 5; j++)
                             {
-                                break;
+                                //try 5 times to find a legal spawn position
+                                spawnPosition = position + new Vector2((float)Firecracker.random.NextDouble() * 32 - 16, (float)Firecracker.random.NextDouble() * 32 - 16);
+                                if (Terrain.Instance == null || Terrain.Instance.isPositionWalkable(spawnPosition))
+                                {
+                                    break;
+                                }
+                                spawnPosition = position;
                             }
-                            spawnPosition = position;
+
+                            NPCObject newObject = new NPCObject(spawnPosition, this);
+                            Firecracker.level.addObject(newObject);
                         }
+         
+                    HumanDeath newDeath = new HumanDeath(position);
+                    Firecracker.level.addObject(newDeath);
 
-                        NPCObject newObject = new NPCObject(spawnPosition, this);
-                        Firecracker.level.addObject(newObject);
-                    }
+                    toBeDeleted = true;
                 }
-
-                HumanDeath newDeath = new HumanDeath(position);
-                Firecracker.level.addObject(newDeath);
-
-                toBeDeleted = true;
             }
 
             // until we can see the cursor, don't worry about this.
@@ -222,7 +220,7 @@ namespace Firecracker_Engine
             base.update(gameTime);
         }
 
-        public void FleeFromPoint(Vector2 fleePoint)
+        public void FleeFromPoint(Vector2 fleePoint) //everyone flee from this point
         {
             m_vTargetLocation = Firecracker.level.getGamePosition(position) - Firecracker.level.getGamePosition(fleePoint);
             if (m_vTargetLocation.Length() <= 180.0f && m_vTargetLocation.Length() >= -180.0f)
@@ -231,7 +229,7 @@ namespace Firecracker_Engine
                 m_vTargetLocation *= 100.0f;
             }
         }
-        public void SwarmPoint(Vector2 fleePoint)
+        public void SwarmPoint(Vector2 fleePoint)//everyone come to this point
         {
             m_vTargetLocation = Firecracker.level.getGamePosition(fleePoint) - Firecracker.level.getGamePosition(position);
             if (m_vTargetLocation.Length() <= 180.0f && m_vTargetLocation.Length() >= -180.0f)
@@ -261,7 +259,8 @@ namespace Firecracker_Engine
             }
             else if (m_eWanderType == AIWanderType.AI_Freeze)
             {
-               // make them blue
+                m_bIsMoving = true;
+                this.m_fAge = 0; // dont add to the age therefore they dont die
             }
             else if (m_eWanderType == AIWanderType.AI_None)
             {
