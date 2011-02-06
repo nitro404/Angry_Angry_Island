@@ -55,10 +55,10 @@ namespace Firecracker_Engine
 
         public override void draw(SpriteBatch spriteBatch)
         {
-            foreach(Vector2 location in peopleThatAreFozen)
-            {
-                Ice.draw(spriteBatch, m_scale, m_rotation, location, SpriteEffects.None); 
-           }
+           //foreach(Vector2 location in peopleThatAreFozen)
+           //{
+            //   Ice.draw(spriteBatch, m_scale, m_rotation, location, SpriteEffects.None); 
+           //}
             SnowMan.draw(spriteBatch, m_scale, m_rotation, m_position, SpriteEffects.None);
            
         }

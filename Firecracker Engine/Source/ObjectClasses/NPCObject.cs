@@ -22,6 +22,7 @@ namespace Firecracker_Engine
 
     public class NPCObject : AnimatedGameObject
     {
+
         protected float m_fAge;
         protected float m_fDeathAt;
         protected bool m_bIsMoving;
@@ -36,7 +37,7 @@ namespace Firecracker_Engine
         public Variable AnimNameS;
         public Variable AnimNameE;
         public Variable AnimNameW;
-
+        public Sprite Ice;
         protected float m_fMaxAge;
         protected AIWanderType m_eWanderType;
 
@@ -61,7 +62,7 @@ namespace Firecracker_Engine
             Firecracker.engineInstance.numPeoples++;
             m_fDeathAt = (float)Firecracker.random.NextDouble() * 5 + 5 + (100.0f * (Firecracker.engineInstance.numPeoples / 500.0f));
             m_bKillable = true;
-        }
+           }
 
         public NPCObject(Vector2 position, NPCObject objRef)
             : base()
@@ -77,6 +78,8 @@ namespace Firecracker_Engine
 
             Firecracker.engineInstance.numPeoples++;
             m_fDeathAt = Firecracker.random.Next(5, 6 + (int)(60.0f * (Firecracker.engineInstance.numPeoples / 500.0f)));
+            Ice = Firecracker.spriteSheets.getSpriteSheet("Ice").getSprite("Ice");
+
             m_bKillable = true;
 
             this.AnimNameN = objRef.AnimNameN;
@@ -354,7 +357,10 @@ namespace Firecracker_Engine
 
         public override void draw(SpriteBatch spriteBatch)
         {
-
+            if (m_eWanderType == AIWanderType.AI_Freeze)
+            {
+                Ice.draw(spriteBatch, m_scale, m_rotation, position, SpriteEffects.None);
+            }
             base.draw(spriteBatch);
         }
 
