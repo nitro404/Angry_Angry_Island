@@ -105,7 +105,7 @@ namespace Firecracker_Engine
         {
             for (int i = 0; i < m_lFireObjects.Count(); i++)
             {
-                m_lFireObjects[i].m_FireObject.draw(spriteBatch);
+                m_lFireObjects[i].m_FireObject.drawCentered(spriteBatch);
             }
             // we don't want to render the underlying object.
             //base.draw(spriteBatch);

@@ -39,7 +39,7 @@ namespace Firecracker_Engine
         }
         public override void draw(SpriteBatch spriteBatch)
         {
-                m_cloud.draw(spriteBatch, m_scale, m_rotation, m_position, SpriteEffects.None);
+                m_cloud.drawCentered(spriteBatch, m_scale, m_rotation, m_position, SpriteEffects.None);
            
         }
 

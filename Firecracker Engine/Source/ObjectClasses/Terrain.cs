@@ -97,8 +97,6 @@ namespace Firecracker_Engine
                     }
                 }
             }
-
-            base.draw(spriteBatch);
         }
 
         public static Terrain parseFrom(StreamReader input, SpriteSheetCollection spriteSheets)

@@ -70,7 +70,7 @@ namespace Firecracker_Engine
         }
         public override void draw(Microsoft.Xna.Framework.Graphics.SpriteBatch spriteBatch)
         {
-            Candy.draw(spriteBatch, m_scale, m_rotation, m_position, SpriteEffects.None);
+            Candy.drawCentered(spriteBatch, m_scale, m_rotation, m_position, SpriteEffects.None);
         }
     }
 }

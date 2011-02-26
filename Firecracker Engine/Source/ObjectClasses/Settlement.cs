@@ -59,7 +59,6 @@ namespace Firecracker_Engine {
 			else {
 				destructionSprites[(int) PopulationManager.Instance.age].drawCentered(spriteBatch, Vector2.One, 0, position, SpriteEffects.None);
 			}
-            base.draw(spriteBatch);
         }
 
         public static Settlement parseFrom(StreamReader input, SpriteSheetCollection spriteSheets) {

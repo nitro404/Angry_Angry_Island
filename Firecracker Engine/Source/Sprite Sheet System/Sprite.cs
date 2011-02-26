@@ -129,7 +129,7 @@ namespace Firecracker_Engine {
 			m_destination.Height = (int) ((m_source.Height + 1) * scale.Y);
 
 			// draw the sprite
-			spriteBatch.Draw(m_image, m_destination, m_source, Color.White, MathHelper.ToRadians(rotationDegrees), Vector2.Zero, effect, m_SpriteDepth);
+			spriteBatch.Draw(m_image, m_destination, m_source, colour, MathHelper.ToRadians(rotationDegrees), Vector2.Zero, effect, m_SpriteDepth);
 		}
 		
 		public void drawCentered(SpriteBatch spriteBatch, Vector2 scale, float rotationDegrees, Vector2 position, SpriteEffects effect, Color colour) {
@@ -144,7 +144,7 @@ namespace Firecracker_Engine {
 			m_destination.Height = (int) ((m_source.Height + 1) * scale.Y);
 
 			// draw the sprite
-			spriteBatch.Draw(m_image, m_destination, m_source, Color.White, MathHelper.ToRadians(rotationDegrees), m_offset, effect, m_SpriteDepth);
+			spriteBatch.Draw(m_image, m_destination, m_source, colour, MathHelper.ToRadians(rotationDegrees), m_offset, effect, m_SpriteDepth);
 		}
 
 		public void drawWithOffset(SpriteBatch spriteBatch, Vector2 scale, float rotationDegrees, Vector2 position, SpriteEffects effect, Color colour, Vector2 offset) {
@@ -159,7 +159,7 @@ namespace Firecracker_Engine {
 			m_destination.Height = (int) ((m_source.Height + 1) * scale.Y);
 
 			// draw the sprite
-			spriteBatch.Draw(m_image, m_destination, m_source, Color.White, MathHelper.ToRadians(rotationDegrees), offset, effect, m_SpriteDepth);
+			spriteBatch.Draw(m_image, m_destination, m_source, colour, MathHelper.ToRadians(rotationDegrees), offset, effect, m_SpriteDepth);
 		}
 
 	}

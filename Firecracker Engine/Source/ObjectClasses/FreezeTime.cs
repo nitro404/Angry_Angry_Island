@@ -59,7 +59,7 @@ namespace Firecracker_Engine
            //{
             //   Ice.draw(spriteBatch, m_scale, m_rotation, location, SpriteEffects.None); 
            //}
-            SnowMan.draw(spriteBatch, m_scale, m_rotation, m_position, SpriteEffects.None);
+            SnowMan.drawCentered(spriteBatch, m_scale, m_rotation, m_position, SpriteEffects.None);
            
         }
     }

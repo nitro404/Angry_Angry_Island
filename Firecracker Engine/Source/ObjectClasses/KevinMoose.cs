@@ -162,15 +162,15 @@ namespace Firecracker_Engine
         {
             if (eating == true)
             {
-                Moose.draw(spriteBatch, m_scale, m_rotation, m_position, SpriteEffects.None);
+                Moose.drawCentered(spriteBatch, m_scale, m_rotation, m_position, SpriteEffects.None);
             }
             else if (Die == false) 
             {
-                MooseWalk.draw(spriteBatch, m_scale, m_rotation, m_position, SpriteEffects.None);
+				MooseWalk.drawCentered(spriteBatch, m_scale, m_rotation, m_position, SpriteEffects.None);
             }
             else if (Die == true)
             {
-                MooseDie.draw(spriteBatch, m_scale, m_rotation, m_position, SpriteEffects.None);
+				MooseDie.drawCentered(spriteBatch, m_scale, m_rotation, m_position, SpriteEffects.None);
             }
         }
     }
