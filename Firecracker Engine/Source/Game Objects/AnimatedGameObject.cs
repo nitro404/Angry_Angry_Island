@@ -89,51 +89,6 @@ namespace Firecracker_Engine {
 			}
 		}
 
-		public override void draw(SpriteBatch spriteBatch, Color colour) {
-			if(m_currentAnimation < 0) {
-				base.draw(spriteBatch, colour);
-			}
-			else {
-				m_animations[m_currentAnimation].draw(spriteBatch, m_scale, m_rotation, m_position, SpriteEffects.None, colour);
-			}
-		}
-
-		public override void drawCentered(SpriteBatch spriteBatch) {
-			if(m_currentAnimation < 0) {
-				base.drawCentered(spriteBatch);
-			}
-			else {
-				m_animations[m_currentAnimation].drawCentered(spriteBatch, m_scale, m_rotation, m_position, SpriteEffects.None);
-			}
-		}
-
-		public override void drawCentered(SpriteBatch spriteBatch, Color colour) {
-			if(m_currentAnimation < 0) {
-				base.drawCentered(spriteBatch, colour);
-			}
-			else {
-				m_animations[m_currentAnimation].drawCentered(spriteBatch, m_scale, m_rotation, m_position, SpriteEffects.None, colour);
-			}
-		}
-
-		public override void drawWithOffset(SpriteBatch spriteBatch, Vector2 offset) {
-			if(m_currentAnimation < 0) {
-				base.drawWithOffset(spriteBatch, offset);
-			}
-			else {
-				m_animations[m_currentAnimation].drawWithOffset(spriteBatch, m_scale, m_rotation, m_position, SpriteEffects.None, offset);
-			}
-		}
-
-		public override void drawWithOffset(SpriteBatch spriteBatch, Color colour, Vector2 offset) {
-			if(m_currentAnimation < 0) {
-				base.drawWithOffset(spriteBatch, colour, offset);
-			}
-			else {
-				m_animations[m_currentAnimation].drawWithOffset(spriteBatch, m_scale, m_rotation, m_position, SpriteEffects.None, colour, offset);
-			}
-		}
-
 	}
 
 }

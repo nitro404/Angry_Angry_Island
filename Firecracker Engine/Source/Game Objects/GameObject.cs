@@ -244,36 +244,6 @@ namespace Firecracker_Engine {
 			m_sprite.draw(spriteBatch, m_scale, m_rotation, m_position, SpriteEffects.None);
 		}
 
-		public virtual void draw(SpriteBatch spriteBatch, Color colour) {
-			if(m_sprite == null) { return; }
-
-			m_sprite.draw(spriteBatch, m_scale, m_rotation, m_position, SpriteEffects.None, colour);
-		}
-
-		public virtual void drawCentered(SpriteBatch spriteBatch) {
-			if(m_sprite == null) { return; }
-
-			m_sprite.drawCentered(spriteBatch, m_scale, m_rotation, m_position, SpriteEffects.None);
-		}
-
-		public virtual void drawCentered(SpriteBatch spriteBatch, Color colour) {
-			if(m_sprite == null) { return; }
-
-			m_sprite.drawCentered(spriteBatch, m_scale, m_rotation, m_position, SpriteEffects.None, colour);
-		}
-
-		public virtual void drawWithOffset(SpriteBatch spriteBatch, Vector2 offset) {
-			if(m_sprite == null) { return; }
-
-			m_sprite.drawWithOffset(spriteBatch, m_scale, m_rotation, m_position, SpriteEffects.None, offset);
-		}
-
-		public virtual void drawWithOffset(SpriteBatch spriteBatch, Color colour, Vector2 offset) {
-			if(m_sprite == null) { return; }
-
-			m_sprite.drawWithOffset(spriteBatch, m_scale, m_rotation, m_position, SpriteEffects.None, colour, offset);
-		}
-
 		public virtual bool checkCollision(GameObject o) { return false; }
 
         public virtual void OnDestroyed()

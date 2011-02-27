@@ -358,11 +358,25 @@ namespace Firecracker_Engine
         public override void draw(SpriteBatch spriteBatch)
         {
 			if(m_eWanderType == AIWanderType.AI_Freeze) {
-				base.drawCentered(spriteBatch, Color.CornflowerBlue);
+				if(m_currentAnimation < 0) {
+					if(m_sprite != null) {
+						m_sprite.draw(spriteBatch, m_scale, m_rotation, m_position, SpriteEffects.None, Color.CornflowerBlue);
+					}
+				}
+				else {
+					m_animations[m_currentAnimation].drawCentered(spriteBatch, m_scale, m_rotation, m_position, SpriteEffects.None, Color.CornflowerBlue);
+				}
 				Ice.drawCentered(spriteBatch, m_scale, m_rotation, position, SpriteEffects.None);
 			}
 			else {
-				base.drawCentered(spriteBatch);
+				if(m_currentAnimation < 0) {
+					if(m_sprite != null) {
+						m_sprite.draw(spriteBatch, m_scale, m_rotation, m_position, SpriteEffects.None);
+					}
+				}
+				else {
+					m_animations[m_currentAnimation].drawCentered(spriteBatch, m_scale, m_rotation, m_position, SpriteEffects.None);
+				}
 			}
         }
 

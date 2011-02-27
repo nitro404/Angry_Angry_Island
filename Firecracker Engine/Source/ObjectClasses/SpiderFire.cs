@@ -11,7 +11,7 @@ namespace Firecracker_Engine
     {
         private struct FireNode
         {
-            public GameObject m_FireObject;
+            public GameObject m_FireObject; // gameobject should never be instantiated
             public float m_fLifeLeft;
             public float m_fSpeed;
             public Vector2 m_vTargetLocation;
@@ -103,12 +103,10 @@ namespace Firecracker_Engine
 
         public override void draw(SpriteBatch spriteBatch)
         {
-            for (int i = 0; i < m_lFireObjects.Count(); i++)
-            {
-                m_lFireObjects[i].m_FireObject.drawCentered(spriteBatch);
+            for (int i = 0; i < m_lFireObjects.Count(); i++) {
+				// this draw code needs to be fixed, underlying code needs to be refactored first
+				m_lFireObjects[i].m_FireObject.sprite.drawCentered(spriteBatch, m_lFireObjects[i].m_FireObject.scale, m_lFireObjects[i].m_FireObject.rotation, m_lFireObjects[i].m_FireObject.position, SpriteEffects.None);
             }
-            // we don't want to render the underlying object.
-            //base.draw(spriteBatch);
         }
     }
 }
