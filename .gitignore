@@ -1,0 +1,52 @@
+
+# /Art/
+/Art/Thumbs.db
+
+# /Art/Example Sprite Stuff (from Kevin)/
+/Art/Example Sprite Stuff (from Kevin)/Thumbs.db
+
+# /Art/Example Sprite Stuff Too (from Lamb Mines)/
+/Art/Example Sprite Stuff Too (from Lamb Mines)/Thumbs.db
+
+# /Art/Sceneries/
+/Art/Sceneries/Thumbs.db
+
+# /Art/Sprites/
+/Art/Sprites/Thumbs.db
+
+# /Firecracker Engine/
+/Firecracker Engine/bin
+/Firecracker Engine/obj
+/Firecracker Engine/*.suo
+/Firecracker Engine/*.user
+/Firecracker Engine/*.cachefile
+/Firecracker Engine/Thumbs.db
+
+# /Firecracker Engine/Content/
+/Firecracker Engine/Content/bin
+/Firecracker Engine/Content/obj
+
+# /Firecracker Engine/Source/
+/Firecracker Engine/Source/Thumbs.db
+
+# /Level Designer Evolved/
+/Level Designer Evolved/bin
+/Level Designer Evolved/settings.ini
+
+# /Test Game/
+/Test Game/bin
+/Test Game/obj
+/Test Game/*.user
+/Test Game/*.cachefile
+/Test Game/Thumbs.db
+/Test Game/*.suo
+
+# /Test Game/Content/
+/Test Game/Content/bin
+/Test Game/Content/obj
+
+# /Test Game/Content/Sprites/
+/Test Game/Content/Sprites/Thumbs.db
+
+# /Test Game/Content/UI/
+/Test Game/Content/UI/Thumbs.db
